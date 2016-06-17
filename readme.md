@@ -12,7 +12,7 @@
 
 ### 解码 (iPhone 5s)
 * 峰值：CPU 小于 35% Memory 小于 12.5M
-* 持续时间：< 200ms
+* 持续时间：小于 200ms
 
 ### 播放 (iPhone 5s)
 * 峰值：CPU 小于 5% Memory 小于 12.5M
