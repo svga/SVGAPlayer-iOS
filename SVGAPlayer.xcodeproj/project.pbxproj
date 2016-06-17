@@ -18,6 +18,7 @@
 		90A677001D13A835008A69F3 /* SVGADownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676FF1D13A835008A69F3 /* SVGADownloader.m */; };
 		90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */; };
 		90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677051D13BF77008A69F3 /* SVGAPlayer.m */; };
+		90A6770D1D13EA3E008A69F3 /* NSData+GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A6770C1D13EA3E008A69F3 /* NSData+GZIP.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAVideoEntity.m; sourceTree = "<group>"; };
 		90A677041D13BF77008A69F3 /* SVGAPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAPlayer.h; sourceTree = "<group>"; };
 		90A677051D13BF77008A69F3 /* SVGAPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAPlayer.m; sourceTree = "<group>"; };
+		90A6770B1D13EA3E008A69F3 /* NSData+GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+GZIP.h"; sourceTree = "<group>"; };
+		90A6770C1D13EA3E008A69F3 /* NSData+GZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+GZIP.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */,
 				90A677041D13BF77008A69F3 /* SVGAPlayer.h */,
 				90A677051D13BF77008A69F3 /* SVGAPlayer.m */,
+				90A6770B1D13EA3E008A69F3 /* NSData+GZIP.h */,
+				90A6770C1D13EA3E008A69F3 /* NSData+GZIP.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 				90A676FA1D13A81F008A69F3 /* SVGA.m in Sources */,
 				90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */,
 				90A676E21D13A6DF008A69F3 /* main.m in Sources */,
+				90A6770D1D13EA3E008A69F3 /* NSData+GZIP.m in Sources */,
 				90A676FD1D13A82A008A69F3 /* SVGAParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,7 @@
 #import "SVGAParser.h"
 #import "SVGAVideoEntity.h"
 #import "SVGADownloader.h"
+#import "NSData+GZIP.h"
 
 @interface SVGAParser ()
 
@@ -30,6 +31,10 @@
 
 - (nullable SVGAVideoEntity *)parseWithData:(nonnull NSData *)data {
     if (data != nil) {
+        NSData *unzipData = [data svga_gunzippedData];
+        if (unzipData != nil) {
+            data = unzipData;
+        }
         NSError *err;
         NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&err];
         if (err == nil) {
