@@ -13,6 +13,9 @@
 @interface SVGAPlayer : UIView
 
 @property (nonatomic, strong) SVGAVideoEntity *videoItem;
+@property (nonatomic, assign) int loops;
+@property (nonatomic, assign) BOOL clearsAfterStop;
+
 
 - (void)startAnimation;
 - (void)stopAnimation;

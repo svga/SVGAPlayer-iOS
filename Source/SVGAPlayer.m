@@ -9,7 +9,9 @@
 #import "SVGAPlayer.h"
 #import "SVGAVideoEntity.h"
 
-@interface SVGAPlayer ()
+@interface SVGAPlayer () {
+    int _loopCount;
+}
 
 @property (nonatomic, strong) CALayer *drawLayer;
 @property (nonatomic, strong) CADisplayLink *displayLink;
@@ -20,18 +22,29 @@
 @implementation SVGAPlayer
 
 - (void)startAnimation {
-    [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self stopAnimation:NO];
+    _loopCount = 0;
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
     self.displayLink.frameInterval = 60 / self.videoItem.FPS;
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 - (void)stopAnimation {
-    [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self stopAnimation:self.clearsAfterStop];
+}
+
+- (void)stopAnimation:(BOOL)clear {
+    if (![self.displayLink isPaused]) {
+        [self.displayLink setPaused:YES];
+        [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    }
+    if (clear) {
+        [self clear];
+    }
 }
 
 - (void)clear {
-    [self.drawLayer.sublayers performSelector:@selector(removeFromSuperlayer)];
+    [self.drawLayer removeFromSuperlayer];
 }
 
 - (void)draw {
@@ -93,6 +106,10 @@
     self.currentFrame++;
     if (self.currentFrame >= [self.videoItem.sprites firstObject].frames.count) {
         self.currentFrame = 0;
+        _loopCount++;
+        if (self.loops > 0 && _loopCount >= self.loops) {
+            [self stopAnimation];
+        }
     }
     [self update];
 }

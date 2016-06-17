@@ -21,13 +21,15 @@
     [super viewDidLoad];
     [self.view addSubview:self.aPlayer];
     self.aPlayer.frame = CGRectMake(0, 0, 320, 100);
+    self.aPlayer.loops = 10;
+    self.aPlayer.clearsAfterStop = YES;
     SVGAParser *parser = [[SVGAParser alloc] init];
     [parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/test.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
             self.aPlayer.videoItem = videoItem;
             [self.aPlayer startAnimation];
         }
-    }];
+    } failureBlock:nil];
 }
 
 - (void)viewWillLayoutSubviews {

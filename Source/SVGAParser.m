@@ -19,13 +19,17 @@
 
 @implementation SVGAParser
 
-- (void)parseWithURL:(nonnull NSURL *)URL completionBlock:(void ( ^ _Nonnull )(SVGAVideoEntity * _Nullable videoItem))completionBlock {
+- (void)parseWithURL:(nonnull NSURL *)URL
+     completionBlock:(void ( ^ _Nonnull )(SVGAVideoEntity * _Nullable videoItem))completionBlock
+        failureBlock:(void ( ^ _Nullable)(NSError * _Nullable error))failureBlock {
     [self.downloader loadDataWithURL:URL completionBlock:^(NSData *data) {
         if (completionBlock) {
             completionBlock([self parseWithData:data]);
         }
     } failureBlock:^(NSError *error) {
-        // failure
+        if (failureBlock) {
+            failureBlock(error);
+        }
     }];
 }
 
