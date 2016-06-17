@@ -11,19 +11,19 @@
 一个 600 * 600 像素的全通道动画，144 Frames， FPS = 20，在 iPhone 上测试结果为：
 
 ### 解码 (iPhone 5s)
-* 峰值：CPU < 35% Memory < 12.5M
+* 峰值：CPU 小于 35% Memory 小于 12.5M
 * 持续时间：< 200ms
 
 ### 播放 (iPhone 5s)
-* 峰值：CPU < 5% Memory < 12.5M
+* 峰值：CPU 小于 5% Memory 小于 12.5M
 * 持续时间：一直
 
 ### 解码 (iPhone 6Plus)
-* 峰值：CPU < 22% Memory < 12.5M
-* 持续时间：< 150ms
+* 峰值：CPU 小于 22% Memory 小于 12.5M
+* 持续时间：小于 150ms
 
 ### 播放 (iPhone 6Plus)
-* 峰值：CPU < 4% Memory < 12.5M
+* 峰值：CPU 小于 4% Memory 小于 12.5M
 * 持续时间：一直
 
 ## SVGA 数据流大小
