@@ -14,8 +14,13 @@
 @interface SVGAVideoEntity : NSObject
 
 @property (nonatomic, assign) CGSize videoSize;
+@property (nonatomic, assign) int FPS;
 @property (nonatomic, copy) NSDictionary<NSString *, UIImage *> *images;
 @property (nonatomic, copy) NSArray<SVGAVideoSpriteEntity *> *sprites;
+
+- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
+- (void)resetImagesWithJSONObject:(NSDictionary *)JSONObject;
+- (void)resetSpritesWithJSONObject:(NSDictionary *)JSONObject;
 
 @end
 
@@ -23,6 +28,8 @@
 
 @property (nonatomic, copy) NSString *sKey;
 @property (nonatomic, copy) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
+
+- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
 
 @end
 

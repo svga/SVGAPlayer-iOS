@@ -11,6 +11,7 @@
 
 @interface SVGAPlayer ()
 
+@property (nonatomic, strong) CALayer *drawLayer;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) int currentFrame;
 
@@ -18,25 +19,51 @@
 
 @implementation SVGAPlayer
 
+- (void)startAnimation {
+    [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
+    self.displayLink.frameInterval = 60 / self.videoItem.FPS;
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+- (void)stopAnimation {
+    [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
 - (void)clear {
-    [self.layer.sublayers performSelector:@selector(removeFromSuperlayer)];
+    [self.drawLayer.sublayers performSelector:@selector(removeFromSuperlayer)];
 }
 
 - (void)draw {
+    self.drawLayer = [[CALayer alloc] init];
+    self.drawLayer.frame = CGRectMake(0, 0, self.videoItem.videoSize.width, self.videoItem.videoSize.height);
     [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
         CALayer *spriteLayer = [[CALayer alloc] init];
         spriteLayer.contentsGravity = kCAGravityResizeAspect;
         spriteLayer.contents = (__bridge id _Nullable)([self.videoItem.images[sprite.sKey] CGImage]);
-        [self.layer addSublayer:spriteLayer];
+        [self.drawLayer addSublayer:spriteLayer];
     }];
+    [self.layer addSublayer:self.drawLayer];
     self.currentFrame = 0;
     [self update];
+    [self resize];
+}
+
+- (void)resize {
+    CGFloat ratio = self.frame.size.width / self.videoItem.videoSize.width;
+    CGPoint offset = CGPointMake((1.0 - ratio) / 2.0 * self.videoItem.videoSize.width, (1 - ratio) / 2.0 * self.videoItem.videoSize.height);
+    self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self resize];
 }
 
 - (void)update {
     [CATransaction setDisableActions:YES];
     int currentFrame = self.currentFrame;
-    [self.layer.sublayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull layer, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.drawLayer.sublayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull layer, NSUInteger idx, BOOL * _Nonnull stop) {
         if (currentFrame < self.videoItem.sprites[idx].frames.count) {
             SVGAVideoSpriteFrameEntity *frameItem = self.videoItem.sprites[idx].frames[currentFrame];
             layer.opacity = frameItem.alpha;
@@ -68,17 +95,6 @@
         self.currentFrame = 0;
     }
     [self update];
-}
-
-- (void)startAnimation {
-    [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
-    self.displayLink.frameInterval = 3;
-    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-}
-
-- (void)stopAnimation {
-    [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 - (void)setVideoItem:(SVGAVideoEntity *)videoItem {

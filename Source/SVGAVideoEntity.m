@@ -10,9 +10,91 @@
 
 @implementation SVGAVideoEntity
 
+- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject {
+    self = [super init];
+    if (self) {
+        _videoSize = CGSizeMake(100, 100);
+        _FPS = 20;
+        _images = @{};
+        if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *viewBox = JSONObject[@"viewBox"];
+            if ([viewBox isKindOfClass:[NSDictionary class]]) {
+                NSNumber *width = viewBox[@"width"];
+                NSNumber *height = viewBox[@"height"];
+                if ([width isKindOfClass:[NSNumber class]] && [height isKindOfClass:[NSNumber class]]) {
+                    _videoSize = CGSizeMake(width.floatValue, height.floatValue);
+                }
+            }
+            NSNumber *FPS = JSONObject[@"FPS"];
+            if ([FPS isKindOfClass:[NSNumber class]]) {
+                _FPS = [FPS intValue];
+            }
+        }
+    }
+    return self;
+}
+
+- (void)resetImagesWithJSONObject:(NSDictionary *)JSONObject {
+    if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+        NSMutableDictionary<NSString *, UIImage *> *images = [[NSMutableDictionary alloc] init];
+        NSDictionary<NSString *, NSString *> *JSONImages = JSONObject[@"images"];
+        if ([JSONImages isKindOfClass:[NSDictionary class]]) {
+            [JSONImages enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[NSString class]]) {
+                    NSData *imageData = [[NSData alloc] initWithBase64EncodedString:obj options:kNilOptions];
+                    if (imageData != nil) {
+                        UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
+                        if (image != nil) {
+                            [images setObject:image forKey:key];
+                        }
+                    }
+                }
+            }];
+        }
+        self.images = images;
+    }
+}
+
+- (void)resetSpritesWithJSONObject:(NSDictionary *)JSONObject {
+    if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+        NSMutableArray<SVGAVideoSpriteEntity *> *sprites = [[NSMutableArray alloc] init];
+        NSArray<NSDictionary *> *JSONSprites = JSONObject[@"sprites"];
+        if ([JSONSprites isKindOfClass:[NSArray class]]) {
+            [JSONSprites enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[NSDictionary class]]) {
+                    SVGAVideoSpriteEntity *spriteItem = [[SVGAVideoSpriteEntity alloc] initWithJSONObject:obj];
+                    [sprites addObject:spriteItem];
+                }
+            }];
+        }
+        self.sprites = sprites;
+    }
+}
+
 @end
 
 @implementation SVGAVideoSpriteEntity
+
+- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject {
+    self = [super init];
+    if (self) {
+        if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+            NSString *sKey = JSONObject[@"sKey"];
+            NSArray<NSDictionary *> *JSONFrames = JSONObject[@"frames"];
+            if ([sKey isKindOfClass:[NSString class]] && [JSONFrames isKindOfClass:[NSArray class]]) {
+                NSMutableArray<SVGAVideoSpriteFrameEntity *> *frames = [[NSMutableArray alloc] init];
+                [JSONFrames enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isKindOfClass:[NSDictionary class]]) {
+                        [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj]];
+                    }
+                }];
+                _sKey = sKey;
+                _frames = frames;
+            }
+        }
+    }
+    return self;
+}
 
 @end
 

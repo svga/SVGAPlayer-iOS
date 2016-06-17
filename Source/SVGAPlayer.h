@@ -16,5 +16,6 @@
 
 - (void)startAnimation;
 - (void)stopAnimation;
+- (void)clear;
 
 @end

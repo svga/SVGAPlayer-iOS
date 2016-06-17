@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.aPlayer];
-    self.aPlayer.frame = CGRectMake(0, 100, 320, 320);
+    self.aPlayer.frame = CGRectMake(0, 0, 320, 100);
     SVGAParser *parser = [[SVGAParser alloc] init];
     [parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/test.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
@@ -28,7 +28,11 @@
             [self.aPlayer startAnimation];
         }
     }];
-    self.aPlayer.transform = CGAffineTransformMake(0.5, 0, 0, 0.5, 0, 0);
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    self.aPlayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, 100);
 }
 
 - (void)didReceiveMemoryWarning {
