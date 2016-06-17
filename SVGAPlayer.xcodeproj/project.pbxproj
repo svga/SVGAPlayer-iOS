@@ -13,6 +13,11 @@
 		90A676EB1D13A6DF008A69F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A676E91D13A6DF008A69F3 /* Main.storyboard */; };
 		90A676ED1D13A6DF008A69F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A676EC1D13A6DF008A69F3 /* Assets.xcassets */; };
 		90A676F01D13A6DF008A69F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A676EE1D13A6DF008A69F3 /* LaunchScreen.storyboard */; };
+		90A676FA1D13A81F008A69F3 /* SVGA.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676F91D13A81F008A69F3 /* SVGA.m */; };
+		90A676FD1D13A82A008A69F3 /* SVGAParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676FC1D13A82A008A69F3 /* SVGAParser.m */; };
+		90A677001D13A835008A69F3 /* SVGADownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676FF1D13A835008A69F3 /* SVGADownloader.m */; };
+		90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */; };
+		90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677051D13BF77008A69F3 /* SVGAPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,16 @@
 		90A676EC1D13A6DF008A69F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90A676EF1D13A6DF008A69F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90A676F11D13A6DF008A69F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90A676F81D13A81F008A69F3 /* SVGA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGA.h; sourceTree = "<group>"; };
+		90A676F91D13A81F008A69F3 /* SVGA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGA.m; sourceTree = "<group>"; };
+		90A676FB1D13A82A008A69F3 /* SVGAParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAParser.h; sourceTree = "<group>"; };
+		90A676FC1D13A82A008A69F3 /* SVGAParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAParser.m; sourceTree = "<group>"; };
+		90A676FE1D13A835008A69F3 /* SVGADownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGADownloader.h; sourceTree = "<group>"; };
+		90A676FF1D13A835008A69F3 /* SVGADownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGADownloader.m; sourceTree = "<group>"; };
+		90A677011D13AE19008A69F3 /* SVGAVideoEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAVideoEntity.h; sourceTree = "<group>"; };
+		90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAVideoEntity.m; sourceTree = "<group>"; };
+		90A677041D13BF77008A69F3 /* SVGAPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAPlayer.h; sourceTree = "<group>"; };
+		90A677051D13BF77008A69F3 /* SVGAPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +57,7 @@
 		90A676D41D13A6DF008A69F3 = {
 			isa = PBXGroup;
 			children = (
+				90A676F71D13A70E008A69F3 /* Source */,
 				90A676DF1D13A6DF008A69F3 /* SVGAPlayer */,
 				90A676DE1D13A6DF008A69F3 /* Products */,
 			);
@@ -77,6 +93,23 @@
 				90A676E11D13A6DF008A69F3 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		90A676F71D13A70E008A69F3 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				90A676F81D13A81F008A69F3 /* SVGA.h */,
+				90A676F91D13A81F008A69F3 /* SVGA.m */,
+				90A676FB1D13A82A008A69F3 /* SVGAParser.h */,
+				90A676FC1D13A82A008A69F3 /* SVGAParser.m */,
+				90A676FE1D13A835008A69F3 /* SVGADownloader.h */,
+				90A676FF1D13A835008A69F3 /* SVGADownloader.m */,
+				90A677011D13AE19008A69F3 /* SVGAVideoEntity.h */,
+				90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */,
+				90A677041D13BF77008A69F3 /* SVGAPlayer.h */,
+				90A677051D13BF77008A69F3 /* SVGAPlayer.m */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,8 +183,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				90A676E81D13A6DF008A69F3 /* ViewController.m in Sources */,
+				90A677001D13A835008A69F3 /* SVGADownloader.m in Sources */,
+				90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */,
 				90A676E51D13A6DF008A69F3 /* AppDelegate.m in Sources */,
+				90A676FA1D13A81F008A69F3 /* SVGA.m in Sources */,
+				90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */,
 				90A676E21D13A6DF008A69F3 /* main.m in Sources */,
+				90A676FD1D13A82A008A69F3 /* SVGAParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +305,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.opensource.SVGAPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -278,6 +317,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.opensource.SVGAPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
