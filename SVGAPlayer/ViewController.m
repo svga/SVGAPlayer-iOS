@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "SVGA.h"
 
-@interface ViewController ()
+@interface ViewController ()<SVGAPlayerDelegate>
 
 @property (nonatomic, strong) SVGAPlayer *aPlayer;
 
@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.aPlayer];
+    self.aPlayer.delegate = self;
     self.aPlayer.frame = CGRectMake(0, 0, 320, 100);
     self.aPlayer.loops = 10;
     self.aPlayer.clearsAfterStop = YES;
@@ -32,14 +33,13 @@
     } failureBlock:nil];
 }
 
+- (void)svgaPlayerDidFinishedAnimation {
+    NSLog(@"finished.");
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     self.aPlayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, 100);
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (SVGAPlayer *)aPlayer {

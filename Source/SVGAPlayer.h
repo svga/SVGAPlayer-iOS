@@ -10,8 +10,16 @@
 
 @class SVGAVideoEntity;
 
+@protocol SVGAPlayerDelegate <NSObject>
+
+@optional
+- (void)svgaPlayerDidFinishedAnimation;
+
+@end
+
 @interface SVGAPlayer : UIView
 
+@property (nonatomic, weak) id<SVGAPlayerDelegate> delegate;
 @property (nonatomic, strong) SVGAVideoEntity *videoItem;
 @property (nonatomic, assign) int loops;
 @property (nonatomic, assign) BOOL clearsAfterStop;
