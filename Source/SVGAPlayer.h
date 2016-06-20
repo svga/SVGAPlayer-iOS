@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class SVGAVideoEntity;
+@class SVGAVideoEntity, SVGAPlayer;
 
 @protocol SVGAPlayerDelegate <NSObject>
 
 @optional
-- (void)svgaPlayerDidFinishedAnimation;
+- (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player;
 
 @end
 

@@ -22,7 +22,7 @@
     [self.view addSubview:self.aPlayer];
     self.aPlayer.delegate = self;
     self.aPlayer.frame = CGRectMake(0, 0, 320, 100);
-    self.aPlayer.loops = 10;
+    self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     SVGAParser *parser = [[SVGAParser alloc] init];
     [parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/test.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
@@ -33,7 +33,7 @@
     } failureBlock:nil];
 }
 
-- (void)svgaPlayerDidFinishedAnimation {
+- (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player {
     NSLog(@"finished.");
 }
 

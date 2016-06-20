@@ -110,8 +110,8 @@
         if (self.loops > 0 && _loopCount >= self.loops) {
             [self stopAnimation];
             id delegate = self.delegate;
-            if (delegate != nil && [delegate respondsToSelector:@selector(svgaPlayerDidFinishedAnimation)]) {
-                [delegate svgaPlayerDidFinishedAnimation];
+            if (delegate != nil && [delegate respondsToSelector:@selector(svgaPlayerDidFinishedAnimation:)]) {
+                [delegate svgaPlayerDidFinishedAnimation:self];
             }
         }
     }
