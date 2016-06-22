@@ -6,6 +6,8 @@
 * SVGA 由 SVG 演进而成，与 SVG 不兼容。
 * SVGA 可以在 iOS / Android / Web(PC/移动端) 实现高性能的动画播放。
 
+@see http://code.yy.com/ued/SVGA-Format
+
 ## 性能
 
 一个 600 * 600 像素的全通道动画，144 Frames， FPS = 20，在 iPhone 上测试结果为：
@@ -66,6 +68,8 @@ SVGA 在文件大小上，远小于以上格式，并且 SVGA 是一种无损压
 * 设计师可以使用任意位图工具（例如 Photoshop）进行素描，然后使用（Flash Professional / Animate CC）进行动画的构建。
 * 最后，设计师可以通过插件，自行导出 SVG 序列帖，再通过 SVGAConverter 进行格式转换即可。
 
+转换工具 @see http://code.yy.com/ued/SVGAConverter
+
 ## 客户端调用方法
 
 CocoaPods 是推荐的方式，Carthage 是更为推荐的方式。
@@ -75,20 +79,20 @@ CocoaPods 是推荐的方式，Carthage 是更为推荐的方式。
 你可以播放一个远程的 SVGA 动画， SVGAPlayer 会自己为你缓存该文件，下次播放时，不会被重复下载。
 
 ```
+
+// interface
+@property (nonatomic, strong) SVGAPlayer *aPlayer; 
+
+// implementation
 SVGAParser *parser = [[SVGAParser alloc] init];
-[parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/test.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+[parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/svga-samples/angel.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
     if (videoItem != nil) {
         self.aPlayer.videoItem = videoItem;
         [self.aPlayer startAnimation];
     }
 } failureBlock:nil];
-```
 
-你也可以播放一个本地的 SVGA 动画。
 
-```
-// 请自行切换至子线程执行该代码
-self.aPlayer.videoItem = [parser parseWithData:[NSData dataWithContentsOfFile:@"localPath"]];
 ```
 
 ** 使用一个远程的地址进行播放是推荐的方式 **
