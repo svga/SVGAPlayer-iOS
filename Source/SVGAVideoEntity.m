@@ -8,16 +8,36 @@
 
 #import "SVGAVideoEntity.h"
 
+@interface SVGAVideoEntity ()
+
+@property (nonatomic, assign) CGSize videoSize;
+@property (nonatomic, assign) int FPS;
+@property (nonatomic, assign) int frames;
+@property (nonatomic, copy) NSDictionary<NSString *, UIImage *> *images;
+@property (nonatomic, copy) NSArray<SVGAVideoSpriteEntity *> *sprites;
+@property (nonatomic, copy) NSString *cacheDir;
+
+@end
+
 @implementation SVGAVideoEntity
 
-- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject {
+- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject cacheDir:(NSString *)cacheDir {
     self = [super init];
     if (self) {
         _videoSize = CGSizeMake(100, 100);
         _FPS = 20;
         _images = @{};
-        if ([JSONObject isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *viewBox = JSONObject[@"viewBox"];
+        _cacheDir = cacheDir;
+        [self resetMovieWithJSONObject:JSONObject];
+    }
+    return self;
+}
+
+- (void)resetMovieWithJSONObject:(NSDictionary *)JSONObject {
+    if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *movieObject = JSONObject[@"movie"];
+        if ([movieObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *viewBox = movieObject[@"viewBox"];
             if ([viewBox isKindOfClass:[NSDictionary class]]) {
                 NSNumber *width = viewBox[@"width"];
                 NSNumber *height = viewBox[@"height"];
@@ -25,13 +45,16 @@
                     _videoSize = CGSizeMake(width.floatValue, height.floatValue);
                 }
             }
-            NSNumber *FPS = JSONObject[@"FPS"];
+            NSNumber *FPS = movieObject[@"fps"];
             if ([FPS isKindOfClass:[NSNumber class]]) {
                 _FPS = [FPS intValue];
             }
+            NSNumber *frames = movieObject[@"frames"];
+            if ([frames isKindOfClass:[NSNumber class]]) {
+                _frames = [frames intValue];
+            }
         }
     }
-    return self;
 }
 
 - (void)resetImagesWithJSONObject:(NSDictionary *)JSONObject {
@@ -41,7 +64,8 @@
         if ([JSONImages isKindOfClass:[NSDictionary class]]) {
             [JSONImages enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
                 if ([obj isKindOfClass:[NSString class]]) {
-                    NSData *imageData = [[NSData alloc] initWithBase64EncodedString:obj options:kNilOptions];
+                    NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", key];
+                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
                     if (imageData != nil) {
                         UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                         if (image != nil) {
@@ -73,28 +97,45 @@
 
 @end
 
+@interface SVGAVideoSpriteEntity()
+
+@property (nonatomic, copy) NSString *imageKey;
+@property (nonatomic, copy) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
+
+@end
+
 @implementation SVGAVideoSpriteEntity
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject {
     self = [super init];
     if (self) {
         if ([JSONObject isKindOfClass:[NSDictionary class]]) {
-            NSString *sKey = JSONObject[@"sKey"];
+            NSString *imageKey = JSONObject[@"imageKey"];
             NSArray<NSDictionary *> *JSONFrames = JSONObject[@"frames"];
-            if ([sKey isKindOfClass:[NSString class]] && [JSONFrames isKindOfClass:[NSArray class]]) {
+            if ([imageKey isKindOfClass:[NSString class]] && [JSONFrames isKindOfClass:[NSArray class]]) {
                 NSMutableArray<SVGAVideoSpriteFrameEntity *> *frames = [[NSMutableArray alloc] init];
                 [JSONFrames enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([obj isKindOfClass:[NSDictionary class]]) {
                         [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj]];
                     }
                 }];
-                _sKey = sKey;
+                _imageKey = imageKey;
                 _frames = frames;
             }
         }
     }
     return self;
 }
+
+@end
+
+@interface SVGAVideoSpriteFrameEntity ()
+
+@property (nonatomic, assign) CGFloat alpha;
+@property (nonatomic, assign) CGAffineTransform transform;
+@property (nonatomic, assign) CGRect layout;
+@property (nonatomic, assign) CGFloat nx;
+@property (nonatomic, assign) CGFloat ny;
 
 @end
 
@@ -134,6 +175,16 @@
                 }
             }
         }
+        CGFloat llx = _transform.a * _layout.origin.x + _transform.c * _layout.origin.y + _transform.tx;
+        CGFloat lrx = _transform.a * (_layout.origin.x + _layout.size.width) + _transform.c * _layout.origin.y + _transform.tx;
+        CGFloat lbx = _transform.a * _layout.origin.x + _transform.c * (_layout.origin.y + _layout.size.height) + _transform.tx;
+        CGFloat rbx = _transform.a * (_layout.origin.x + _layout.size.width) + _transform.c * (_layout.origin.y + _layout.size.height) + _transform.tx;
+        CGFloat lly = _transform.b * _layout.origin.x + _transform.d * _layout.origin.y + _transform.ty;
+        CGFloat lry = _transform.b * (_layout.origin.x + _layout.size.width) + _transform.d * _layout.origin.y + _transform.ty;
+        CGFloat lby = _transform.b * _layout.origin.x + _transform.d * (_layout.origin.y + _layout.size.height) + _transform.ty;
+        CGFloat rby = _transform.b * (_layout.origin.x + _layout.size.width) + _transform.d * (_layout.origin.y + _layout.size.height) + _transform.ty;
+        _nx = MIN(MIN(lbx,  rbx), MIN(llx, lrx));
+        _ny = MIN(MIN(lby,  rby), MIN(lly, lry));
     }
     return self;
 }

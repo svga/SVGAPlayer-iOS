@@ -8,12 +8,10 @@
 
 #import "SVGAParser.h"
 #import "SVGAVideoEntity.h"
-#import "SVGADownloader.h"
-#import "NSData+GZIP.h"
+#import <SSZipArchive/SSZipArchive.h>
+#import <CommonCrypto/CommonDigest.h>
 
 @interface SVGAParser ()
-
-@property (nonatomic, strong) SVGADownloader *downloader;
 
 @end
 
@@ -22,42 +20,137 @@
 - (void)parseWithURL:(nonnull NSURL *)URL
      completionBlock:(void ( ^ _Nonnull )(SVGAVideoEntity * _Nullable videoItem))completionBlock
         failureBlock:(void ( ^ _Nullable)(NSError * _Nullable error))failureBlock {
-    [self.downloader loadDataWithURL:URL completionBlock:^(NSData *data) {
-        if (completionBlock) {
-            completionBlock([self parseWithData:data]);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[self cacheDirectory:[self cacheKey:URL]]]) {
+        [self parseWithCacheKey:[self cacheKey:URL] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+            if (completionBlock) {
+                completionBlock(videoItem);
+            }
+        } failureBlock:^(NSError * _Nonnull error) {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }];
+        return;
+    }
+    [[[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error == nil && data != nil) {
+            [self parseWithData:data cacheKey:[self cacheKey:URL] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+                if (completionBlock) {
+                    completionBlock(videoItem);
+                }
+            } failureBlock:^(NSError * _Nonnull error) {
+                if (failureBlock) {
+                    failureBlock(error);
+                }
+            }];
         }
-    } failureBlock:^(NSError *error) {
-        if (failureBlock) {
-            failureBlock(error);
+        else {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }] resume];
+}
+
+- (void)parseWithCacheKey:(nonnull NSString *)cacheKey
+          completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
+             failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
+    [[NSOperationQueue new] addOperationWithBlock:^{
+        NSString *cacheDir = [self cacheDirectory:cacheKey];
+        NSError *err;
+        NSData *JSONData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.spec"]];
+        if (JSONData != nil) {
+            NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:JSONData options:kNilOptions error:&err];
+            if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+                SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
+                [videoItem resetImagesWithJSONObject:JSONObject];
+                [videoItem resetSpritesWithJSONObject:JSONObject];
+                if (completionBlock) {
+                    completionBlock(videoItem);
+                }
+            }
+        }
+        else {
+            if (failureBlock) {
+                failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+            }
         }
     }];
 }
 
-- (nullable SVGAVideoEntity *)parseWithData:(nonnull NSData *)data {
-    if (data != nil) {
-        NSData *unzipData = [data svga_gunzippedData];
-        if (unzipData != nil) {
-            data = unzipData;
-        }
-        NSError *err;
-        NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&err];
-        if (err == nil) {
-            if ([JSONObject isKindOfClass:[NSDictionary class]]) {
-                SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject];
-                [videoItem resetImagesWithJSONObject:JSONObject];
-                [videoItem resetSpritesWithJSONObject:JSONObject];
-                return videoItem;
+- (void)parseWithData:(nonnull NSData *)data
+             cacheKey:(nonnull NSString *)cacheKey
+      completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
+         failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
+    [[NSOperationQueue new] addOperationWithBlock:^{
+        NSString *tmpPath = [NSTemporaryDirectory() stringByAppendingFormat:@"%u.svga", arc4random()];
+        if (data != nil) {
+            [data writeToFile:tmpPath atomically:YES];
+            NSString *cacheDir = [self cacheDirectory:cacheKey];
+            if ([cacheDir isKindOfClass:[NSString class]]) {
+                [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir withIntermediateDirectories:NO attributes:nil error:nil];
+                [SSZipArchive unzipFileAtPath:tmpPath toDestination:[self cacheDirectory:cacheKey] progressHandler:nil completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
+                    if (error != nil) {
+                        if (failureBlock) {
+                            failureBlock(error);
+                        }
+                    }
+                    else {
+                        NSError *err;
+                        NSData *JSONData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.spec"]];
+                        if (JSONData != nil) {
+                            NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:JSONData options:kNilOptions error:&err];
+                            if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+                                SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
+                                [videoItem resetImagesWithJSONObject:JSONObject];
+                                [videoItem resetSpritesWithJSONObject:JSONObject];
+                                if (completionBlock) {
+                                    completionBlock(videoItem);
+                                }
+                            }
+                        }
+                        else {
+                            if (failureBlock) {
+                                failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                            }
+                        }
+                    }
+                }];
+            }
+            else {
+                if (failureBlock) {
+                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                }
             }
         }
-    }
-    return nil;
+        else {
+            if (failureBlock) {
+                failureBlock([NSError errorWithDomain:@"Data Error" code:-1 userInfo:nil]);
+            }
+        }
+    }];
 }
 
-- (SVGADownloader *)downloader {
-    if (_downloader == nil) {
-        _downloader = [[SVGADownloader alloc] init];
-    }
-    return _downloader;
+- (nonnull NSString *)cacheKey:(NSURL *)URL {
+    return [self MD5String:URL.absoluteString];
+}
+
+- (nullable NSString *)cacheDirectory:(NSString *)cacheKey {
+    NSString *cacheDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    return [cacheDir stringByAppendingFormat:@"/%@", cacheKey];
+}
+
+- (NSString *)MD5String:(NSString *)str {
+    const char *cstr = [str UTF8String];
+    unsigned char result[16];
+    CC_MD5(cstr, (CC_LONG)strlen(cstr), result);
+    return [NSString stringWithFormat:
+            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
 }
 
 @end

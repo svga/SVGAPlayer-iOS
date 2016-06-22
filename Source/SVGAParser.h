@@ -16,6 +16,9 @@
      completionBlock:(void ( ^ _Nonnull )(SVGAVideoEntity * _Nullable videoItem))completionBlock
         failureBlock:(void ( ^ _Nullable)(NSError * _Nullable error))failureBlock;
 
-- (nullable SVGAVideoEntity *)parseWithData:(nonnull NSData *)data;
+- (void)parseWithData:(nonnull NSData *)data
+             cacheKey:(nonnull NSString *)cacheKey
+      completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
+         failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock;
 
 @end
