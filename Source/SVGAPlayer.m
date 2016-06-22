@@ -109,7 +109,7 @@
 
 - (void)next {
     self.currentFrame++;
-    if (self.currentFrame >= [self.videoItem.sprites firstObject].frames.count) {
+    if (self.currentFrame >= self.videoItem.frames) {
         self.currentFrame = 0;
         _loopCount++;
         if (self.loops > 0 && _loopCount >= self.loops) {
