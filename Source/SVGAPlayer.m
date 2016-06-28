@@ -97,6 +97,7 @@
                     CGFloat offsetX = layer.frame.origin.x - nx;
                     CGFloat offsetY = layer.frame.origin.y - ny;
                     layer.position = CGPointMake(layer.position.x - offsetX, layer.position.y - offsetY);
+                    layer.mask = frameItem.maskLayer;
                 }
                 else {
                     layer.hidden = YES;

@@ -41,6 +41,7 @@
 @property (nonatomic, readonly) CGRect layout;
 @property (nonatomic, readonly) CGFloat nx;
 @property (nonatomic, readonly) CGFloat ny;
+@property (nonatomic, readonly) CALayer *maskLayer;
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
 

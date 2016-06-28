@@ -7,6 +7,7 @@
 //
 
 #import "SVGAVideoEntity.h"
+#import "SVGABezierPath.h"
 
 @interface SVGAVideoEntity ()
 
@@ -136,6 +137,7 @@
 @property (nonatomic, assign) CGRect layout;
 @property (nonatomic, assign) CGFloat nx;
 @property (nonatomic, assign) CGFloat ny;
+@property (nonatomic, strong) CALayer *maskLayer;
 
 @end
 
@@ -173,6 +175,12 @@
                 if ([a isKindOfClass:[NSNumber class]] && [b isKindOfClass:[NSNumber class]] && [c isKindOfClass:[NSNumber class]] && [d isKindOfClass:[NSNumber class]] && [tx isKindOfClass:[NSNumber class]] && [ty isKindOfClass:[NSNumber class]]) {
                     _transform = CGAffineTransformMake(a.floatValue, b.floatValue, c.floatValue, d.floatValue, tx.floatValue, ty.floatValue);
                 }
+            }
+            NSString *clipPath = JSONObject[@"clipPath"];
+            if ([clipPath isKindOfClass:[NSString class]]) {
+                SVGABezierPath *bezierPath = [[SVGABezierPath alloc] init];
+                [bezierPath setValues:clipPath];
+                self.maskLayer = [bezierPath createLayer];
             }
         }
         CGFloat llx = _transform.a * _layout.origin.x + _transform.c * _layout.origin.y + _transform.tx;
