@@ -50,6 +50,7 @@
 - (void)draw {
     self.drawLayer = [[CALayer alloc] init];
     self.drawLayer.frame = CGRectMake(0, 0, self.videoItem.videoSize.width, self.videoItem.videoSize.height);
+    self.drawLayer.masksToBounds = true;
     [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
         CALayer *spriteLayer = [[CALayer alloc] init];
         spriteLayer.contentsGravity = kCAGravityResizeAspect;
