@@ -23,6 +23,9 @@
 - (void)resetImagesWithJSONObject:(NSDictionary *)JSONObject;
 - (void)resetSpritesWithJSONObject:(NSDictionary *)JSONObject;
 
++ (SVGAVideoEntity *)readCache:(NSString *)cacheKey;
+- (void)saveCache:(NSString *)cacheKey;
+
 @end
 
 @interface SVGAVideoSpriteEntity : NSObject

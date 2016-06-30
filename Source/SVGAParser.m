@@ -56,6 +56,13 @@
           completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
              failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
     [[NSOperationQueue new] addOperationWithBlock:^{
+        SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
+        if (cacheItem != nil) {
+            if (completionBlock) {
+                completionBlock(cacheItem);
+            }
+            return;
+        }
         NSString *cacheDir = [self cacheDirectory:cacheKey];
         NSError *err;
         NSData *JSONData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.spec"]];
@@ -65,6 +72,7 @@
                 SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
                 [videoItem resetImagesWithJSONObject:JSONObject];
                 [videoItem resetSpritesWithJSONObject:JSONObject];
+                [videoItem saveCache:cacheKey];
                 if (completionBlock) {
                     completionBlock(videoItem);
                 }
@@ -83,6 +91,13 @@
       completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
          failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
     [[NSOperationQueue new] addOperationWithBlock:^{
+        SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
+        if (cacheItem != nil) {
+            if (completionBlock) {
+                completionBlock(cacheItem);
+            }
+            return;
+        }
         NSString *tmpPath = [NSTemporaryDirectory() stringByAppendingFormat:@"%u.svga", arc4random()];
         if (data != nil) {
             [data writeToFile:tmpPath atomically:YES];
@@ -104,6 +119,7 @@
                                 SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
                                 [videoItem resetImagesWithJSONObject:JSONObject];
                                 [videoItem resetSpritesWithJSONObject:JSONObject];
+                                [videoItem saveCache:cacheKey];
                                 if (completionBlock) {
                                     completionBlock(videoItem);
                                 }
