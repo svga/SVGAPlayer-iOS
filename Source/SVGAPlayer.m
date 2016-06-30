@@ -55,8 +55,6 @@
         CALayer *spriteLayer = [[CALayer alloc] init];
         spriteLayer.contentsGravity = kCAGravityResizeAspect;
         spriteLayer.contents = (__bridge id _Nullable)([self.videoItem.images[sprite.imageKey] CGImage]);
-        [spriteLayer setShouldRasterize:YES];
-        [spriteLayer setRasterizationScale:[[UIScreen mainScreen] scale]];
         [self.drawLayer addSublayer:spriteLayer];
     }];
     [self.layer addSublayer:self.drawLayer];
