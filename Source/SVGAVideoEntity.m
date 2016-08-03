@@ -74,7 +74,7 @@ static NSCache *videoCache;
         if ([JSONImages isKindOfClass:[NSDictionary class]]) {
             [JSONImages enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
                 if ([obj isKindOfClass:[NSString class]]) {
-                    NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", key];
+                    NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", obj];
                     NSData *imageData = [NSData dataWithContentsOfFile:filePath];
                     if (imageData != nil) {
                         UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
