@@ -21,6 +21,13 @@
 
 @implementation SVGAPlayer
 
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    if (newSuperview == nil) {
+        [self stopAnimation:YES];
+    }
+}
+
 - (void)startAnimation {
     [self stopAnimation:NO];
     _loopCount = 0;
@@ -41,6 +48,7 @@
     if (clear) {
         [self clear];
     }
+    self.displayLink = nil;
 }
 
 - (void)clear {

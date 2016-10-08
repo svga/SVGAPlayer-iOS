@@ -23,7 +23,7 @@
     [self.view addSubview:self.aPlayer];
     self.aPlayer.delegate = self;
     self.aPlayer.frame = CGRectMake(0, 0, 320, 100);
-    self.aPlayer.loops = 1;
+    self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     SVGAParser *parser = [[SVGAParser alloc] init];
     [parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/svga-me/rose.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
