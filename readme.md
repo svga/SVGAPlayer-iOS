@@ -97,6 +97,38 @@ SVGAParser *parser = [[SVGAParser alloc] init];
 
 ** 使用一个远程的地址进行播放是推荐的方式 **
 
+## 动态对象
+
+自 0.1.0 版本起，SVGAPlayer 支持动态对象，可以通过以下方法，替换动画文件中的指定图像，以及动态添加富文本。
+
+* 必须在 startAnimation 方法执行前进行配置
+
+### 动态图像
+
+```
+CALayer *iconLayer = [CALayer layer];
+iconLayer.cornerRadius = 84.0;
+iconLayer.masksToBounds = YES;
+iconLayer.borderWidth = 4.0;
+iconLayer.borderColor = [UIColor colorWithRed:0xea/255.0 green:0xb3/255.0 blue:0x7d/255.0 alpha:1.0].CGColor;
+[self.aPlayer setImage:iconImage forKey:@"99" referenceLayer:iconLayer];
+```
+
+### 动态文本
+
+```
+NSShadow *shadow = [NSShadow new];
+shadow.shadowColor = [UIColor blackColor];
+shadow.shadowOffset = CGSizeMake(0, 1);
+NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小姐不吃鱼 送了魔法奇缘"
+                                                            attributes:@{
+                                                                        NSForegroundColorAttributeName: [UIColor colorWithRed:0xff/255.0 green:0xe0/255.0 blue:0xa4/255.0 alpha:1.0],
+                                                                        NSFontAttributeName: [UIFont boldSystemFontOfSize:30.0],
+                                                                        NSShadowAttributeName: shadow,
+                                                                        }];
+[self.aPlayer setAttributedText:text forKey:@"banner"];
+```
+
 ## 参数设置
 
 * FPS, FPS 由 SVGA 动画自身决定，客户端不能修改，在 SVGAConverter 转换的过程中添加该参数，默认的 FPS = 20。
