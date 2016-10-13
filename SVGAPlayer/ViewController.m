@@ -49,6 +49,18 @@
                             iconLayer.borderColor = [UIColor colorWithRed:0xea/255.0 green:0xb3/255.0 blue:0x7d/255.0 alpha:1.0].CGColor;
                             [self.aPlayer setImage:iconImage forKey:@"99" referenceLayer:iconLayer];
                         }
+                        {
+                            NSShadow *shadow = [NSShadow new];
+                            shadow.shadowColor = [UIColor blackColor];
+                            shadow.shadowOffset = CGSizeMake(0, 1);
+                            NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小姐不吃鱼 送了魔法奇缘"
+                                                                                       attributes:@{
+                                                                                                    NSForegroundColorAttributeName: [UIColor colorWithRed:0xff/255.0 green:0xe0/255.0 blue:0xa4/255.0 alpha:1.0],
+                                                                                                    NSFontAttributeName: [UIFont boldSystemFontOfSize:30.0],
+                                                                                                    NSShadowAttributeName: shadow,
+                                                                                                    }];
+                            [self.aPlayer setAttributedText:text forKey:@"banner"];
+                        }
                         self.aPlayer.videoItem = videoItem;
                         [self.aPlayer startAnimation];
                     }

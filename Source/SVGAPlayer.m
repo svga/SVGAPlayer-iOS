@@ -18,6 +18,7 @@
 @property (nonatomic, assign) int currentFrame;
 @property (nonatomic, copy) NSDictionary *dynamicObjects;
 @property (nonatomic, copy) NSDictionary *dynamicLayers;
+@property (nonatomic, copy) NSDictionary *dynamicTexts;
 
 @end
 
@@ -75,6 +76,14 @@
             else {
                 spriteLayer.contents = (__bridge id _Nullable)([self.videoItem.images[sprite.imageKey] CGImage]);
             }
+            if (self.dynamicTexts[sprite.imageKey] != nil) {
+                NSAttributedString *text = self.dynamicTexts[sprite.imageKey];
+                CGSize size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
+                CATextLayer *textLayer = [CATextLayer layer];
+                [textLayer setString:self.dynamicTexts[sprite.imageKey]];
+                textLayer.frame = CGRectMake(0, 0, size.width, size.height);
+                [spriteLayer addSublayer:textLayer];
+            }
             [self.drawLayer addSublayer:spriteLayer];
         }
     }];
@@ -117,6 +126,14 @@
                     CGFloat offsetY = layer.frame.origin.y - ny;
                     layer.position = CGPointMake(layer.position.x - offsetX, layer.position.y - offsetY);
                     layer.mask = frameItem.maskLayer;
+                    for (CALayer *sublayer in layer.sublayers) {
+                        if ([sublayer isKindOfClass:[CATextLayer class]]) {
+                            CGRect frame = sublayer.frame;
+                            frame.origin.x = (layer.frame.size.width - sublayer.frame.size.width) / 2.0;
+                            frame.origin.y = (layer.frame.size.height - sublayer.frame.size.height) / 2.0;
+                            sublayer.frame = frame;
+                        }
+                    }
                 }
                 else {
                     layer.hidden = YES;
@@ -168,6 +185,15 @@
     }
 }
 
+- (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey {
+    if (attributedText == nil) {
+        return;
+    }
+    NSMutableDictionary *mutableDynamicTexts = [self.dynamicTexts mutableCopy];
+    [mutableDynamicTexts setObject:attributedText forKey:aKey];
+    self.dynamicTexts = mutableDynamicTexts;
+}
+
 - (void)clearDynamicObjects {
     self.dynamicObjects = nil;
     self.dynamicLayers = nil;
@@ -185,6 +211,13 @@
         _dynamicLayers = @{};
     }
     return _dynamicLayers;
+}
+
+- (NSDictionary *)dynamicTexts {
+    if (_dynamicTexts == nil) {
+        _dynamicTexts = @{};
+    }
+    return _dynamicTexts;
 }
 
 @end

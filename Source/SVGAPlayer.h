@@ -31,6 +31,7 @@
 #pragma mark - Dynamic Object
 
 - (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer;
+- (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey;
 - (void)clearDynamicObjects;
 
 @end
