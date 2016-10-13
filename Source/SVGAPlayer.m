@@ -16,6 +16,8 @@
 @property (nonatomic, strong) CALayer *drawLayer;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) int currentFrame;
+@property (nonatomic, copy) NSDictionary *dynamicObjects;
+@property (nonatomic, copy) NSDictionary *dynamicLayers;
 
 @end
 
@@ -62,8 +64,19 @@
     [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
         CALayer *spriteLayer = [[CALayer alloc] init];
         spriteLayer.contentsGravity = kCAGravityResizeAspect;
-        spriteLayer.contents = (__bridge id _Nullable)([self.videoItem.images[sprite.imageKey] CGImage]);
-        [self.drawLayer addSublayer:spriteLayer];
+        if (sprite.imageKey != nil) {
+            if (self.dynamicLayers[sprite.imageKey] != nil) {
+                spriteLayer = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self.dynamicLayers[sprite.imageKey]]];
+                spriteLayer.contentsGravity = kCAGravityResizeAspect;
+            }
+            if (self.dynamicObjects[sprite.imageKey] != nil) {
+                spriteLayer.contents = (__bridge id _Nullable)([self.dynamicObjects[sprite.imageKey] CGImage]);
+            }
+            else {
+                spriteLayer.contents = (__bridge id _Nullable)([self.videoItem.images[sprite.imageKey] CGImage]);
+            }
+            [self.drawLayer addSublayer:spriteLayer];
+        }
     }];
     [self.layer addSublayer:self.drawLayer];
     self.currentFrame = 0;
@@ -137,6 +150,41 @@
         [self clear];
         [self draw];
     }];
+}
+
+#pragma mark - Dynamic Object
+
+- (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer {
+    if (image == nil) {
+        return;
+    }
+    NSMutableDictionary *mutableDynamicObjects = [self.dynamicObjects mutableCopy];
+    [mutableDynamicObjects setObject:image forKey:aKey];
+    self.dynamicObjects = mutableDynamicObjects;
+    if (referenceLayer != nil) {
+        NSMutableDictionary *mutableDynamicLayers = [self.dynamicLayers mutableCopy];
+        [mutableDynamicLayers setObject:referenceLayer forKey:aKey];
+        self.dynamicLayers = mutableDynamicLayers;
+    }
+}
+
+- (void)clearDynamicObjects {
+    self.dynamicObjects = nil;
+    self.dynamicLayers = nil;
+}
+
+- (NSDictionary *)dynamicObjects {
+    if (_dynamicObjects == nil) {
+        _dynamicObjects = @{};
+    }
+    return _dynamicObjects;
+}
+
+- (NSDictionary *)dynamicLayers {
+    if (_dynamicLayers == nil) {
+        _dynamicLayers = @{};
+    }
+    return _dynamicLayers;
 }
 
 @end

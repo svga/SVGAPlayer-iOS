@@ -24,9 +24,13 @@
 @property (nonatomic, assign) int loops;
 @property (nonatomic, assign) BOOL clearsAfterStop;
 
-
 - (void)startAnimation;
 - (void)stopAnimation;
 - (void)clear;
+
+#pragma mark - Dynamic Object
+
+- (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer;
+- (void)clearDynamicObjects;
 
 @end
