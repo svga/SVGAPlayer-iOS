@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class SVGAVideoEntity, SVGAVideoSpriteEntity, SVGAVideoSpriteFrameEntity;
+@class SVGAVideoEntity, SVGAVideoSpriteEntity, SVGAVideoSpriteFrameEntity, SVGABitmapLayer, SVGAVectorLayer;
 
 @interface SVGAVideoEntity : NSObject
 
@@ -28,24 +28,4 @@
 
 @end
 
-@interface SVGAVideoSpriteEntity : NSObject
 
-@property (nonatomic, readonly) NSString *imageKey;
-@property (nonatomic, readonly) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
-
-- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
-
-@end
-
-@interface SVGAVideoSpriteFrameEntity : NSObject
-
-@property (nonatomic, readonly) CGFloat alpha;
-@property (nonatomic, readonly) CGAffineTransform transform;
-@property (nonatomic, readonly) CGRect layout;
-@property (nonatomic, readonly) CGFloat nx;
-@property (nonatomic, readonly) CGFloat ny;
-@property (nonatomic, readonly) CALayer *maskLayer;
-
-- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
-
-@end

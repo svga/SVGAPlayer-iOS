@@ -50,7 +50,7 @@
     [self operate:currentMethod args:[args copy]];
 }
 
-- (nonnull CALayer *)createLayer {
+- (nonnull CAShapeLayer *)createLayer {
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.path = self.CGPath;
     layer.fillColor = [UIColor blackColor].CGColor;

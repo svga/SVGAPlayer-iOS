@@ -8,6 +8,7 @@
 
 #import "SVGAVideoEntity.h"
 #import "SVGABezierPath.h"
+#import "SVGAVideoSpriteEntity.h"
 
 @interface SVGAVideoEntity ()
 
@@ -122,96 +123,3 @@ static NSCache *videoCache;
 
 @end
 
-@implementation SVGAVideoSpriteEntity
-
-- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject {
-    self = [super init];
-    if (self) {
-        if ([JSONObject isKindOfClass:[NSDictionary class]]) {
-            NSString *imageKey = JSONObject[@"imageKey"];
-            NSArray<NSDictionary *> *JSONFrames = JSONObject[@"frames"];
-            if ([imageKey isKindOfClass:[NSString class]] && [JSONFrames isKindOfClass:[NSArray class]]) {
-                NSMutableArray<SVGAVideoSpriteFrameEntity *> *frames = [[NSMutableArray alloc] init];
-                [JSONFrames enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj isKindOfClass:[NSDictionary class]]) {
-                        [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj]];
-                    }
-                }];
-                _imageKey = imageKey;
-                _frames = frames;
-            }
-        }
-    }
-    return self;
-}
-
-@end
-
-@interface SVGAVideoSpriteFrameEntity ()
-
-@property (nonatomic, assign) CGFloat alpha;
-@property (nonatomic, assign) CGAffineTransform transform;
-@property (nonatomic, assign) CGRect layout;
-@property (nonatomic, assign) CGFloat nx;
-@property (nonatomic, assign) CGFloat ny;
-@property (nonatomic, strong) CALayer *maskLayer;
-
-@end
-
-@implementation SVGAVideoSpriteFrameEntity
-
-- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject {
-    self = [super init];
-    if (self) {
-        _alpha = 0.0;
-        _layout = CGRectZero;
-        _transform = CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-        if ([JSONObject isKindOfClass:[NSDictionary class]]) {
-            NSNumber *alpha = JSONObject[@"alpha"];
-            if ([alpha isKindOfClass:[NSNumber class]]) {
-                _alpha = [alpha floatValue];
-            }
-            NSDictionary *layout = JSONObject[@"layout"];
-            if ([layout isKindOfClass:[NSDictionary class]]) {
-                NSNumber *x = layout[@"x"];
-                NSNumber *y = layout[@"y"];
-                NSNumber *width = layout[@"width"];
-                NSNumber *height = layout[@"height"];
-                if ([x isKindOfClass:[NSNumber class]] && [y isKindOfClass:[NSNumber class]] && [width isKindOfClass:[NSNumber class]] && [height isKindOfClass:[NSNumber class]]) {
-                    _layout = CGRectMake(x.floatValue, y.floatValue, width.floatValue, height.floatValue);
-                }
-            }
-            NSDictionary *transform = JSONObject[@"transform"];
-            if ([transform isKindOfClass:[NSDictionary class]]) {
-                NSNumber *a = transform[@"a"];
-                NSNumber *b = transform[@"b"];
-                NSNumber *c = transform[@"c"];
-                NSNumber *d = transform[@"d"];
-                NSNumber *tx = transform[@"tx"];
-                NSNumber *ty = transform[@"ty"];
-                if ([a isKindOfClass:[NSNumber class]] && [b isKindOfClass:[NSNumber class]] && [c isKindOfClass:[NSNumber class]] && [d isKindOfClass:[NSNumber class]] && [tx isKindOfClass:[NSNumber class]] && [ty isKindOfClass:[NSNumber class]]) {
-                    _transform = CGAffineTransformMake(a.floatValue, b.floatValue, c.floatValue, d.floatValue, tx.floatValue, ty.floatValue);
-                }
-            }
-            NSString *clipPath = JSONObject[@"clipPath"];
-            if ([clipPath isKindOfClass:[NSString class]]) {
-                SVGABezierPath *bezierPath = [[SVGABezierPath alloc] init];
-                [bezierPath setValues:clipPath];
-                self.maskLayer = [bezierPath createLayer];
-            }
-        }
-        CGFloat llx = _transform.a * _layout.origin.x + _transform.c * _layout.origin.y + _transform.tx;
-        CGFloat lrx = _transform.a * (_layout.origin.x + _layout.size.width) + _transform.c * _layout.origin.y + _transform.tx;
-        CGFloat lbx = _transform.a * _layout.origin.x + _transform.c * (_layout.origin.y + _layout.size.height) + _transform.tx;
-        CGFloat rbx = _transform.a * (_layout.origin.x + _layout.size.width) + _transform.c * (_layout.origin.y + _layout.size.height) + _transform.tx;
-        CGFloat lly = _transform.b * _layout.origin.x + _transform.d * _layout.origin.y + _transform.ty;
-        CGFloat lry = _transform.b * (_layout.origin.x + _layout.size.width) + _transform.d * _layout.origin.y + _transform.ty;
-        CGFloat lby = _transform.b * _layout.origin.x + _transform.d * (_layout.origin.y + _layout.size.height) + _transform.ty;
-        CGFloat rby = _transform.b * (_layout.origin.x + _layout.size.width) + _transform.d * (_layout.origin.y + _layout.size.height) + _transform.ty;
-        _nx = MIN(MIN(lbx,  rbx), MIN(llx, lrx));
-        _ny = MIN(MIN(lby,  rby), MIN(lly, lry));
-    }
-    return self;
-}
-
-@end

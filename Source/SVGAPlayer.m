@@ -8,6 +8,9 @@
 
 #import "SVGAPlayer.h"
 #import "SVGAVideoEntity.h"
+#import "SVGAVideoSpriteEntity.h"
+#import "SVGAVideoSpriteFrameEntity.h"
+#import "SVGAVectorLayer.h"
 
 @interface SVGAPlayer () {
     int _loopCount;
@@ -133,6 +136,15 @@
                             frame.origin.y = (layer.frame.size.height - sublayer.frame.size.height) / 2.0;
                             sublayer.frame = frame;
                         }
+                    }
+                    for (CALayer *sublayer in layer.sublayers) {
+                        if ([sublayer isKindOfClass:[SVGAVectorLayer class]]) {
+                            [sublayer removeFromSuperlayer];
+                        }
+                    }
+                    if (frameItem.vectorLayer != nil) {
+                        [layer addSublayer:frameItem.vectorLayer];
+                        frameItem.vectorLayer.frame = layer.bounds;
                     }
                 }
                 else {

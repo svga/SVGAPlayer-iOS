@@ -13,6 +13,6 @@
 
 - (void)setValues:(nonnull NSString *)values;
 
-- (nonnull CALayer *)createLayer;
+- (nonnull CAShapeLayer *)createLayer;
 
 @end
