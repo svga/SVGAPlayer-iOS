@@ -26,6 +26,7 @@
                 completionBlock(videoItem);
             }
         } failureBlock:^(NSError * _Nonnull error) {
+            [self clearCache:[self cacheKey:URL]];
             if (failureBlock) {
                 failureBlock(error);
             }
@@ -39,6 +40,7 @@
                     completionBlock(videoItem);
                 }
             } failureBlock:^(NSError * _Nonnull error) {
+                [self clearCache:[self cacheKey:URL]];
                 if (failureBlock) {
                     failureBlock(error);
                 }
@@ -84,6 +86,11 @@
             }
         }
     }];
+}
+
+- (void)clearCache:(nonnull NSString *)cacheKey {
+    NSString *cacheDir = [self cacheDirectory:cacheKey];
+    [[NSFileManager defaultManager] removeItemAtPath:cacheDir error:NULL];
 }
 
 - (void)parseWithData:(nonnull NSData *)data
