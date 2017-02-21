@@ -22,6 +22,7 @@
     self = [super init];
     if (self) {
         _spec = spec;
+        self.backgroundColor = [UIColor clearColor].CGColor;
         self.masksToBounds = NO;
         [self createSublayers:previous];
     }
@@ -120,6 +121,7 @@
 
 - (void)resetStyles:(CAShapeLayer *)shapeLayer shape:(NSDictionary *)shape {
     shapeLayer.masksToBounds = NO;
+    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
     if ([shape[@"styles"] isKindOfClass:[NSDictionary class]]) {
         if ([shape[@"styles"][@"fill"] isKindOfClass:[NSArray class]]) {
             NSArray *colorArray = shape[@"styles"][@"fill"];
@@ -133,6 +135,9 @@
                                                         blue:[colorArray[2] floatValue]
                                                        alpha:[colorArray[3] floatValue]].CGColor;
             }
+        }
+        else {
+            shapeLayer.fillColor = [UIColor clearColor].CGColor;
         }
         if ([shape[@"styles"][@"stroke"] isKindOfClass:[NSArray class]]) {
             NSArray *colorArray = shape[@"styles"][@"stroke"];
@@ -149,6 +154,26 @@
         }
         if ([shape[@"styles"][@"strokeWidth"] isKindOfClass:[NSNumber class]]) {
             shapeLayer.lineWidth = [shape[@"styles"][@"strokeWidth"] floatValue];
+        }
+        if ([shape[@"styles"][@"lineCap"] isKindOfClass:[NSString class]]) {
+            shapeLayer.lineCap = shape[@"styles"][@"lineCap"];
+        }
+        if ([shape[@"styles"][@"lineJoin"] isKindOfClass:[NSString class]]) {
+            shapeLayer.lineJoin = shape[@"styles"][@"lineJoin"];
+        }
+        if ([shape[@"styles"][@"lineDash"] isKindOfClass:[NSArray class]]) {
+            BOOL accept = YES;
+            for (id obj in shape[@"styles"][@"lineDash"]) {
+                if (![obj isKindOfClass:[NSNumber class]]) {
+                    accept = NO;
+                }
+            }
+            if (accept) {
+                shapeLayer.lineDashPattern = shape[@"styles"][@"lineDash"];
+            }
+        }
+        if ([shape[@"styles"][@"miterLimit"] isKindOfClass:[NSNumber class]]) {
+            shapeLayer.miterLimit = [shape[@"styles"][@"miterLimit"] floatValue];
         }
     }
 }
