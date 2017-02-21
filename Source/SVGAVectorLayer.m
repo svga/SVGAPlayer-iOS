@@ -175,6 +175,16 @@
         if ([shape[@"styles"][@"miterLimit"] isKindOfClass:[NSNumber class]]) {
             shapeLayer.miterLimit = [shape[@"styles"][@"miterLimit"] floatValue];
         }
+        if ([shape[@"styles"][@"trim"] isKindOfClass:[NSDictionary class]] &&
+            [shape[@"styles"][@"trim"][@"start"] isKindOfClass:[NSNumber class]] &&
+            [shape[@"styles"][@"trim"][@"end"] isKindOfClass:[NSNumber class]]) {
+            shapeLayer.strokeStart = [shape[@"styles"][@"trim"][@"start"] floatValue];
+            shapeLayer.strokeEnd = [shape[@"styles"][@"trim"][@"end"] floatValue];
+        }
+        else {
+            shapeLayer.strokeStart = 0.0;
+            shapeLayer.strokeEnd = 1.0;
+        }
     }
 }
 
