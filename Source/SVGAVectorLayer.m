@@ -35,6 +35,9 @@
                 if ([shape[@"type"] isEqualToString:@"shape"]) {
                     [self addSublayer:[self createCurveLayer:shape]];
                 }
+                else if ([shape[@"type"] isEqualToString:@"ellipse"]) {
+                    [self addSublayer:[self createEllipseLayer:shape]];
+                }
                 else if ([shape[@"type"] isEqualToString:@"keep"] && previous != nil) {
                     for (CALayer *item in previous.sublayers) {
                         [self addSublayer:[NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:item]]];
@@ -53,6 +56,36 @@
         }
     }
     CAShapeLayer *shapeLayer = [bezierPath createLayer];
+    [self resetStyles:shapeLayer shape:shape];
+    return shapeLayer;
+}
+
+- (CALayer *)createEllipseLayer:(NSDictionary *)shape {
+    UIBezierPath *bezierPath;
+    if ([shape[@"args"] isKindOfClass:[NSDictionary class]]) {
+        if ([shape[@"args"][@"x"] isKindOfClass:[NSNumber class]] &&
+            [shape[@"args"][@"y"] isKindOfClass:[NSNumber class]] &&
+            [shape[@"args"][@"radiusX"] isKindOfClass:[NSNumber class]] &&
+            [shape[@"args"][@"radiusY"] isKindOfClass:[NSNumber class]]) {
+            CGFloat x = [shape[@"args"][@"x"] floatValue];
+            CGFloat y = [shape[@"args"][@"x"] floatValue];
+            CGFloat rx = [shape[@"args"][@"radiusX"] floatValue];
+            CGFloat ry = [shape[@"args"][@"radiusY"] floatValue];
+            bezierPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(x - rx, y - ry, rx * 2, ry * 2)];
+        }
+    }
+    if (bezierPath != nil) {
+        CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+        [shapeLayer setPath:[bezierPath CGPath]];
+        [self resetStyles:shapeLayer shape:shape];
+        return shapeLayer;
+    }
+    else {
+        return [CALayer layer];
+    }
+}
+
+- (void)resetStyles:(CAShapeLayer *)shapeLayer shape:(NSDictionary *)shape {
     shapeLayer.masksToBounds = NO;
     if ([shape[@"styles"] isKindOfClass:[NSDictionary class]]) {
         if ([shape[@"styles"][@"fill"] isKindOfClass:[NSArray class]]) {
@@ -85,7 +118,6 @@
             shapeLayer.lineWidth = [shape[@"styles"][@"strokeWidth"] floatValue];
         }
     }
-    return shapeLayer;
 }
 
 @end
