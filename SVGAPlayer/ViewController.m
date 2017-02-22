@@ -26,7 +26,7 @@
     self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     SVGAParser *parser = [[SVGAParser alloc] init];
-    [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-me/rainbowrose.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-vector/PinJump.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
             self.aPlayer.videoItem = videoItem;
             [self.aPlayer startAnimation];

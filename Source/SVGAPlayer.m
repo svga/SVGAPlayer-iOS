@@ -67,7 +67,7 @@
 }
 
 - (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay {
-    if (frame >= self.videoItem.frames) {
+    if (frame >= self.videoItem.frames || frame < 0) {
         return;
     }
     [self pauseAnimation];
