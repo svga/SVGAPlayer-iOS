@@ -18,6 +18,6 @@
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
 
-- (SVGAContentLayer *)requestLayer;
+- (SVGAContentLayer *)requestLayerWithBitmap:(UIImage *)bitmap;
 
 @end

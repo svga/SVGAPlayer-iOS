@@ -8,6 +8,7 @@
 
 #import "SVGAVideoSpriteEntity.h"
 #import "SVGAVideoSpriteFrameEntity.h"
+#import "SVGABitmapLayer.h"
 #import "SVGAContentLayer.h"
 #import "SVGAVectorLayer.h"
 
@@ -34,8 +35,12 @@
     return self;
 }
 
-- (SVGAContentLayer *)requestLayer {
+- (SVGAContentLayer *)requestLayerWithBitmap:(UIImage *)bitmap {
     SVGAContentLayer *layer = [[SVGAContentLayer alloc] initWithFrames:self.frames];
+    if (bitmap != nil) {
+        layer.bitmapLayer = [[SVGABitmapLayer alloc] initWithFrames:self.frames];
+        layer.bitmapLayer.contents = (__bridge id _Nullable)([bitmap CGImage]);
+    }
     layer.vectorLayer = [[SVGAVectorLayer alloc] initWithFrames:self.frames];
     return layer;
 }

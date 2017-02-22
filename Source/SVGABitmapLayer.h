@@ -6,8 +6,14 @@
 //  Copyright © 2017年 UED Center. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
+
+@class SVGAVideoSpriteFrameEntity;
 
 @interface SVGABitmapLayer : CALayer
+
+- (instancetype)initWithFrames:(NSArray<SVGAVideoSpriteFrameEntity *> *)frames;
+
+- (void)stepToFrame:(NSInteger)frame;
 
 @end

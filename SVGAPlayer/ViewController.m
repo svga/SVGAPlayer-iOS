@@ -26,7 +26,7 @@
     self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     SVGAParser *parser = [[SVGAParser alloc] init];
-    [parser parseWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://172.26.86.8:8080/movie.spec.zip?%u", arc4random()]] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-me/rainbowrose.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
             self.aPlayer.videoItem = videoItem;
             [self.aPlayer startAnimation];
@@ -36,7 +36,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    self.aPlayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, 100);
+    self.aPlayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, 300);
 }
 
 - (SVGAPlayer *)aPlayer {

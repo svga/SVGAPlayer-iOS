@@ -46,14 +46,7 @@
             CGFloat offsetY = self.frame.origin.y - ny;
             self.position = CGPointMake(self.position.x - offsetX, self.position.y - offsetY);
             self.mask = frameItem.maskLayer;
-            for (CALayer *sublayer in self.sublayers) {
-                if ([sublayer isKindOfClass:[CATextLayer class]]) {
-                    CGRect frame = sublayer.frame;
-                    frame.origin.x = (self.frame.size.width - sublayer.frame.size.width) / 2.0;
-                    frame.origin.y = (self.frame.size.height - sublayer.frame.size.height) / 2.0;
-                    sublayer.frame = frame;
-                }
-            }
+            [self.bitmapLayer stepToFrame:frame];
             [self.vectorLayer stepToFrame:frame];
         }
         else {
@@ -66,6 +59,20 @@
     [super setFrame:frame];
     self.bitmapLayer.frame = self.bounds;
     self.vectorLayer.frame = self.bounds;
+    for (CALayer *sublayer in self.sublayers) {
+        if ([sublayer isKindOfClass:[CATextLayer class]]) {
+            CGRect frame = sublayer.frame;
+            frame.origin.x = (self.frame.size.width - sublayer.frame.size.width) / 2.0;
+            frame.origin.y = (self.frame.size.height - sublayer.frame.size.height) / 2.0;
+            sublayer.frame = frame;
+        }
+    }
+}
+
+- (void)setBitmapLayer:(SVGABitmapLayer *)bitmapLayer {
+    [_bitmapLayer removeFromSuperlayer];
+    _bitmapLayer = bitmapLayer;
+    [self addSublayer:bitmapLayer];
 }
 
 - (void)setVectorLayer:(SVGAVectorLayer *)vectorLayer {
