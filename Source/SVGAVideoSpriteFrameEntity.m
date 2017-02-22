@@ -19,16 +19,15 @@
 @property (nonatomic, assign) CGFloat nx;
 @property (nonatomic, assign) CGFloat ny;
 @property (nonatomic, strong) CALayer *maskLayer;
-@property (nonatomic, strong) SVGAVectorLayer *vectorLayer;
+@property (nonatomic, strong) NSArray *shapes;
 
 @end
 
 @implementation SVGAVideoSpriteFrameEntity
 
-- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject previousFrame:(SVGAVideoSpriteFrameEntity *)previousFrame {
+- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject {
     self = [super init];
     if (self) {
-        _previousFrame = previousFrame;
         _alpha = 0.0;
         _layout = CGRectZero;
         _transform = CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
@@ -67,7 +66,7 @@
             }
             NSArray *shapes = JSONObject[@"shapes"];
             if ([shapes isKindOfClass:[NSArray class]]) {
-                self.vectorLayer = [[SVGAVectorLayer alloc] initWithSpec:shapes previous:self.previousFrame.vectorLayer];
+                _shapes = shapes;
             }
         }
         CGFloat llx = _transform.a * _layout.origin.x + _transform.c * _layout.origin.y + _transform.tx;

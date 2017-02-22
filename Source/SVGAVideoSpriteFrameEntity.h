@@ -18,9 +18,9 @@
 @property (nonatomic, readonly) CGRect layout;
 @property (nonatomic, readonly) CGFloat nx;
 @property (nonatomic, readonly) CGFloat ny;
-@property (nonatomic, readonly) SVGAVectorLayer *vectorLayer;
 @property (nonatomic, readonly) CALayer *maskLayer;
+@property (nonatomic, readonly) NSArray *shapes;
 
-- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject previousFrame:(SVGAVideoSpriteFrameEntity *)previousFrame;
+- (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
 
 @end

@@ -14,6 +14,8 @@
 
 @optional
 - (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player;
+- (void)svgaPlayerDidAnimatedToFrame:(NSInteger)frame;
+- (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage;
 
 @end
 
@@ -25,8 +27,11 @@
 @property (nonatomic, assign) BOOL clearsAfterStop;
 
 - (void)startAnimation;
+- (void)pauseAnimation;
 - (void)stopAnimation;
 - (void)clear;
+- (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay;
+- (void)stepToPercentage:(CGFloat)percentage andPlay:(BOOL)andPlay;
 
 #pragma mark - Dynamic Object
 

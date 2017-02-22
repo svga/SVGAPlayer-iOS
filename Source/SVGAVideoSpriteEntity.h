@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@class SVGAVideoSpriteFrameEntity;
+@class SVGAVideoSpriteFrameEntity, SVGAContentLayer;
 
 @interface SVGAVideoSpriteEntity : NSObject
 
@@ -16,5 +17,7 @@
 @property (nonatomic, readonly) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
+
+- (SVGAContentLayer *)requestLayer;
 
 @end

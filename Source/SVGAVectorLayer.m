@@ -8,47 +8,90 @@
 
 #import "SVGAVectorLayer.h"
 #import "SVGABezierPath.h"
+#import "SVGAVideoSpriteFrameEntity.h"
 
 @interface SVGAVectorLayer ()
 
-@property (nonatomic, strong) NSArray *spec;
+@property (nonatomic, strong) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
+@property (nonatomic, assign) NSInteger drawedFrame;
+@property (nonatomic, strong) NSDictionary *keepFrameCache;
 
 @end
 
 @implementation SVGAVectorLayer
 
-- (instancetype)initWithSpec:(NSArray *)spec previous:(SVGAVectorLayer *)previous
-{
+- (instancetype)initWithFrames:(NSArray *)frames {
     self = [super init];
     if (self) {
-        _spec = spec;
         self.backgroundColor = [UIColor clearColor].CGColor;
         self.masksToBounds = NO;
-        [self createSublayers:previous];
+        _frames = frames;
+        _keepFrameCache = [NSMutableDictionary dictionary];
+        [self resetKeepFrameCache];
+        [self stepToFrame:0];
     }
     return self;
 }
 
-- (void)createSublayers:(SVGAVectorLayer *)previous {
-    for (NSDictionary *shape in self.spec) {
-        if ([shape isKindOfClass:[NSDictionary class]]) {
-            if ([shape[@"type"] isKindOfClass:[NSString class]]) {
-                if ([shape[@"type"] isEqualToString:@"shape"]) {
-                    [self addSublayer:[self createCurveLayer:shape]];
-                }
-                else if ([shape[@"type"] isEqualToString:@"ellipse"]) {
-                    [self addSublayer:[self createEllipseLayer:shape]];
-                }
-                else if ([shape[@"type"] isEqualToString:@"rect"]) {
-                    [self addSublayer:[self createRectLayer:shape]];
-                }
-                else if ([shape[@"type"] isEqualToString:@"keep"] && previous != nil) {
-                    for (CALayer *item in previous.sublayers) {
-                        [self addSublayer:[NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:item]]];
+- (void)resetKeepFrameCache {
+    __block NSInteger lastKeep = 0;
+    __block NSMutableDictionary *keepFrameCache = [NSMutableDictionary dictionary];
+    [self.frames enumerateObjectsUsingBlock:^(SVGAVideoSpriteFrameEntity * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![self isKeepFrame:obj]) {
+            lastKeep = idx;
+        }
+        else {
+            [keepFrameCache setObject:@(lastKeep) forKey:@(idx)];
+        }
+    }];
+    self.keepFrameCache = [keepFrameCache copy];
+}
+
+- (void)stepToFrame:(NSInteger)frame {
+    if (frame < self.frames.count) {
+        [self drawFrame:frame];
+    }
+}
+
+- (BOOL)isKeepFrame:(SVGAVideoSpriteFrameEntity *)frameItem {
+    return frameItem.shapes.firstObject != nil &&
+           [frameItem.shapes.firstObject isKindOfClass:[NSDictionary class]] &&
+           [frameItem.shapes.firstObject[@"type"] isKindOfClass:[NSString class]] &&
+           [frameItem.shapes.firstObject[@"type"] isEqualToString:@"keep"];
+}
+
+- (NSInteger)requestKeepFrame:(NSInteger)frame {
+    if ([self.keepFrameCache objectForKey:@(frame)] != nil) {
+        return [[self.keepFrameCache objectForKey:@(frame)] integerValue];
+    }
+    return NSNotFound;
+}
+
+- (void)drawFrame:(NSInteger)frame {
+    if (frame < self.frames.count) {
+        SVGAVideoSpriteFrameEntity *frameItem = self.frames[frame];
+        if ([self isKeepFrame:frameItem]) {
+            if (self.drawedFrame == [self requestKeepFrame:frame]) {
+                return;
+            }
+        }
+        [self.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+        for (NSDictionary *shape in frameItem.shapes) {
+            if ([shape isKindOfClass:[NSDictionary class]]) {
+                if ([shape[@"type"] isKindOfClass:[NSString class]]) {
+                    if ([shape[@"type"] isEqualToString:@"shape"]) {
+                        [self addSublayer:[self createCurveLayer:shape]];
+                    }
+                    else if ([shape[@"type"] isEqualToString:@"ellipse"]) {
+                        [self addSublayer:[self createEllipseLayer:shape]];
+                    }
+                    else if ([shape[@"type"] isEqualToString:@"rect"]) {
+                        [self addSublayer:[self createRectLayer:shape]];
                     }
                 }
             }
         }
+        self.drawedFrame = frame;
     }
 }
 

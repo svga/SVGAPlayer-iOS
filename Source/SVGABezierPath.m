@@ -11,11 +11,17 @@
 @implementation SVGABezierPath
 
 - (void)setValues:(nonnull NSString *)values {
+    static NSMutableDictionary *caches;
     static NSArray *validMethods;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        caches = [NSMutableDictionary dictionary];
         validMethods = @[@"M",@"L",@"H",@"V",@"C",@"S",@"Q",@"R",@"A",@"Z",@"m",@"l",@"h",@"v",@"c",@"s",@"q",@"r",@"a",@"z"];
     });
+    if ([caches objectForKey:values] != nil) {
+        [self appendPath:[caches objectForKey:values]];
+        return;
+    }
     values = [values stringByReplacingOccurrencesOfString:@"," withString:@" "];
     NSArray<NSString *> *items = [values componentsSeparatedByString:@" "];
     NSString *currentMethod = @"";
@@ -48,6 +54,7 @@
         }
     }
     [self operate:currentMethod args:[args copy]];
+    [caches setObject:self forKey:values];
 }
 
 - (nonnull CAShapeLayer *)createLayer {

@@ -8,6 +8,8 @@
 
 #import "SVGAVideoSpriteEntity.h"
 #import "SVGAVideoSpriteFrameEntity.h"
+#import "SVGAContentLayer.h"
+#import "SVGAVectorLayer.h"
 
 @implementation SVGAVideoSpriteEntity
 
@@ -21,8 +23,7 @@
                 NSMutableArray<SVGAVideoSpriteFrameEntity *> *frames = [[NSMutableArray alloc] init];
                 [JSONFrames enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([obj isKindOfClass:[NSDictionary class]]) {
-                        [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj
-                                                                                   previousFrame:[frames lastObject]]];
+                        [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj]];
                     }
                 }];
                 _imageKey = imageKey;
@@ -31,6 +32,12 @@
         }
     }
     return self;
+}
+
+- (SVGAContentLayer *)requestLayer {
+    SVGAContentLayer *layer = [[SVGAContentLayer alloc] initWithFrames:self.frames];
+    layer.vectorLayer = [[SVGAVectorLayer alloc] initWithFrames:self.frames];
+    return layer;
 }
 
 @end

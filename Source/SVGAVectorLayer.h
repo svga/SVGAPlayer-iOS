@@ -8,8 +8,12 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+@class SVGAVideoSpriteFrameEntity;
+
 @interface SVGAVectorLayer : CALayer
 
-- (instancetype)initWithSpec:(NSArray *)spec previous:(SVGAVectorLayer *)previous;
+- (instancetype)initWithFrames:(NSArray<SVGAVideoSpriteFrameEntity *> *)frames;
+
+- (void)stepToFrame:(NSInteger)frame;
 
 @end
