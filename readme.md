@@ -1,5 +1,15 @@
 # SVGAPlayer
 
+## Version
+
+### 1.1.0-beta
+
+SVGAPlayer 的第 2 个版本，对应 SVGA-1.1.0 协议，支持矢量动画，向下兼容 SVGA-1.0.0 协议。
+
+### 0.1.0
+
+SVGAPlayer 的第 1 个版本，对应 SVGA-1.0.0 协议，支持位图（位移、旋转、拉伸、透明度）动画。
+
 ## SVGA Format
 
 * SVGA 是一个私有的动画格式，由 YY UED 主导开发。
@@ -8,82 +18,23 @@
 
 @see http://code.yy.com/ued/SVGA-Format
 
-## 性能
+## 安装
 
-一个 600 * 600 像素的全通道动画，144 Frames， FPS = 20，在 iPhone 上测试结果为：
+尚未开源，请使用源码方式集成本库。
 
-### 解码 (iPhone 5s)
-* 峰值：CPU 小于 35% Memory 小于 12.5M
-* 持续时间：小于 200ms
+## 使用
 
-### 播放 (iPhone 5s)
-* 峰值：CPU 小于 5% Memory 小于 12.5M
-* 持续时间：一直
-
-### 解码 (iPhone 6Plus)
-* 峰值：CPU 小于 22% Memory 小于 12.5M
-* 持续时间：小于 150ms
-
-### 播放 (iPhone 6Plus)
-* 峰值：CPU 小于 4% Memory 小于 12.5M
-* 持续时间：一直
-
-## SVGA 数据流大小
-
-一个 SVGA 文件包括所有的素材以及序列数据，一个 600 * 600 像素的全通道动画，包含 144 Frames，未压缩前大小为 800K，压缩后大小为 280K。
-
-** 压缩工具为 gzip pngquant ** 
-
-## SVGA 的优势
-
-### 对比 WebP / A-PNG
-
-WebP 以及 A-PNG 均支持全通道动画格式，在小动画播放上优势明显，但缺点在于其播放大动画时内存或CPU(GPU)占用非常严重，究其原因，终究未能逃脱逐帖逐像素点渲染的陷阱。
-
-### 对比 MP4
-
-MP4 不支持透明通道，不应该考虑作礼物类动画。
-
-### 对比 GIF
-
-GIF 与 WebP / A-PNG 原理，实际上是一致的，并且其不支持半透明通道，在播放过程中，会有白边产生，颜色也只支持 256 色。
-
-### SVGA
-
-SVGA 在文件大小上，远小于以上格式，并且 SVGA 是一种无损压缩格式，不会影响动画效果。 SVGA 在渲染、播放过程中，只会操纵可变元素的位移、透明度、缩放等参数，开销远小于逐帖渲染方案。
-
-## 原理
-
-一个 SVGA 动画由多个元素构成，比较一个天使，可以拆分为头、手、脚、身四个部分（具体如何切分，是由设计师决定的），这些元素是可以活动的，不同的活动参数构成完整的一帖。
-
-在动画播放的过程中，SVGA 不需要重新渲染新的一帖，SVGA 采取的方法是，找到变化的元素，改变它的参数，使其产生位移、透明度变化等特征。
-
-一个动画可以理解为 元素 + 参数 = 帖， 帖 + 帖 = 动画。
-
-同时，在 iOS 上，使用轻量级的 CALayer 作为元素的容器，可以大幅度地提升性能。
-
-## 工作方式
-
-* SVGA 对于设计师来说十分友好， 它并没有要求设计师使用私有的设计工具。 
-* 设计师可以使用任意位图工具（例如 Photoshop）进行素描，然后使用（Flash Professional / Animate CC）进行动画的构建。
-* 最后，设计师可以通过插件，自行导出 SVG 序列帖，再通过 SVGAConverter 进行格式转换即可。
-
-转换工具 @see http://code.yy.com/ued/SVGAConverter
-
-## 客户端调用方法
-
-CocoaPods 是推荐的方式，Carthage 是更为推荐的方式。
-
-一个 SVGA 文件可以由 SVGAPlayer 进行播放。
-
-你可以播放一个远程的 SVGA 动画， SVGAPlayer 会自己为你缓存该文件，下次播放时，不会被重复下载。
+### 初始化 Player
 
 ```
+@interface XXX()
+@property (nonatomic, strong) SVGAPlayer *aPlayer; // Init SVGAPlayer by yourself.
+@end
+```
 
-// interface
-@property (nonatomic, strong) SVGAPlayer *aPlayer; 
+### 初始化 Parser 并加载资源文件
 
-// implementation
+```
 SVGAParser *parser = [[SVGAParser alloc] init];
 [parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/svga-samples/angel.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
     if (videoItem != nil) {
@@ -92,18 +43,42 @@ SVGAParser *parser = [[SVGAParser alloc] init];
     }
 } failureBlock:nil];
 
-
 ```
 
-** 使用一个远程的地址进行播放是推荐的方式 **
+## API
 
-## 动态对象
+### Properties
+* id<SVGAPlayerDelegate> delegate; - 各种回调
+* SVGAVideoEntity *videoItem; - 动画实例
+* int loops; - 循环次数，0 = 无限循环
+* BOOL clearsAfterStop; - 是否在结束播放时清空画布。
 
-自 0.1.0 版本起，SVGAPlayer 支持动态对象，可以通过以下方法，替换动画文件中的指定图像，以及动态添加富文本。
+### Methods
+
+* (void)startAnimation; - 从 0 帧开始播放动画
+* (void)pauseAnimation; - 在当前帧暂停动画
+* (void)stopAnimation; - 停止播放动画，如果 clearsAfterStop == YES，则同时清空画布
+* (void)clear; - 清空当前画布
+* (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay; - 跳到第 N 帧 (frame 0 = 第 1 帧)，然后 andPlay == YES 时播放动画
+* (void)stepToPercentage:(CGFloat)percentage andPlay:(BOOL)andPlay; - 跳到动画对应百分比的帧，然后 andPlay == YES 时播放动画
+* (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer; - 设置动态图像
+* (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey; - 设置动态文本
+* (void)clearDynamicObjects; - 清空动态图像和文本
+
+### SVGAPlayerDelegate
+
+* @optional
+* - (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player; - 动画播放结束后回调
+* - (void)svgaPlayerDidAnimatedToFrame:(NSInteger)frame; - 动画播放到某一帖后回调
+* - (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage; - 动画播放到某一进度百分比后回调
+
+### 动态对象
+
+可以通过以下方式，替换动画文件中的指定图像，以及动态添加富文本。
 
 * 必须在 startAnimation 方法执行前进行配置
 
-### 动态图像
+#### 动态图像
 
 ```
 CALayer *iconLayer = [CALayer layer];
@@ -114,7 +89,7 @@ iconLayer.borderColor = [UIColor colorWithRed:0xea/255.0 green:0xb3/255.0 blue:0
 [self.aPlayer setImage:iconImage forKey:@"99" referenceLayer:iconLayer];
 ```
 
-### 动态文本
+#### 动态文本
 
 ```
 NSShadow *shadow = [NSShadow new];
@@ -128,13 +103,3 @@ NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小�
                                                                         }];
 [self.aPlayer setAttributedText:text forKey:@"banner"];
 ```
-
-## 参数设置
-
-* FPS, FPS 由 SVGA 动画自身决定，客户端不能修改，在 SVGAConverter 转换的过程中添加该参数，默认的 FPS = 20。
-* loops, 循环次数，如果设为 0，则会一直播放，设为 1，则在播放一次后停止。
-* clearsAfterStop, 是否在停止播放后清空画布，默认为 false。 
-
-## 开源协议
-
-* 本项目尚未开源，属于私有项目，请勿向外传播。
