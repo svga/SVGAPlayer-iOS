@@ -212,21 +212,17 @@
                 }
             }
             if (accept) {
-                shapeLayer.lineDashPattern = shape[@"styles"][@"lineDash"];
+                if ([shape[@"styles"][@"lineDash"] count] == 3) {
+                    shapeLayer.lineDashPhase = [shape[@"styles"][@"lineDash"][2] floatValue];
+                    shapeLayer.lineDashPattern = @[
+                                                   ([shape[@"styles"][@"lineDash"][0] floatValue] < 1.0 ? @(1.0) : shape[@"styles"][@"lineDash"][0]),
+                                                   ([shape[@"styles"][@"lineDash"][1] floatValue] < 0.1 ? @(0.1) : shape[@"styles"][@"lineDash"][1])
+                                                   ];
+                }
             }
         }
         if ([shape[@"styles"][@"miterLimit"] isKindOfClass:[NSNumber class]]) {
             shapeLayer.miterLimit = [shape[@"styles"][@"miterLimit"] floatValue];
-        }
-        if ([shape[@"styles"][@"trim"] isKindOfClass:[NSDictionary class]] &&
-            [shape[@"styles"][@"trim"][@"start"] isKindOfClass:[NSNumber class]] &&
-            [shape[@"styles"][@"trim"][@"end"] isKindOfClass:[NSNumber class]]) {
-            shapeLayer.strokeStart = [shape[@"styles"][@"trim"][@"start"] floatValue];
-            shapeLayer.strokeEnd = [shape[@"styles"][@"trim"][@"end"] floatValue];
-        }
-        else {
-            shapeLayer.strokeStart = 0.0;
-            shapeLayer.strokeEnd = 1.0;
         }
     }
 }
