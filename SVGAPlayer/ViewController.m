@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.aPlayer];
     self.aPlayer.delegate = self;
@@ -26,10 +27,14 @@
     self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     SVGAParser *parser = [[SVGAParser alloc] init];
-    [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-vector/PinJump.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-me/rose.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
-            self.aPlayer.videoItem = videoItem;
-            [self.aPlayer startAnimation];
+            SVGAExporter *exporter = [SVGAExporter new];
+            exporter.videoItem = videoItem;
+            [exporter toImages];
+//            [exporter saveImages:@"/Users/cuiminghui/Desktop/Test" filePrefix:@"rose_"];
+//            self.aPlayer.videoItem = videoItem;
+//            [self.aPlayer startAnimation];
         }
     } failureBlock:nil];
 }

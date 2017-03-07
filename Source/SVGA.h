@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SVGAParser.h"
 #import "SVGAPlayer.h"
+#import "SVGAExporter.h"
 
 @interface SVGA : NSObject
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 904D41F71D223DD20085A21A /* SVGABezierPath.m */; };
+		9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9052FC621E6EB8D4007BC925 /* SVGAExporter.m */; };
 		90A364D11E5AEC11009347F1 /* SVGABitmapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D01E5AEC11009347F1 /* SVGABitmapLayer.m */; };
 		90A364D41E5AEC1C009347F1 /* SVGAVectorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D31E5AEC1C009347F1 /* SVGAVectorLayer.m */; };
 		90A364D71E5AECBD009347F1 /* SVGAVideoSpriteEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D61E5AECBD009347F1 /* SVGAVideoSpriteEntity.m */; };
@@ -31,6 +32,8 @@
 		47C1F5D8678008484F80AF1A /* Pods-SVGAPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		904D41F61D223DD20085A21A /* SVGABezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGABezierPath.h; sourceTree = "<group>"; };
 		904D41F71D223DD20085A21A /* SVGABezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGABezierPath.m; sourceTree = "<group>"; };
+		9052FC611E6EB8D4007BC925 /* SVGAExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAExporter.h; sourceTree = "<group>"; };
+		9052FC621E6EB8D4007BC925 /* SVGAExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAExporter.m; sourceTree = "<group>"; };
 		90A364CF1E5AEC11009347F1 /* SVGABitmapLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGABitmapLayer.h; sourceTree = "<group>"; };
 		90A364D01E5AEC11009347F1 /* SVGABitmapLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGABitmapLayer.m; sourceTree = "<group>"; };
 		90A364D21E5AEC1B009347F1 /* SVGAVectorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAVectorLayer.h; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 				90A364D31E5AEC1C009347F1 /* SVGAVectorLayer.m */,
 				90A677041D13BF77008A69F3 /* SVGAPlayer.h */,
 				90A677051D13BF77008A69F3 /* SVGAPlayer.m */,
+				9052FC611E6EB8D4007BC925 /* SVGAExporter.h */,
+				9052FC621E6EB8D4007BC925 /* SVGAExporter.m */,
 				904D41F61D223DD20085A21A /* SVGABezierPath.h */,
 				904D41F71D223DD20085A21A /* SVGABezierPath.m */,
 			);
@@ -284,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90A676E81D13A6DF008A69F3 /* ViewController.m in Sources */,
+				9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */,
 				90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */,
 				90A364DA1E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m in Sources */,
 				90A364D11E5AEC11009347F1 /* SVGABitmapLayer.m in Sources */,
