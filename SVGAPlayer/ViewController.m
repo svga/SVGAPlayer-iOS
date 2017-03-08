@@ -29,12 +29,12 @@
     SVGAParser *parser = [[SVGAParser alloc] init];
     [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-me/rose.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
-            SVGAExporter *exporter = [SVGAExporter new];
-            exporter.videoItem = videoItem;
-            [exporter toImages];
+//            SVGAExporter *exporter = [SVGAExporter new];
+//            exporter.videoItem = videoItem;
+//            [exporter toImages];
 //            [exporter saveImages:@"/Users/cuiminghui/Desktop/Test" filePrefix:@"rose_"];
-//            self.aPlayer.videoItem = videoItem;
-//            [self.aPlayer startAnimation];
+            self.aPlayer.videoItem = videoItem;
+            [self.aPlayer startAnimation];
         }
     } failureBlock:nil];
 }
