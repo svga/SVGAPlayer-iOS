@@ -114,6 +114,7 @@
                 NSAttributedString *text = self.dynamicTexts[sprite.imageKey];
                 CGSize size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
                 CATextLayer *textLayer = [CATextLayer layer];
+                textLayer.contentsScale = [[UIScreen mainScreen] scale];
                 [textLayer setString:self.dynamicTexts[sprite.imageKey]];
                 textLayer.frame = CGRectMake(0, 0, size.width, size.height);
                 [contentLayer addSublayer:textLayer];
