@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SVGAPlayer"
-  s.version      = "0.1.0"
+  s.version      = "0.0.1-A010"
   s.summary      = "SVGAPlayer 是一个高性能的大动画播放器，目前只支持 iOS，Android 正在开发中。"
 
   s.description  = <<-DESC

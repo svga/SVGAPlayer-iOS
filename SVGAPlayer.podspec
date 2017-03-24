@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SVGAPlayer"
-  s.version      = "0.1.0"
+  s.version      = "1.1.0"
   s.summary      = "SVGAPlayer 是一个高性能的大动画播放器，目前只支持 iOS，Android 正在开发中。"
 
   s.description  = <<-DESC
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "http://code.yy.com/ued/SVGAPlayer.git", :tag => "0.1.0" }
+  s.source       = { :git => "http://code.yy.com/ued/SVGAPlayer.git", :tag => "1.1.0" }
 
   s.source_files  = "Source", "Source/*.{h,m}"
 
