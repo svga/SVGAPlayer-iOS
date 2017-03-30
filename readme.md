@@ -2,7 +2,7 @@
 
 ## Version
 
-### 1.1.0-beta
+### 1.1.1
 
 SVGAPlayer 的第 2 个版本，对应 SVGA-1.1.0 协议，支持矢量动画，向下兼容 SVGA-1.0.0 协议。
 
@@ -20,7 +20,12 @@ SVGAPlayer 的第 1 个版本，对应 SVGA-1.0.0 协议，支持位图（位移
 
 ## 安装
 
-尚未开源，请使用源码方式集成本库。
+### CocoaPods
+
+添加依赖到 Podfile
+```
+pod 'SVGAPlayer'
+```
 
 ## 使用
 
