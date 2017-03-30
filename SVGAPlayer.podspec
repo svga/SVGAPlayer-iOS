@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "http://code.yy.com/ued/SVGAPlayer.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/yyued/SVGAPlayer-iOS.git", :tag => s.version }
 
   s.source_files  = "Source", "Source/*.{h,m}"
 
