@@ -27,7 +27,7 @@
     self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     SVGAParser *parser = [[SVGAParser alloc] init];
-    [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-me/rose.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    [parser parseWithURL:[NSURL URLWithString:@"http://legox.yy.com/svga/svga-yue/feng.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
 //            SVGAExporter *exporter = [SVGAExporter new];
 //            exporter.videoItem = videoItem;

@@ -1,9 +1,9 @@
 
 Pod::Spec.new do |s|
 
-  s.name         = "SVGAPlayer"
-  s.version      = "1.1.1"
-  s.summary      = "SVGAPlayer 是一个高性能的动画播放器"
+  s.name         = 'SVGAPlayer'
+  s.version      = '1.1.2'
+  s.summary      = 'SVGAPlayer 是一个高性能的动画播放器'
 
   s.description  = <<-DESC
                    SVGA 是一个私有的动画格式，由 YY UED 主导开发。
@@ -11,20 +11,29 @@ Pod::Spec.new do |s|
                    SVGA 可以在 iOS / Android / Web(PC/移动端) 实现高性能的动画播放。
                    DESC
 
-  s.homepage     = "http://code.yy.com/ued/SVGAPlayer"
+  s.homepage     = 'http://code.yy.com/ued/SVGAPlayer'
 
-  s.license      = "Private"
+  s.license      = 'Private'
  
-  s.author       = { "PonyCui" => "cuiminghui1@yy.com" }
+  s.author       = { 'PonyCui' => 'cuiminghui1@yy.com' }
   
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, '7.0'
 
-  s.source       = { :git => "https://github.com/yyued/SVGAPlayer-iOS.git", :tag => s.version }
-
-  s.source_files  = "Source", "Source/*.{h,m}"
+  s.source       = { :git => 'https://github.com/yyued/SVGAPlayer-iOS.git', :branch => s.version }
 
   s.requires_arc = true
 
   s.dependency 'SSZipArchive'
+
+  s.default_subspec = 'Common'
+
+  spec.subspec 'Common' do |ss|
+    ss.source_files  = 'Source', 'Source/*.{h,m}'
+  end
+
+  spec.subspec 'React' do |ss|
+    ss.dependency      'SVGAPlayer/Common'
+    ss.source_files  = 'React', 'React/*.{h,m}'
+  end
 
 end
