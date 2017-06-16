@@ -27,11 +27,11 @@ Pod::Spec.new do |s|
 
   s.default_subspec = 'Common'
 
-  spec.subspec 'Common' do |ss|
+  s.subspec 'Common' do |ss|
     ss.source_files  = 'Source', 'Source/*.{h,m}'
   end
 
-  spec.subspec 'React' do |ss|
+  s.subspec 'React' do |ss|
     ss.dependency      'SVGAPlayer/Common'
     ss.source_files  = 'React', 'React/*.{h,m}'
   end
