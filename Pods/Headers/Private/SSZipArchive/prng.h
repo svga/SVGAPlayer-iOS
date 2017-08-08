@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/aes/prng.h
+../../../SSZipArchive/SSZipArchive/minizip/aes/prng.h

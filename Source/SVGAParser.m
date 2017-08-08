@@ -111,7 +111,9 @@
             NSString *cacheDir = [self cacheDirectory:cacheKey];
             if ([cacheDir isKindOfClass:[NSString class]]) {
                 [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir withIntermediateDirectories:NO attributes:nil error:nil];
-                [SSZipArchive unzipFileAtPath:tmpPath toDestination:[self cacheDirectory:cacheKey] progressHandler:nil completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
+                [SSZipArchive unzipFileAtPath:tmpPath toDestination:[self cacheDirectory:cacheKey] progressHandler:^(NSString * _Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) {
+                    
+                } completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
                     if (error != nil) {
                         if (failureBlock) {
                             failureBlock(error);
