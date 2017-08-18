@@ -11,11 +11,11 @@
 @implementation SVGABezierPath
 
 - (void)setValues:(nonnull NSString *)values {
-    static NSMutableDictionary *caches;
+    static NSCache *caches;
     static NSArray *validMethods;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        caches = [NSMutableDictionary dictionary];
+        caches = [NSCache new];
         validMethods = @[@"M",@"L",@"H",@"V",@"C",@"S",@"Q",@"R",@"A",@"Z",@"m",@"l",@"h",@"v",@"c",@"s",@"q",@"r",@"a",@"z"];
     });
     if ([caches objectForKey:values] != nil) {

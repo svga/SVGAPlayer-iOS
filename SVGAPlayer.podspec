@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SVGAPlayer"
-  s.version      = "1.1.2"
+  s.version      = "1.1.3"
   s.summary      = "SVGAPlayer 是一个高性能的动画播放器"
 
   s.description  = <<-DESC
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.homepage     = "http://code.yy.com/ued/SVGAPlayer"
 
-  s.license      = "Private"
+  s.license      = "Apache 2.0"
  
   s.author       = { "PonyCui" => "cuiminghui1@yy.com" }
   
