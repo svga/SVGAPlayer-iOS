@@ -17,6 +17,13 @@
 
 @implementation SVGAParser
 
+static NSOperationQueue *parseQueue;
+
++ (void)load {
+    parseQueue = [NSOperationQueue new];
+    parseQueue.maxConcurrentOperationCount = 1;
+}
+
 - (void)parseWithURL:(nonnull NSURL *)URL
      completionBlock:(void ( ^ _Nonnull )(SVGAVideoEntity * _Nullable videoItem))completionBlock
         failureBlock:(void ( ^ _Nullable)(NSError * _Nullable error))failureBlock {
@@ -97,7 +104,7 @@
              cacheKey:(nonnull NSString *)cacheKey
       completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
          failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
-    [[NSOperationQueue new] addOperationWithBlock:^{
+    [parseQueue addOperationWithBlock:^{
         SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
         if (cacheItem != nil) {
             if (completionBlock) {
