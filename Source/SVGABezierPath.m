@@ -8,9 +8,20 @@
 
 #import "SVGABezierPath.h"
 
+@interface SVGABezierPath ()
+
+@property (nonatomic, assign) BOOL displaying;
+@property (nonatomic, copy) NSString *backValues;
+
+@end
+
 @implementation SVGABezierPath
 
 - (void)setValues:(nonnull NSString *)values {
+    if (!self.displaying) {
+        self.backValues = values;
+        return;
+    }
     static NSArray *validMethods;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -51,6 +62,10 @@
 }
 
 - (nonnull CAShapeLayer *)createLayer {
+    if (!self.displaying) {
+        self.displaying = YES;
+        [self setValues:self.backValues];
+    }
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.path = self.CGPath;
     layer.fillColor = [UIColor blackColor].CGColor;

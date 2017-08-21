@@ -61,6 +61,23 @@ static NSOperationQueue *parseQueue;
     }] resume];
 }
 
+- (void)parseWithNamed:(NSString *)named
+              inBundle:(NSBundle *)inBundle
+       completionBlock:(void (^)(SVGAVideoEntity * _Nonnull))completionBlock
+          failureBlock:(void (^)(NSError * _Nonnull))failureBlock {
+    NSString *filePath = [(inBundle ?: [NSBundle mainBundle]) pathForResource:named ofType:@"svga"];
+    if (filePath != nil) {
+        NSString *cacheKey = [self cacheKey:[NSURL fileURLWithPath:filePath]];
+        [self parseWithData:[NSData dataWithContentsOfFile:filePath]
+                   cacheKey:cacheKey
+            completionBlock:completionBlock
+               failureBlock:failureBlock];
+    }
+    else {
+        failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
+    }
+}
+
 - (void)parseWithCacheKey:(nonnull NSString *)cacheKey
           completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
              failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
@@ -104,12 +121,25 @@ static NSOperationQueue *parseQueue;
              cacheKey:(nonnull NSString *)cacheKey
       completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
          failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
+    SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
+    if (cacheItem != nil) {
+        if (completionBlock) {
+            completionBlock(cacheItem);
+        }
+        return;
+    }
     [parseQueue addOperationWithBlock:^{
-        SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
-        if (cacheItem != nil) {
-            if (completionBlock) {
-                completionBlock(cacheItem);
-            }
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[self cacheDirectory:cacheKey]]) {
+            [self parseWithCacheKey:cacheKey completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+                if (completionBlock) {
+                    completionBlock(videoItem);
+                }
+            } failureBlock:^(NSError * _Nonnull error) {
+                [self clearCache:cacheKey];
+                if (failureBlock) {
+                    failureBlock(error);
+                }
+            }];
             return;
         }
         NSString *tmpPath = [NSTemporaryDirectory() stringByAppendingFormat:@"%u.svga", arc4random()];
