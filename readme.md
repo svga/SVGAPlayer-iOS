@@ -2,6 +2,10 @@
 
 ## Version
 
+### 1.1.6
+
+增加 stopWhenTracking 属性，通过改变 CADisplayLink 所加入的 RunLoopMode 类型来控制动画在用户拖动界面(Tracking)时是否继续播放。
+
 ### 1.1.4
 
 改进 SVGAParser 在多任务处理时，存在的并发锁以及线程安全问题。
@@ -61,6 +65,7 @@ SVGAParser *parser = [[SVGAParser alloc] init];
 * SVGAVideoEntity *videoItem; - 动画实例
 * int loops; - 循环次数，0 = 无限循环
 * BOOL clearsAfterStop; - 是否在结束播放时清空画布。
+* BOOL stopWhenTracking; - 是否用户拖动 UI 的时候继续播放动画。
 
 ### Methods
 
@@ -112,3 +117,5 @@ NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小�
                                                                         }];
 [self.aPlayer setAttributedText:text forKey:@"banner"];
 ```
+
+
