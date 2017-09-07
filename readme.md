@@ -2,6 +2,10 @@
 
 ## Version
 
+### 1.1.6
+
+CADisplayLink 的执行模式改为 NSRunLoopCommonModes，ScrollView 滚动时，SVGAPlayer 将不再被暂停。
+
 ### 1.1.4
 
 改进 SVGAParser 在多任务处理时，存在的并发锁以及线程安全问题。
