@@ -25,6 +25,7 @@
 @property (nonatomic, strong) SVGAVideoEntity *videoItem;
 @property (nonatomic, assign) int loops;
 @property (nonatomic, assign) BOOL clearsAfterStop;
+@property (nonatomic, assign) BOOL stopWhenTracking;
 
 - (void)startAnimation;
 - (void)pauseAnimation;

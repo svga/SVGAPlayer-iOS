@@ -40,7 +40,7 @@
     _loopCount = 0;
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
     self.displayLink.frameInterval = 60 / self.videoItem.FPS;
-    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:[self currentRunLoopMode]];
 }
 
 - (void)pauseAnimation {
@@ -54,7 +54,7 @@
 - (void)stopAnimation:(BOOL)clear {
     if (![self.displayLink isPaused]) {
         [self.displayLink setPaused:YES];
-        [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:[self currentRunLoopMode]];
     }
     if (clear) {
         [self clear];
@@ -76,7 +76,7 @@
     if (andPlay) {
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
         self.displayLink.frameInterval = 60 / self.videoItem.FPS;
-        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:[self currentRunLoopMode]];
     }
 }
 
@@ -272,4 +272,11 @@
     return _dynamicTexts;
 }
 
+- (NSRunLoopMode)currentRunLoopMode
+{
+    if (self.stopWhenTracking) {
+        return NSDefaultRunLoopMode;
+    }
+    return NSRunLoopCommonModes;
+}
 @end
