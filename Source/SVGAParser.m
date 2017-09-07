@@ -17,6 +17,13 @@
 
 @implementation SVGAParser
 
+static NSOperationQueue *parseQueue;
+
++ (void)load {
+    parseQueue = [NSOperationQueue new];
+    parseQueue.maxConcurrentOperationCount = 1;
+}
+
 - (void)parseWithURL:(nonnull NSURL *)URL
      completionBlock:(void ( ^ _Nonnull )(SVGAVideoEntity * _Nullable videoItem))completionBlock
         failureBlock:(void ( ^ _Nullable)(NSError * _Nullable error))failureBlock {
@@ -52,6 +59,23 @@
             }
         }
     }] resume];
+}
+
+- (void)parseWithNamed:(NSString *)named
+              inBundle:(NSBundle *)inBundle
+       completionBlock:(void (^)(SVGAVideoEntity * _Nonnull))completionBlock
+          failureBlock:(void (^)(NSError * _Nonnull))failureBlock {
+    NSString *filePath = [(inBundle ?: [NSBundle mainBundle]) pathForResource:named ofType:@"svga"];
+    if (filePath != nil) {
+        NSString *cacheKey = [self cacheKey:[NSURL fileURLWithPath:filePath]];
+        [self parseWithData:[NSData dataWithContentsOfFile:filePath]
+                   cacheKey:cacheKey
+            completionBlock:completionBlock
+               failureBlock:failureBlock];
+    }
+    else {
+        failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
+    }
 }
 
 - (void)parseWithCacheKey:(nonnull NSString *)cacheKey
@@ -97,12 +121,25 @@
              cacheKey:(nonnull NSString *)cacheKey
       completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
          failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
-    [[NSOperationQueue new] addOperationWithBlock:^{
-        SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
-        if (cacheItem != nil) {
-            if (completionBlock) {
-                completionBlock(cacheItem);
-            }
+    SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
+    if (cacheItem != nil) {
+        if (completionBlock) {
+            completionBlock(cacheItem);
+        }
+        return;
+    }
+    [parseQueue addOperationWithBlock:^{
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[self cacheDirectory:cacheKey]]) {
+            [self parseWithCacheKey:cacheKey completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+                if (completionBlock) {
+                    completionBlock(videoItem);
+                }
+            } failureBlock:^(NSError * _Nonnull error) {
+                [self clearCache:cacheKey];
+                if (failureBlock) {
+                    failureBlock(error);
+                }
+            }];
             return;
         }
         NSString *tmpPath = [NSTemporaryDirectory() stringByAppendingFormat:@"%u.svga", arc4random()];
@@ -111,7 +148,9 @@
             NSString *cacheDir = [self cacheDirectory:cacheKey];
             if ([cacheDir isKindOfClass:[NSString class]]) {
                 [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir withIntermediateDirectories:NO attributes:nil error:nil];
-                [SSZipArchive unzipFileAtPath:tmpPath toDestination:[self cacheDirectory:cacheKey] progressHandler:nil completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
+                [SSZipArchive unzipFileAtPath:tmpPath toDestination:[self cacheDirectory:cacheKey] progressHandler:^(NSString * _Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) {
+                    
+                } completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
                     if (error != nil) {
                         if (failureBlock) {
                             failureBlock(error);

@@ -128,9 +128,51 @@
 }
 
 - (void)resize {
-    CGFloat ratio = self.frame.size.width / self.videoItem.videoSize.width;
-    CGPoint offset = CGPointMake((1.0 - ratio) / 2.0 * self.videoItem.videoSize.width, (1 - ratio) / 2.0 * self.videoItem.videoSize.height);
-    self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+    if (self.contentMode == UIViewContentModeScaleAspectFit) {
+        CGFloat videoRatio = self.videoItem.videoSize.width / self.videoItem.videoSize.height;
+        CGFloat layerRatio = self.bounds.size.width / self.bounds.size.height;
+        if (videoRatio > layerRatio) {
+            CGFloat ratio = self.bounds.size.width / self.videoItem.videoSize.width;
+            CGPoint offset = CGPointMake(
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.width,
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.height
+                                         - (self.bounds.size.height - self.videoItem.videoSize.height * ratio) / 2.0
+                                         );
+            self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+        }
+        else {
+            CGFloat ratio = self.bounds.size.height / self.videoItem.videoSize.height;
+            CGPoint offset = CGPointMake(
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.width - (self.bounds.size.width - self.videoItem.videoSize.width * ratio) / 2.0,
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.height);
+            self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+        }
+    }
+    else if (self.contentMode == UIViewContentModeScaleAspectFill) {
+        CGFloat videoRatio = self.videoItem.videoSize.width / self.videoItem.videoSize.height;
+        CGFloat layerRatio = self.bounds.size.width / self.bounds.size.height;
+        if (videoRatio < layerRatio) {
+            CGFloat ratio = self.bounds.size.width / self.videoItem.videoSize.width;
+            CGPoint offset = CGPointMake(
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.width,
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.height
+                                         - (self.bounds.size.height - self.videoItem.videoSize.height * ratio) / 2.0
+                                         );
+            self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+        }
+        else {
+            CGFloat ratio = self.bounds.size.height / self.videoItem.videoSize.height;
+            CGPoint offset = CGPointMake(
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.width - (self.bounds.size.width - self.videoItem.videoSize.width * ratio) / 2.0,
+                                         (1.0 - ratio) / 2.0 * self.videoItem.videoSize.height);
+            self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+        }
+    }
+    else {
+        CGFloat ratio = self.frame.size.width / self.videoItem.videoSize.width;
+        CGPoint offset = CGPointMake((1.0 - ratio) / 2.0 * self.videoItem.videoSize.width, (1 - ratio) / 2.0 * self.videoItem.videoSize.height);
+        self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+    }
 }
 
 - (void)layoutSubviews {

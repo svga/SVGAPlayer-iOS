@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/aes/sha1.h
+../../../SSZipArchive/SSZipArchive/minizip/aes/sha1.h

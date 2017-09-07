@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/aes/brg_types.h
+../../../SSZipArchive/SSZipArchive/minizip/aes/brg_types.h
