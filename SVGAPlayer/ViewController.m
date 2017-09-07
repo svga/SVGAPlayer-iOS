@@ -21,15 +21,6 @@ static SVGAParser *parser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.aPlayer];
-    self.aPlayer.delegate = self;
-    self.aPlayer.frame = CGRectMake(0, 0, 320, 320);
-    self.aPlayer.loops = 0;
-    self.aPlayer.clearsAfterStop = YES;
-    parser = [[SVGAParser alloc] init];
-    [self onChange:nil];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -66,6 +57,32 @@ static SVGAParser *parser;
         _aPlayer = [[SVGAPlayer alloc] init];
     }
     return _aPlayer;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 64;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return self.tableView.frame.size.width;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.width)];
+    
+    view.backgroundColor = [UIColor blackColor];
+    
+    [view addSubview:self.aPlayer];
+    self.aPlayer.delegate = self;
+    self.aPlayer.frame = CGRectMake(0, 0, 320, 320);
+    self.aPlayer.loops = 0;
+    self.aPlayer.clearsAfterStop = YES;
+//    self.aPlayer.stopWhenTracking = YES;
+    
+    parser = [[SVGAParser alloc] init];
+    [self onChange:nil];
+    
+    return view;
 }
 
 @end
