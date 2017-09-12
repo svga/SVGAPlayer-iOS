@@ -4,25 +4,19 @@
 
 ### 1.1.6
 
-CADisplayLink 的执行模式改为 NSRunLoopCommonModes，ScrollView 滚动时，SVGAPlayer 将不再被暂停。
+Change CADisplayLink mode to NSRunLoopCommonModes, SVGAPlayer will not pause while ScrollView tracking.
+
+CADisplayLink 的执行模式改为 NSRunLoopCommonModes，ScrollView 滚动时，SVGAPlayer 将不再被暂停。)
 
 ### 1.1.4
 
-改进 SVGAParser 在多任务处理时，存在的并发锁以及线程安全问题。
-
-### 1.1.1
-
-SVGAPlayer 的第 2 个版本，对应 SVGA-1.1.0 协议，支持矢量动画，向下兼容 SVGA-1.0.0 协议。
-
-### 0.1.0
-
-SVGAPlayer 的第 1 个版本，对应 SVGA-1.0.0 协议，支持位图（位移、旋转、拉伸、透明度）动画。
+Improve SVGAParser under multi-thread.
 
 ## SVGA Format
 
-* SVGA 是一个私有的动画格式，由 YY UED 主导开发。
-* SVGA 由 SVG 演进而成，与 SVG 不兼容。
-* SVGA 可以在 iOS / Android / Web(PC/移动端) 实现高性能的动画播放。
+* SVGA is an opensource animation library, develop by YY UED.
+* SVGA base on SVG's concept, but not compatible to SVG.
+* SVGA can play on iOS/Android/Web.
 
 @see http://code.yy.com/ued/SVGA-Format
 
@@ -30,14 +24,14 @@ SVGAPlayer 的第 1 个版本，对应 SVGA-1.0.0 协议，支持位图（位移
 
 ### CocoaPods
 
-添加依赖到 Podfile
+Add following dependency to Podfile
 ```
 pod 'SVGAPlayer'
 ```
 
 ## 使用
 
-### 初始化 Player
+### Init Player
 
 ```
 @interface XXX()
@@ -45,7 +39,7 @@ pod 'SVGAPlayer'
 @end
 ```
 
-### 初始化 Parser 并加载资源文件
+### Init Parser, Load Resource
 
 ```
 SVGAParser *parser = [[SVGAParser alloc] init];
@@ -61,37 +55,39 @@ SVGAParser *parser = [[SVGAParser alloc] init];
 ## API
 
 ### Properties
-* id<SVGAPlayerDelegate> delegate; - 各种回调
-* SVGAVideoEntity *videoItem; - 动画实例
-* int loops; - 循环次数，0 = 无限循环
-* BOOL clearsAfterStop; - 是否在结束播放时清空画布。
+* id<SVGAPlayerDelegate> delegate; - Callbacks
+* SVGAVideoEntity *videoItem; - Animation Instance
+* int loops; - Loop Count，0 = Infinity Loop
+* BOOL clearsAfterStop; - Clears Canvas After Animation Stop
 
 ### Methods
 
-* (void)startAnimation; - 从 0 帧开始播放动画
-* (void)pauseAnimation; - 在当前帧暂停动画
-* (void)stopAnimation; - 停止播放动画，如果 clearsAfterStop == YES，则同时清空画布
-* (void)clear; - 清空当前画布
-* (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay; - 跳到第 N 帧 (frame 0 = 第 1 帧)，然后 andPlay == YES 时播放动画
-* (void)stepToPercentage:(CGFloat)percentage andPlay:(BOOL)andPlay; - 跳到动画对应百分比的帧，然后 andPlay == YES 时播放动画
-* (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer; - 设置动态图像
-* (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey; - 设置动态文本
-* (void)clearDynamicObjects; - 清空动态图像和文本
+* (void)startAnimation; - Play Animation from 0 frame.
+* (void)pauseAnimation; - Pause Animation and keep on current frame.
+* (void)stopAnimation; - Stop Animation，Clears Canvas while clearsAfterStop == YES.
+* (void)clear; - Clear Canvas force.
+* (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay; - Step to N frame, and then Play Animation if andPlay === true.
+* (void)stepToPercentage:(CGFloat)percentage andPlay:(BOOL)andPlay; - Step to x%, and then Play Animation if andPlay === true.
+* (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer; - Set Dynamic Image.
+* (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey; - Set Dynamic Text.
+* (void)clearDynamicObjects; - Clear all dynamic Images and Texts.
 
 ### SVGAPlayerDelegate
 
 * @optional
-* - (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player; - 动画播放结束后回调
-* - (void)svgaPlayerDidAnimatedToFrame:(NSInteger)frame; - 动画播放到某一帖后回调
-* - (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage; - 动画播放到某一进度百分比后回调
+* - (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player; - Call after animation finished.
+* - (void)svgaPlayerDidAnimatedToFrame:(NSInteger)frame; - Call after animation play to specific frame.
+* - (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage; - Call after animation play to specific percentage.
 
-### 动态对象
+### Dynamic Object
 
-可以通过以下方式，替换动画文件中的指定图像，以及动态添加富文本。
+Use this way to replace specific image, or add text to it.
 
-* 必须在 startAnimation 方法执行前进行配置
+ZH: 可以通过以下方式，替换动画文件中的指定图像，以及动态添加富文本。
 
-#### 动态图像
+* Must set before startAnimation method call (必须在 startAnimation 方法执行前进行配置)
+
+#### Dynamic Image
 
 ```
 CALayer *iconLayer = [CALayer layer];
@@ -102,7 +98,9 @@ iconLayer.borderColor = [UIColor colorWithRed:0xea/255.0 green:0xb3/255.0 blue:0
 [self.aPlayer setImage:iconImage forKey:@"99" referenceLayer:iconLayer];
 ```
 
-#### 动态文本
+* Designer should told you the imageKey.
+
+#### Dynamic Text
 
 ```
 NSShadow *shadow = [NSShadow new];
@@ -116,3 +114,5 @@ NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小�
                                                                         }];
 [self.aPlayer setAttributedText:text forKey:@"banner"];
 ```
+
+* Designer should told you the imageKey.
