@@ -16,7 +16,7 @@ Improve SVGAParser under multi-thread.
 * SVGA base on SVG's concept, but not compatible to SVG.
 * SVGA can play on iOS/Android/Web.
 
-@see http://code.yy.com/ued/SVGA-Format
+@see https://github.com/yyued/SVGA-Format
 
 ## 安装
 
