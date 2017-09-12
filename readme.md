@@ -18,7 +18,7 @@ Improve SVGAParser under multi-thread.
 
 @see https://github.com/yyued/SVGA-Format
 
-## 安装
+## Install
 
 ### CocoaPods
 
@@ -27,7 +27,7 @@ Add following dependency to Podfile
 pod 'SVGAPlayer'
 ```
 
-## 使用
+## Usage
 
 ### Init Player
 
