@@ -79,11 +79,9 @@ SVGAParser *parser = [[SVGAParser alloc] init];
 
 ### Dynamic Object
 
-Use this way to replace specific image, or add text to it.
+Use this way to replace specific image, or add text to it. (可以通过以下方式，替换动画文件中的指定图像，以及动态添加富文本。)
 
-ZH: 可以通过以下方式，替换动画文件中的指定图像，以及动态添加富文本。
-
-* Must set before startAnimation method call (必须在 startAnimation 方法执行前进行配置)
+* Must set before startAnimation method call. (必须在 startAnimation 方法执行前进行配置)
 
 #### Dynamic Image
 
