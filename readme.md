@@ -96,7 +96,7 @@ iconLayer.borderColor = [UIColor colorWithRed:0xea/255.0 green:0xb3/255.0 blue:0
 [self.aPlayer setImage:iconImage forKey:@"99" referenceLayer:iconLayer];
 ```
 
-* Designer should told you the imageKey.
+* Ask designer tell you the imageKey(or unzip the svga file, find it).
 
 #### Dynamic Text
 
@@ -113,4 +113,4 @@ NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小�
 [self.aPlayer setAttributedText:text forKey:@"banner"];
 ```
 
-* Designer should told you the imageKey.
+* Ask designer tell you the imageKey(or unzip the svga file, find it).
