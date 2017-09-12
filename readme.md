@@ -6,8 +6,6 @@
 
 Change CADisplayLink mode to NSRunLoopCommonModes, SVGAPlayer will not pause while ScrollView tracking.
 
-CADisplayLink 的执行模式改为 NSRunLoopCommonModes，ScrollView 滚动时，SVGAPlayer 将不再被暂停。)
-
 ### 1.1.4
 
 Improve SVGAParser under multi-thread.
