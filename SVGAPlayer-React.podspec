@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SVGAPlayer"
-  s.version      = "1.1.6"
+  s.version      = "1.1.7"
   s.summary      = "SVGAPlayer 是一个高性能的动画播放器"
 
   s.description  = <<-DESC
@@ -25,6 +25,6 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.dependency 'SSZipArchive'
+  s.dependency 'SSZipArchive', '1.8.1'
 
 end
