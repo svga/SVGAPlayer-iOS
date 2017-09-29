@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/minizip/aes/aestab.h
+../../../SSZipArchive/SSZipArchive/aes/aestab.h

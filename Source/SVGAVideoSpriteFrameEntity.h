@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @class SVGAVectorLayer;
+@class SVGAProtoFrameEntity;
 
 @interface SVGAVideoSpriteFrameEntity : NSObject
 
@@ -22,5 +23,6 @@
 @property (nonatomic, readonly) NSArray *shapes;
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
+- (instancetype)initWithProtoObject:(SVGAProtoFrameEntity *)protoObject;
 
 @end

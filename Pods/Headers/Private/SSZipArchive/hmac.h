@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/minizip/aes/hmac.h
+../../../SSZipArchive/SSZipArchive/aes/hmac.h

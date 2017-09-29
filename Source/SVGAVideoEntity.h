@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @class SVGAVideoEntity, SVGAVideoSpriteEntity, SVGAVideoSpriteFrameEntity, SVGABitmapLayer, SVGAVectorLayer;
+@class SVGAProtoMovieEntity;
 
 @interface SVGAVideoEntity : NSObject
 
@@ -22,6 +23,10 @@
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject cacheDir:(NSString *)cacheDir;
 - (void)resetImagesWithJSONObject:(NSDictionary *)JSONObject;
 - (void)resetSpritesWithJSONObject:(NSDictionary *)JSONObject;
+
+- (instancetype)initWithProtoObject:(SVGAProtoMovieEntity *)protoObject cacheDir:(NSString *)cacheDir;
+- (void)resetImagesWithProtoObject:(SVGAProtoMovieEntity *)protoObject;
+- (void)resetSpritesWithProtoObject:(SVGAProtoMovieEntity *)protoObject;
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey;
 - (void)saveCache:(NSString *)cacheKey;

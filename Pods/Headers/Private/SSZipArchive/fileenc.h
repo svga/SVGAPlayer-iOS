@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/minizip/aes/fileenc.h
+../../../SSZipArchive/SSZipArchive/aes/fileenc.h

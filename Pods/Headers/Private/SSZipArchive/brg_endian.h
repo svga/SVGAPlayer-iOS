@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/minizip/aes/brg_endian.h
+../../../SSZipArchive/SSZipArchive/aes/brg_endian.h

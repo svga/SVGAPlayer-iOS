@@ -9,6 +9,7 @@
 #import "SVGAVectorLayer.h"
 #import "SVGABezierPath.h"
 #import "SVGAVideoSpriteFrameEntity.h"
+#import "ComOpensourceSvgaVideo.pbobjc.h"
 
 @interface SVGAVectorLayer ()
 
@@ -54,10 +55,16 @@
 }
 
 - (BOOL)isKeepFrame:(SVGAVideoSpriteFrameEntity *)frameItem {
-    return frameItem.shapes.firstObject != nil &&
-           [frameItem.shapes.firstObject isKindOfClass:[NSDictionary class]] &&
-           [frameItem.shapes.firstObject[@"type"] isKindOfClass:[NSString class]] &&
-           [frameItem.shapes.firstObject[@"type"] isEqualToString:@"keep"];
+    if ([frameItem.shapes.firstObject isKindOfClass:[NSDictionary class]]) {
+        return [frameItem.shapes.firstObject[@"type"] isKindOfClass:[NSString class]] &&
+        [frameItem.shapes.firstObject[@"type"] isEqualToString:@"keep"];
+    }
+    else if ([frameItem.shapes.firstObject isKindOfClass:[SVGAProtoShapeEntity class]]) {
+        return [(SVGAProtoShapeEntity *)frameItem.shapes.firstObject type] == SVGAProtoShapeEntity_ShapeType_Keep;
+    }
+    else {
+        return NO;
+    }
 }
 
 - (NSInteger)requestKeepFrame:(NSInteger)frame {
@@ -90,6 +97,18 @@
                     }
                 }
             }
+            else if ([shape isKindOfClass:[SVGAProtoShapeEntity class]]) {
+                SVGAProtoShapeEntity *shapeItem = (id)shape;
+                if (shapeItem.type == SVGAProtoShapeEntity_ShapeType_Shape) {
+                    [self addSublayer:[self createCurveLayerWithProto:shapeItem]];
+                }
+                else if (shapeItem.type == SVGAProtoShapeEntity_ShapeType_Ellipse) {
+                    [self addSublayer:[self createEllipseLayerWithProto:shapeItem]];
+                }
+                else if (shapeItem.type == SVGAProtoShapeEntity_ShapeType_Rect) {
+                    [self addSublayer:[self createRectLayerWithProto:shapeItem]];
+                }
+            }
         }
         self.drawedFrame = frame;
     }
@@ -105,6 +124,19 @@
     CAShapeLayer *shapeLayer = [bezierPath createLayer];
     [self resetStyles:shapeLayer shape:shape];
     [self resetTransform:shapeLayer shape:shape];
+    return shapeLayer;
+}
+
+- (CALayer *)createCurveLayerWithProto:(SVGAProtoShapeEntity *)shape {
+    SVGABezierPath *bezierPath = [SVGABezierPath new];
+    if (shape.argsOneOfCase == SVGAProtoShapeEntity_Args_OneOfCase_Shape) {
+        if ([shape.shape.d isKindOfClass:[NSString class]] && shape.shape.d.length > 0) {
+            [bezierPath setValues:shape.shape.d];
+        }
+    }
+    CAShapeLayer *shapeLayer = [bezierPath createLayer];
+    [self resetStyles:shapeLayer protoShape:shape];
+    [self resetTransform:shapeLayer protoShape:shape];
     return shapeLayer;
 }
 
@@ -134,6 +166,26 @@
     }
 }
 
+- (CALayer *)createEllipseLayerWithProto:(SVGAProtoShapeEntity *)shape {
+    UIBezierPath *bezierPath;
+    if (shape.argsOneOfCase == SVGAProtoShapeEntity_Args_OneOfCase_Ellipse) {
+        bezierPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(shape.ellipse.x - shape.ellipse.radiusX,
+                                                                       shape.ellipse.y - shape.ellipse.radiusY,
+                                                                       shape.ellipse.radiusX * 2,
+                                                                       shape.ellipse.radiusY * 2)];
+    }
+    if (bezierPath != nil) {
+        CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+        [shapeLayer setPath:[bezierPath CGPath]];
+        [self resetStyles:shapeLayer protoShape:shape];
+        [self resetTransform:shapeLayer protoShape:shape];
+        return shapeLayer;
+    }
+    else {
+        return [CALayer layer];
+    }
+}
+
 - (CALayer *)createRectLayer:(NSDictionary *)shape {
     UIBezierPath *bezierPath;
     if ([shape[@"args"] isKindOfClass:[NSDictionary class]]) {
@@ -155,6 +207,24 @@
         [shapeLayer setPath:[bezierPath CGPath]];
         [self resetStyles:shapeLayer shape:shape];
         [self resetTransform:shapeLayer shape:shape];
+        return shapeLayer;
+    }
+    else {
+        return [CALayer layer];
+    }
+}
+
+- (CALayer *)createRectLayerWithProto:(SVGAProtoShapeEntity *)shape {
+    UIBezierPath *bezierPath;
+    if (shape.argsOneOfCase == SVGAProtoShapeEntity_Args_OneOfCase_Rect) {
+        bezierPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(shape.rect.x, shape.rect.y, shape.rect.width, shape.rect.height)
+                                                cornerRadius:shape.rect.cornerRadius];
+    }
+    if (bezierPath != nil) {
+        CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+        [shapeLayer setPath:[bezierPath CGPath]];
+        [self resetStyles:shapeLayer protoShape:shape];
+        [self resetTransform:shapeLayer protoShape:shape];
         return shapeLayer;
     }
     else {
@@ -227,6 +297,61 @@
     }
 }
 
+- (void)resetStyles:(CAShapeLayer *)shapeLayer protoShape:(SVGAProtoShapeEntity *)protoShape {
+    shapeLayer.masksToBounds = NO;
+    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
+    if (protoShape.hasStyles) {
+        if (protoShape.styles.hasFill) {
+            shapeLayer.fillColor = [UIColor colorWithRed:protoShape.styles.fill.r
+                                                   green:protoShape.styles.fill.g
+                                                    blue:protoShape.styles.fill.b
+                                                   alpha:protoShape.styles.fill.a].CGColor;
+        }
+        else {
+            shapeLayer.fillColor = [UIColor clearColor].CGColor;
+        }
+        if (protoShape.styles.hasStroke) {
+            shapeLayer.strokeColor = [UIColor colorWithRed:protoShape.styles.stroke.r
+                                                     green:protoShape.styles.stroke.g
+                                                      blue:protoShape.styles.stroke.b
+                                                     alpha:protoShape.styles.stroke.a].CGColor;
+        }
+        shapeLayer.lineWidth = protoShape.styles.strokeWidth;
+        switch (protoShape.styles.lineCap) {
+            case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapButt:
+                shapeLayer.lineCap = @"butt";
+                break;
+            case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapRound:
+                shapeLayer.lineCap = @"round";
+                break;
+            case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapSquare:
+                shapeLayer.lineCap = @"square";
+                break;
+            default:
+                break;
+        }
+        switch (protoShape.styles.lineJoin) {
+            case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinRound:
+                shapeLayer.lineJoin = @"round";
+                break;
+            case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinMiter:
+                shapeLayer.lineJoin = @"miter";
+                break;
+            case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinBevel:
+                shapeLayer.lineJoin = @"bevel";
+                break;
+            default:
+                break;
+        }
+        shapeLayer.lineDashPhase = protoShape.styles.lineDashIii;
+        shapeLayer.lineDashPattern = @[
+                                       (protoShape.styles.lineDashI < 1.0 ? @(1.0) : @(protoShape.styles.lineDashI)),
+                                       (protoShape.styles.lineDashIi < 0.1 ? @(0.1) : @(protoShape.styles.lineDashIi))
+                                       ];
+        shapeLayer.miterLimit = protoShape.styles.miterLimit;
+    }
+}
+
 - (void)resetTransform:(CAShapeLayer *)shapeLayer shape:(NSDictionary *)shape {
     if ([shape[@"transform"] isKindOfClass:[NSDictionary class]]) {
         if ([shape[@"transform"][@"a"] isKindOfClass:[NSNumber class]] &&
@@ -243,6 +368,18 @@
                                                                                           [shape[@"transform"][@"ty"] floatValue])
                                                                     );
         }
+    }
+}
+
+- (void)resetTransform:(CAShapeLayer *)shapeLayer protoShape:(SVGAProtoShapeEntity *)protoShape {
+    if (protoShape.hasTransform) {
+        shapeLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake((CGFloat)protoShape.transform.a,
+                                                                                      (CGFloat)protoShape.transform.b,
+                                                                                      (CGFloat)protoShape.transform.c,
+                                                                                      (CGFloat)protoShape.transform.d,
+                                                                                      (CGFloat)protoShape.transform.tx,
+                                                                                      (CGFloat)protoShape.transform.ty)
+                                                                );
     }
 }
 

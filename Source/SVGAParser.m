@@ -8,6 +8,7 @@
 
 #import "SVGAParser.h"
 #import "SVGAVideoEntity.h"
+#import "ComOpensourceSvgaVideo.pbobjc.h"
 #import <SSZipArchive/SSZipArchive.h>
 #import <CommonCrypto/CommonDigest.h>
 
@@ -90,23 +91,44 @@ static NSOperationQueue *parseQueue;
             return;
         }
         NSString *cacheDir = [self cacheDirectory:cacheKey];
-        NSError *err;
-        NSData *JSONData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.spec"]];
-        if (JSONData != nil) {
-            NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:JSONData options:kNilOptions error:&err];
-            if ([JSONObject isKindOfClass:[NSDictionary class]]) {
-                SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
-                [videoItem resetImagesWithJSONObject:JSONObject];
-                [videoItem resetSpritesWithJSONObject:JSONObject];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[cacheDir stringByAppendingString:@"/movie.binary"]]) {
+            NSError *err;
+            NSData *protoData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.binary"]];
+            SVGAProtoMovieEntity *protoObject = [SVGAProtoMovieEntity parseFromData:protoData error:&err];
+            if (!err) {
+                SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithProtoObject:protoObject cacheDir:cacheDir];
+                [videoItem resetImagesWithProtoObject:protoObject];
+                [videoItem resetSpritesWithProtoObject:protoObject];
                 [videoItem saveCache:cacheKey];
                 if (completionBlock) {
                     completionBlock(videoItem);
                 }
             }
+            else {
+                if (failureBlock) {
+                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                }
+            }
         }
         else {
-            if (failureBlock) {
-                failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+            NSError *err;
+            NSData *JSONData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.spec"]];
+            if (JSONData != nil) {
+                NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:JSONData options:kNilOptions error:&err];
+                if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+                    SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
+                    [videoItem resetImagesWithJSONObject:JSONObject];
+                    [videoItem resetSpritesWithJSONObject:JSONObject];
+                    [videoItem saveCache:cacheKey];
+                    if (completionBlock) {
+                        completionBlock(videoItem);
+                    }
+                }
+            }
+            else {
+                if (failureBlock) {
+                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                }
             }
         }
     }];
@@ -157,23 +179,44 @@ static NSOperationQueue *parseQueue;
                         }
                     }
                     else {
-                        NSError *err;
-                        NSData *JSONData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.spec"]];
-                        if (JSONData != nil) {
-                            NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:JSONData options:kNilOptions error:&err];
-                            if ([JSONObject isKindOfClass:[NSDictionary class]]) {
-                                SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
-                                [videoItem resetImagesWithJSONObject:JSONObject];
-                                [videoItem resetSpritesWithJSONObject:JSONObject];
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:[cacheDir stringByAppendingString:@"/movie.binary"]]) {
+                            NSError *err;
+                            NSData *protoData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.binary"]];
+                            SVGAProtoMovieEntity *protoObject = [SVGAProtoMovieEntity parseFromData:protoData error:&err];
+                            if (!err) {
+                                SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithProtoObject:protoObject cacheDir:cacheDir];
+                                [videoItem resetImagesWithProtoObject:protoObject];
+                                [videoItem resetSpritesWithProtoObject:protoObject];
                                 [videoItem saveCache:cacheKey];
                                 if (completionBlock) {
                                     completionBlock(videoItem);
                                 }
                             }
+                            else {
+                                if (failureBlock) {
+                                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                                }
+                            }
                         }
                         else {
-                            if (failureBlock) {
-                                failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                            NSError *err;
+                            NSData *JSONData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.spec"]];
+                            if (JSONData != nil) {
+                                NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:JSONData options:kNilOptions error:&err];
+                                if ([JSONObject isKindOfClass:[NSDictionary class]]) {
+                                    SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
+                                    [videoItem resetImagesWithJSONObject:JSONObject];
+                                    [videoItem resetSpritesWithJSONObject:JSONObject];
+                                    [videoItem saveCache:cacheKey];
+                                    if (completionBlock) {
+                                        completionBlock(videoItem);
+                                    }
+                                }
+                            }
+                            else {
+                                if (failureBlock) {
+                                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                                }
                             }
                         }
                     }

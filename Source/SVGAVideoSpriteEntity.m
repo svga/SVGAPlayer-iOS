@@ -11,6 +11,7 @@
 #import "SVGABitmapLayer.h"
 #import "SVGAContentLayer.h"
 #import "SVGAVectorLayer.h"
+#import "ComOpensourceSvgaVideo.pbobjc.h"
 
 @implementation SVGAVideoSpriteEntity
 
@@ -25,6 +26,27 @@
                 [JSONFrames enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([obj isKindOfClass:[NSDictionary class]]) {
                         [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj]];
+                    }
+                }];
+                _imageKey = imageKey;
+                _frames = frames;
+            }
+        }
+    }
+    return self;
+}
+
+- (instancetype)initWithProtoObject:(SVGAProtoSpriteEntity *)protoObject {
+    self = [super init];
+    if (self) {
+        if ([protoObject isKindOfClass:[SVGAProtoSpriteEntity class]]) {
+            NSString *imageKey = protoObject.imageKey;
+            NSArray<NSDictionary *> *protoFrames = [protoObject.framesArray copy];
+            if ([imageKey isKindOfClass:[NSString class]] && [protoFrames isKindOfClass:[NSArray class]]) {
+                NSMutableArray<SVGAVideoSpriteFrameEntity *> *frames = [[NSMutableArray alloc] init];
+                [protoFrames enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isKindOfClass:[SVGAProtoFrameEntity class]]) {
+                        [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithProtoObject:obj]];
                     }
                 }];
                 _imageKey = imageKey;

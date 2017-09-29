@@ -9,6 +9,7 @@
 #import "SVGAVideoEntity.h"
 #import "SVGABezierPath.h"
 #import "SVGAVideoSpriteEntity.h"
+#import "ComOpensourceSvgaVideo.pbobjc.h"
 
 @interface SVGAVideoEntity ()
 
@@ -104,6 +105,55 @@ static NSCache *videoCache;
         }
         self.sprites = sprites;
     }
+}
+
+- (instancetype)initWithProtoObject:(SVGAProtoMovieEntity *)protoObject cacheDir:(NSString *)cacheDir {
+    self = [super init];
+    if (self) {
+        _videoSize = CGSizeMake(100, 100);
+        _FPS = 20;
+        _images = @{};
+        _cacheDir = cacheDir;
+        [self resetMovieWithProtoObject:protoObject];
+    }
+    return self;
+}
+
+- (void)resetMovieWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
+    if (protoObject.hasParams) {
+        self.videoSize = CGSizeMake((CGFloat)protoObject.params.viewBoxWidth, (CGFloat)protoObject.params.viewBoxHeight);
+        self.FPS = (int)protoObject.params.fps;
+        self.frames = (int)protoObject.params.frames;
+    }
+}
+
+- (void)resetImagesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
+    NSMutableDictionary<NSString *, UIImage *> *images = [[NSMutableDictionary alloc] init];
+    NSDictionary *protoImages = [protoObject.images copy];
+    for (NSString *key in protoImages) {
+        NSString *obj = protoImages[key];
+        NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", obj];
+        NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+        if (imageData != nil) {
+            UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
+            if (image != nil) {
+                [images setObject:image forKey:key];
+            }
+        }
+    }
+    self.images = images;
+}
+
+- (void)resetSpritesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
+    NSMutableArray<SVGAVideoSpriteEntity *> *sprites = [[NSMutableArray alloc] init];
+    NSArray *protoSprites = [protoObject.spritesArray copy];
+    [protoSprites enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[SVGAProtoSpriteEntity class]]) {
+            SVGAVideoSpriteEntity *spriteItem = [[SVGAVideoSpriteEntity alloc] initWithProtoObject:obj];
+            [sprites addObject:spriteItem];
+        }
+    }];
+    self.sprites = sprites;
 }
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey {

@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/minizip/aes/pwd2key.h
+../../../SSZipArchive/SSZipArchive/aes/pwd2key.h

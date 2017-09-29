@@ -1,1 +1,1 @@
-../../../SSZipArchive/SSZipArchive/minizip/aes/aesopt.h
+../../../SSZipArchive/SSZipArchive/aes/aesopt.h
