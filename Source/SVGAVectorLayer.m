@@ -9,7 +9,7 @@
 #import "SVGAVectorLayer.h"
 #import "SVGABezierPath.h"
 #import "SVGAVideoSpriteFrameEntity.h"
-#import "ComOpensourceSvgaVideo.pbobjc.h"
+#import "Svga.pbobjc.h"
 
 @interface SVGAVectorLayer ()
 

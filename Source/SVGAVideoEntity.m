@@ -9,7 +9,7 @@
 #import "SVGAVideoEntity.h"
 #import "SVGABezierPath.h"
 #import "SVGAVideoSpriteEntity.h"
-#import "ComOpensourceSvgaVideo.pbobjc.h"
+#import "Svga.pbobjc.h"
 
 @interface SVGAVideoEntity ()
 
@@ -131,11 +131,24 @@ static NSCache *videoCache;
     NSMutableDictionary<NSString *, UIImage *> *images = [[NSMutableDictionary alloc] init];
     NSDictionary *protoImages = [protoObject.images copy];
     for (NSString *key in protoImages) {
-        NSString *obj = protoImages[key];
-        NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", obj];
-        NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-        if (imageData != nil) {
-            UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
+        NSString *fileName = [[NSString alloc] initWithData:protoImages[key] encoding:NSUTF8StringEncoding];
+        if (fileName != nil) {
+            NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", fileName];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+               filePath = [self.cacheDir stringByAppendingFormat:@"/%@", fileName];
+            }
+            if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+                NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+                if (imageData != nil) {
+                    UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
+                    if (image != nil) {
+                        [images setObject:image forKey:key];
+                    }
+                }
+            }
+        }
+        else {
+            UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
             if (image != nil) {
                 [images setObject:image forKey:key];
             }

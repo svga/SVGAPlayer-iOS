@@ -11,7 +11,7 @@
 #import "SVGABitmapLayer.h"
 #import "SVGAContentLayer.h"
 #import "SVGAVectorLayer.h"
-#import "ComOpensourceSvgaVideo.pbobjc.h"
+#import "Svga.pbobjc.h"
 
 @implementation SVGAVideoSpriteEntity
 
