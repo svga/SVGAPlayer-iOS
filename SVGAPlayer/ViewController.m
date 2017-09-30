@@ -38,13 +38,14 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onChange:(id)sender {
-    
-    NSString *named = @"rose_2.0.0";
+    NSString *named = @"rose_1.5.0";
+    NSLog(@"start");
     NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:named ofType:@"svga"]
                                           options:kNilOptions
                                             error:NULL];
     [parser parseWithData:data
                  cacheKey:named completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+                     NSLog(@"end");
                      if (videoItem != nil) {
                          self.aPlayer.videoItem = videoItem;
                          [self.aPlayer startAnimation];

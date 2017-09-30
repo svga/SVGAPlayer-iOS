@@ -19,6 +19,7 @@
 @property (nonatomic, assign) CGRect layout;
 @property (nonatomic, assign) CGFloat nx;
 @property (nonatomic, assign) CGFloat ny;
+@property (nonatomic, strong) NSString *clipPath;
 @property (nonatomic, strong) CALayer *maskLayer;
 @property (nonatomic, strong) NSArray *shapes;
 
@@ -61,9 +62,7 @@
             }
             NSString *clipPath = JSONObject[@"clipPath"];
             if ([clipPath isKindOfClass:[NSString class]]) {
-                SVGABezierPath *bezierPath = [[SVGABezierPath alloc] init];
-                [bezierPath setValues:clipPath];
-                self.maskLayer = [bezierPath createLayer];
+                self.clipPath = clipPath;
             }
             NSArray *shapes = JSONObject[@"shapes"];
             if ([shapes isKindOfClass:[NSArray class]]) {
@@ -107,9 +106,7 @@
                                                    (CGFloat)protoObject.transform.ty);
             }
             if ([protoObject.clipPath isKindOfClass:[NSString class]] && protoObject.clipPath.length > 0) {
-                SVGABezierPath *bezierPath = [[SVGABezierPath alloc] init];
-                [bezierPath setValues:protoObject.clipPath];
-                self.maskLayer = [bezierPath createLayer];
+                self.clipPath = protoObject.clipPath;
             }
             if ([protoObject.shapesArray isKindOfClass:[NSArray class]]) {
                 _shapes = [protoObject.shapesArray copy];
@@ -127,6 +124,15 @@
         _ny = MIN(MIN(lby,  rby), MIN(lly, lry));
     }
     return self;
+}
+
+- (CALayer *)maskLayer {
+    if (_maskLayer == nil && self.clipPath != nil) {
+        SVGABezierPath *bezierPath = [[SVGABezierPath alloc] init];
+        [bezierPath setValues:self.clipPath];
+        _maskLayer = [bezierPath createLayer];
+    }
+    return _maskLayer;
 }
 
 @end
