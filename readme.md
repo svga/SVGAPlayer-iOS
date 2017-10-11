@@ -2,6 +2,10 @@
 
 ## Version
 
+### 2.0.0
+
+Add SVGA-Format 2.0.0 support.
+
 ### 1.1.6
 
 Change CADisplayLink mode to NSRunLoopCommonModes, SVGAPlayer will not pause while ScrollView tracking.
