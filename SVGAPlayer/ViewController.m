@@ -38,7 +38,7 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onChange:(id)sender {
-    NSString *named = @"rose_1.5.0";
+    NSString *named = @"rose_2.0.0";
     NSLog(@"start");
     NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:named ofType:@"svga"]
                                           options:kNilOptions

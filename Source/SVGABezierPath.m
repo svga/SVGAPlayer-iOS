@@ -17,15 +17,24 @@
 
 @implementation SVGABezierPath
 
+static NSNumberFormatter *numberFotmatter;
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        numberFotmatter = [[NSNumberFormatter alloc] init];
+    });
+}
+
 - (void)setValues:(nonnull NSString *)values {
     if (!self.displaying) {
         self.backValues = values;
         return;
     }
-    static NSArray *validMethods;
+    static NSSet *validMethods;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        validMethods = @[@"M",@"L",@"H",@"V",@"C",@"S",@"Q",@"R",@"A",@"Z",@"m",@"l",@"h",@"v",@"c",@"s",@"q",@"r",@"a",@"z"];
+        validMethods = [NSSet setWithArray:@[@"M",@"L",@"H",@"V",@"C",@"S",@"Q",@"R",@"A",@"Z",@"m",@"l",@"h",@"v",@"c",@"s",@"q",@"r",@"a",@"z"]];
     });
     values = [values stringByReplacingOccurrencesOfString:@"," withString:@" "];
     NSArray<NSString *> *items = [values componentsSeparatedByString:@" "];
@@ -37,7 +46,7 @@
             continue;
         }
         NSString *firstLetter = [item substringToIndex:1];
-        if ([validMethods indexOfObject:firstLetter] != NSNotFound) {
+        if ([validMethods containsObject:firstLetter]) {
             if (argLast != nil) {
                 [args addObject:argLast];
             }
@@ -121,7 +130,6 @@
 }
 
 - (CGFloat)argFloat:(NSString *)arg relativeValue:(CGFloat)relativeValue {
-    NSNumberFormatter *numberFotmatter = [[NSNumberFormatter alloc] init];
     NSNumber *x = [numberFotmatter numberFromString:arg];
     if (x != nil) {
         return x.floatValue + relativeValue;
@@ -133,7 +141,6 @@
 
 - (CGPoint)argPoint:(NSString *)arg relative:(BOOL)relative {
     if ([arg componentsSeparatedByString:@","].count == 2) {
-        NSNumberFormatter *numberFotmatter = [[NSNumberFormatter alloc] init];
         NSNumber *x = [numberFotmatter numberFromString:[arg componentsSeparatedByString:@","][0]];
         NSNumber *y = [numberFotmatter numberFromString:[arg componentsSeparatedByString:@","][1]];
         if (x != nil && y != nil) {

@@ -20,10 +20,13 @@
 @implementation SVGAParser
 
 static NSOperationQueue *parseQueue;
+static NSOperationQueue *unzipQueue;
 
 + (void)load {
     parseQueue = [NSOperationQueue new];
-    parseQueue.maxConcurrentOperationCount = 1;
+    parseQueue.maxConcurrentOperationCount = 8;
+    unzipQueue = [NSOperationQueue new];
+    unzipQueue.maxConcurrentOperationCount = 1;
 }
 
 - (void)parseWithURL:(nonnull NSURL *)URL
@@ -83,7 +86,7 @@ static NSOperationQueue *parseQueue;
 - (void)parseWithCacheKey:(nonnull NSString *)cacheKey
           completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
              failureBlock:(void ( ^ _Nullable)(NSError * _Nonnull error))failureBlock {
-    [[NSOperationQueue new] addOperationWithBlock:^{
+    [parseQueue addOperationWithBlock:^{
         SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
         if (cacheItem != nil) {
             if (completionBlock) {
@@ -151,10 +154,10 @@ static NSOperationQueue *parseQueue;
         }
         return;
     }
-    [parseQueue addOperationWithBlock:^{
-        NSData *tag = [data subdataWithRange:NSMakeRange(0, 4)];
-        if (![[tag description] isEqualToString:@"<504b0304>"]) {
-            // Maybe is SVGA 2.0.0
+    NSData *tag = [data subdataWithRange:NSMakeRange(0, 4)];
+    if (![[tag description] isEqualToString:@"<504b0304>"]) {
+        // Maybe is SVGA 2.0.0
+        [parseQueue addOperationWithBlock:^{
             NSData *inflateData = [self zlibInflate:data];
             NSError *err;
             SVGAProtoMovieEntity *protoObject = [SVGAProtoMovieEntity parseFromData:inflateData error:&err];
@@ -166,9 +169,11 @@ static NSOperationQueue *parseQueue;
                 if (completionBlock) {
                     completionBlock(videoItem);
                 }
-                return ;
             }
-        }
+        }];
+        return ;
+    }
+    [unzipQueue addOperationWithBlock:^{
         if ([[NSFileManager defaultManager] fileExistsAtPath:[self cacheDirectory:cacheKey]]) {
             [self parseWithCacheKey:cacheKey completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
                 if (completionBlock) {
