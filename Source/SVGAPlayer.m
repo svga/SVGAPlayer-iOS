@@ -197,10 +197,14 @@
         _loopCount++;
         if (self.loops > 0 && _loopCount >= self.loops) {
             [self stopAnimation];
+            if (!self.clearsAfterStop && [self.fillMode isEqualToString:@"Backward"]) {
+                [self stepToFrame:0 andPlay:NO];
+            }
             id delegate = self.delegate;
             if (delegate != nil && [delegate respondsToSelector:@selector(svgaPlayerDidFinishedAnimation:)]) {
                 [delegate svgaPlayerDidFinishedAnimation:self];
             }
+            return;
         }
     }
     [self update];

@@ -25,6 +25,7 @@
 @property (nonatomic, strong) SVGAVideoEntity *videoItem;
 @property (nonatomic, assign) int loops;
 @property (nonatomic, assign) BOOL clearsAfterStop;
+@property (nonatomic, copy) NSString *fillMode;
 
 - (void)startAnimation;
 - (void)pauseAnimation;

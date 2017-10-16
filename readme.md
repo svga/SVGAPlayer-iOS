@@ -59,8 +59,9 @@ SVGAParser *parser = [[SVGAParser alloc] init];
 ### Properties
 * id<SVGAPlayerDelegate> delegate; - Callbacks
 * SVGAVideoEntity *videoItem; - Animation Instance
-* int loops; - Loop Count，0 = Infinity Loop
+* Int loops; - Loop Count，0 = Infinity Loop
 * BOOL clearsAfterStop; - Clears Canvas After Animation Stop
+* String fillMode; - defaults to Forward，optional Forward / Backward，fillMode = Forward，Animation will pause on last frame while finished，fillMode = Backward , Animation will pause on first frame.
 
 ### Methods
 
