@@ -4,7 +4,16 @@
 
 ### 2.0.0
 
-Add SVGA-Format 2.0.0 support.
+#### New Features
+
+* Add SVGA-Format 2.0.0 support.
+* Add SVGAImageView.
+* Add more UIViewContentMode support.
+
+#### Improvements
+
+* SVGAParser now can works up-to 8 concurrent tasks.
+* Improves BezierPath performance.
 
 ### 1.1.6
 
@@ -15,10 +24,6 @@ Change CADisplayLink mode to NSRunLoopCommonModes, SVGAPlayer will not pause whi
 Improve SVGAParser under multi-thread.
 
 ## SVGA Format
-
-* SVGA is an opensource animation library, develop by YY UED.
-* SVGA base on SVG's concept, but not compatible to SVG.
-* SVGA can play on iOS/Android/Web.
 
 @see https://github.com/yyued/SVGA-Format
 
@@ -33,26 +38,27 @@ pod 'SVGAPlayer'
 
 ## Usage
 
-### Init Player
-
-```
-@interface XXX()
-@property (nonatomic, strong) SVGAPlayer *aPlayer; // Init SVGAPlayer by yourself.
-@end
-```
-
-### Init Parser, Load Resource
+### code
 
 ```
 SVGAParser *parser = [[SVGAParser alloc] init];
+SVGAPlayer *player = [[SVGAPlayer alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+[self.view addSubview:player];
 [parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/svga-samples/angel.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
     if (videoItem != nil) {
-        self.aPlayer.videoItem = videoItem;
-        [self.aPlayer startAnimation];
+        player.videoItem = videoItem;
+        [player startAnimation];
     }
 } failureBlock:nil];
 
 ```
+
+### xib
+
+1. Add UIView to IB layout area.
+2. Let UIView subclass SVGAImageView.
+3. Input imageName on IB Properties Area.
+4. Animation will start after loaded.
 
 ## API
 
