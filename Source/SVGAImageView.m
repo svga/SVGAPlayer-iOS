@@ -28,13 +28,22 @@ static SVGAParser *sharedParser;
 
 - (void)setImageName:(NSString *)imageName {
     _imageName = imageName;
-    [sharedParser parseWithNamed:imageName inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
-        [self setVideoItem:videoItem];
-        if (self.autoPlay) {
-            [self startAnimation];
-        }
-    } failureBlock:nil];
-    
+    if ([imageName hasPrefix:@"http://"] || [imageName hasPrefix:@"https://"]) {
+        [sharedParser parseWithURL:[NSURL URLWithString:imageName] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+            [self setVideoItem:videoItem];
+            if (self.autoPlay) {
+                [self startAnimation];
+            }
+        } failureBlock:nil];
+    }
+    else {
+        [sharedParser parseWithNamed:imageName inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+            [self setVideoItem:videoItem];
+            if (self.autoPlay) {
+                [self startAnimation];
+            }
+        } failureBlock:nil];
+    }
 }
 
 @end
