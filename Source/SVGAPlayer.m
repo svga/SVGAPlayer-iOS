@@ -28,6 +28,15 @@
 
 @implementation SVGAPlayer
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.contentMode = UIViewContentModeTop;
+    }
+    return self;
+}
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     if (newSuperview == nil) {
@@ -168,10 +177,35 @@
             self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
         }
     }
+    else if (self.contentMode == UIViewContentModeTop) {
+        CGFloat scaleX = self.frame.size.width / self.videoItem.videoSize.width;
+        CGPoint offset = CGPointMake((1.0 - scaleX) / 2.0 * self.videoItem.videoSize.width, (1 - scaleX) / 2.0 * self.videoItem.videoSize.height);
+        self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(scaleX, 0, 0, scaleX, -offset.x, -offset.y));
+    }
+    else if (self.contentMode == UIViewContentModeBottom) {
+        CGFloat scaleX = self.frame.size.width / self.videoItem.videoSize.width;
+        CGPoint offset = CGPointMake(
+                                     (1.0 - scaleX) / 2.0 * self.videoItem.videoSize.width,
+                                     (1.0 - scaleX) / 2.0 * self.videoItem.videoSize.height);
+        self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(scaleX, 0, 0, scaleX, -offset.x, -offset.y + self.frame.size.height - self.videoItem.videoSize.height * scaleX));
+    }
+    else if (self.contentMode == UIViewContentModeLeft) {
+        CGFloat scaleY = self.frame.size.height / self.videoItem.videoSize.height;
+        CGPoint offset = CGPointMake((1.0 - scaleY) / 2.0 * self.videoItem.videoSize.width, (1 - scaleY) / 2.0 * self.videoItem.videoSize.height);
+        self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(scaleY, 0, 0, scaleY, -offset.x, -offset.y));
+    }
+    else if (self.contentMode == UIViewContentModeRight) {
+        CGFloat scaleY = self.frame.size.height / self.videoItem.videoSize.height;
+        CGPoint offset = CGPointMake(
+                                     (1.0 - scaleY) / 2.0 * self.videoItem.videoSize.width,
+                                     (1.0 - scaleY) / 2.0 * self.videoItem.videoSize.height);
+        self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(scaleY, 0, 0, scaleY, -offset.x + self.frame.size.width - self.videoItem.videoSize.width * scaleY, -offset.y));
+    }
     else {
-        CGFloat ratio = self.frame.size.width / self.videoItem.videoSize.width;
-        CGPoint offset = CGPointMake((1.0 - ratio) / 2.0 * self.videoItem.videoSize.width, (1 - ratio) / 2.0 * self.videoItem.videoSize.height);
-        self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(ratio, 0, 0, ratio, -offset.x, -offset.y));
+        CGFloat scaleX = self.frame.size.width / self.videoItem.videoSize.width;
+        CGFloat scaleY = self.frame.size.height / self.videoItem.videoSize.height;
+        CGPoint offset = CGPointMake((1.0 - scaleX) / 2.0 * self.videoItem.videoSize.width, (1 - scaleY) / 2.0 * self.videoItem.videoSize.height);
+        self.drawLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMake(scaleX, 0, 0, scaleY, -offset.x, -offset.y));
     }
 }
 

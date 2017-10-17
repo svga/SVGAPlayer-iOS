@@ -23,8 +23,8 @@
 
 @property (nonatomic, weak) id<SVGAPlayerDelegate> delegate;
 @property (nonatomic, strong) SVGAVideoEntity *videoItem;
-@property (nonatomic, assign) int loops;
-@property (nonatomic, assign) BOOL clearsAfterStop;
+@property (nonatomic, assign) IBInspectable int loops;
+@property (nonatomic, assign) IBInspectable BOOL clearsAfterStop;
 @property (nonatomic, copy) NSString *fillMode;
 
 - (void)startAnimation;
