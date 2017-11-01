@@ -60,6 +60,20 @@ SVGAPlayer *player = [[SVGAPlayer alloc] initWithFrame:CGRectMake(0, 0, 200, 200
 3. Input imageName on IB Properties Area.
 4. Animation will start after loaded.
 
+## Cache
+
+SVGAParser use NSURLSession request remote data via network. You may use following ways to control cache.
+
+### Response Header
+
+Server response SVGA files in Body, and response header either. response header has cache-control / etag / expired keys, all these keys telling NSURLSession how to handle cache.
+
+### Request NSData By Yourself
+
+If you couldn't fix Server Response Header, You should build NSURLRequest with CachePolicy by yourself, and fetch NSData.
+
+Deliver NSData to SVGAParser, as usual.
+
 ## API
 
 ### Properties
