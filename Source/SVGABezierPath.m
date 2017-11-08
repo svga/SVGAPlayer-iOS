@@ -96,7 +96,7 @@
             [self addLineToPoint:CGPointMake(self.currentPoint.x, iValue)];
         }
     }
-    else if (([method isEqualToString:@"Z"] || [method isEqualToString:@"z"]) && args.count == 1) {
+    else if (([method isEqualToString:@"Z"] || [method isEqualToString:@"z"])) {
         [self closePath];
     }
 }
