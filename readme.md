@@ -91,7 +91,8 @@ Deliver NSData to SVGAParser, as usual.
 * (void)clear; - Clear Canvas force.
 * (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay; - Step to N frame, and then Play Animation if andPlay === true.
 * (void)stepToPercentage:(CGFloat)percentage andPlay:(BOOL)andPlay; - Step to x%, and then Play Animation if andPlay === true.
-* (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer; - Set Dynamic Image.
+* (void)setImage:(UIImage *)image forKey:(NSString *)aKey; - Set Dynamic Image.
+* (void)setImageWithURL:(NSURL *)URL forKey:(NSString *)aKey; - Set Dynamic Image via remote URL.
 * (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey; - Set Dynamic Text.
 * (void)clearDynamicObjects; - Clear all dynamic Images and Texts.
 
@@ -105,8 +106,6 @@ Deliver NSData to SVGAParser, as usual.
 ### Dynamic Object
 
 Use this way to replace specific image, or add text to it. (可以通过以下方式，替换动画文件中的指定图像，以及动态添加富文本。)
-
-* Must set before startAnimation method call. (必须在 startAnimation 方法执行前进行配置)
 
 #### Dynamic Image
 
