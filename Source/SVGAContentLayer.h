@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *imageKey;
 @property (nonatomic, strong) SVGABitmapLayer *bitmapLayer;
 @property (nonatomic, strong) SVGAVectorLayer *vectorLayer;
+@property (nonatomic, strong) CATextLayer *textLayer;
 
 - (instancetype)initWithFrames:(NSArray<SVGAVideoSpriteFrameEntity *> *)frames;
 

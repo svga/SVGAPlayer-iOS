@@ -123,6 +123,7 @@
                 [textLayer setString:self.dynamicTexts[sprite.imageKey]];
                 textLayer.frame = CGRectMake(0, 0, size.width, size.height);
                 [contentLayer addSublayer:textLayer];
+                contentLayer.textLayer = textLayer;
             }
         }
     }];
@@ -297,6 +298,24 @@
     NSMutableDictionary *mutableDynamicTexts = [self.dynamicTexts mutableCopy];
     [mutableDynamicTexts setObject:attributedText forKey:aKey];
     self.dynamicTexts = mutableDynamicTexts;
+    if (self.drawLayer.sublayers.count > 0) {
+        CGSize size = [attributedText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
+        CATextLayer *textLayer;
+        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+            if ([layer isKindOfClass:[SVGAContentLayer class]] && [layer.imageKey isEqualToString:aKey]) {
+                textLayer = layer.textLayer;
+                if (textLayer == nil) {
+                    textLayer = [CATextLayer layer];
+                    [layer addSublayer:textLayer];
+                }
+            }
+        }
+        if (textLayer != nil) {
+            textLayer.contentsScale = [[UIScreen mainScreen] scale];
+            [textLayer setString:attributedText];
+            textLayer.frame = CGRectMake(0, 0, size.width, size.height);
+        }
+    }
 }
 
 - (void)clearDynamicObjects {
