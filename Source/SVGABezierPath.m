@@ -17,15 +17,6 @@
 
 @implementation SVGABezierPath
 
-static NSNumberFormatter *numberFotmatter;
-
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        numberFotmatter = [[NSNumberFormatter alloc] init];
-    });
-}
-
 - (void)setValues:(nonnull NSString *)values {
     if (!self.displaying) {
         self.backValues = values;
@@ -36,38 +27,19 @@ static NSNumberFormatter *numberFotmatter;
     dispatch_once(&onceToken, ^{
         validMethods = [NSSet setWithArray:@[@"M",@"L",@"H",@"V",@"C",@"S",@"Q",@"R",@"A",@"Z",@"m",@"l",@"h",@"v",@"c",@"s",@"q",@"r",@"a",@"z"]];
     });
+    values = [values stringByReplacingOccurrencesOfString:@"([a-zA-Z])" withString:@"|||$1 " options:NSRegularExpressionSearch range:NSMakeRange(0, values.length)];
     values = [values stringByReplacingOccurrencesOfString:@"," withString:@" "];
-    NSArray<NSString *> *items = [values componentsSeparatedByString:@" "];
-    NSString *currentMethod = @"";
-    NSMutableArray<NSString *> *args = [NSMutableArray array];
-    NSString *argLast = nil;
-    for (NSString *item in items) {
-        if (item.length < 1) {
+    NSArray<NSString *> *segments = [values componentsSeparatedByString:@"|||"];
+    for (NSString *segment in segments) {
+        if (segment.length == 0) {
             continue;
         }
-        NSString *firstLetter = [item substringToIndex:1];
+        NSString *firstLetter = [segment substringToIndex:1];
         if ([validMethods containsObject:firstLetter]) {
-            if (argLast != nil) {
-                [args addObject:argLast];
-            }
-            [self operate:currentMethod args:[args copy]];
-            currentMethod = @"";
-            [args removeAllObjects];
-            argLast = nil;
-            currentMethod = firstLetter;
-            argLast = [item substringFromIndex:1];
-        }
-        else {
-            if (argLast != nil && [argLast stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length) {
-                [args addObject:[NSString stringWithFormat:@"%@,%@", argLast, item]];
-                argLast = nil;
-            }
-            else {
-                argLast = item;
-            }
+            NSArray *args = [[[segment substringFromIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByString:@" "];
+            [self operate:firstLetter args:args];
         }
     }
-    [self operate:currentMethod args:[args copy]];
 }
 
 - (nonnull CAShapeLayer *)createLayer {
@@ -82,44 +54,44 @@ static NSNumberFormatter *numberFotmatter;
 }
 
 - (void)operate:(NSString *)method args:(NSArray<NSString *> *)args {
-    if (([method isEqualToString:@"M"] || [method isEqualToString:@"m"]) && args.count == 1) {
-        CGPoint iPoint = [self argPoint:args[0] relative:[method isEqualToString:@"m"]];
+    if (([method isEqualToString:@"M"] || [method isEqualToString:@"m"]) && args.count == 2) {
+        CGPoint iPoint = [self argPoint:CGPointMake([args[0] floatValue], [args[1] floatValue]) relative:[method isEqualToString:@"m"]];
         if (!CGPointEqualToPoint(iPoint, CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN))) {
             [self moveToPoint:iPoint];
         }
     }
-    else if (([method isEqualToString:@"L"] || [method isEqualToString:@"l"]) && args.count == 1) {
-        CGPoint iPoint = [self argPoint:args[0] relative:[method isEqualToString:@"l"]];
+    else if (([method isEqualToString:@"L"] || [method isEqualToString:@"l"]) && args.count == 2) {
+        CGPoint iPoint = [self argPoint:CGPointMake([args[0] floatValue], [args[1] floatValue]) relative:[method isEqualToString:@"l"]];
         if (!CGPointEqualToPoint(iPoint, CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN))) {
             [self addLineToPoint:iPoint];
         }
     }
-    else if (([method isEqualToString:@"C"] || [method isEqualToString:@"c"]) && args.count == 3) {
-        CGPoint iPoint = [self argPoint:args[0] relative:[method isEqualToString:@"c"]];
-        CGPoint iiPoint = [self argPoint:args[1] relative:[method isEqualToString:@"c"]];
-        CGPoint iiiPoint = [self argPoint:args[2] relative:[method isEqualToString:@"c"]];
+    else if (([method isEqualToString:@"C"] || [method isEqualToString:@"c"]) && args.count == 6) {
+        CGPoint iPoint = [self argPoint:CGPointMake([args[0] floatValue], [args[1] floatValue]) relative:[method isEqualToString:@"c"]];
+        CGPoint iiPoint = [self argPoint:CGPointMake([args[2] floatValue], [args[3] floatValue]) relative:[method isEqualToString:@"c"]];
+        CGPoint iiiPoint = [self argPoint:CGPointMake([args[4] floatValue], [args[5] floatValue]) relative:[method isEqualToString:@"c"]];
         if (!CGPointEqualToPoint(iPoint, CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN)) &&
             !CGPointEqualToPoint(iiPoint, CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN)) &&
             !CGPointEqualToPoint(iiiPoint, CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN))) {
             [self addCurveToPoint:iiiPoint controlPoint1:iPoint controlPoint2:iiPoint];
         }
     }
-    else if (([method isEqualToString:@"Q"] || [method isEqualToString:@"q"]) && args.count == 2) {
-        CGPoint iPoint = [self argPoint:args[0] relative:[method isEqualToString:@"q"]];
-        CGPoint iiPoint = [self argPoint:args[1] relative:[method isEqualToString:@"q"]];
+    else if (([method isEqualToString:@"Q"] || [method isEqualToString:@"q"]) && args.count == 4) {
+        CGPoint iPoint = [self argPoint:CGPointMake([args[0] floatValue], [args[1] floatValue]) relative:[method isEqualToString:@"q"]];
+        CGPoint iiPoint = [self argPoint:CGPointMake([args[2] floatValue], [args[3] floatValue]) relative:[method isEqualToString:@"q"]];
         if (!CGPointEqualToPoint(iPoint, CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN)) &&
             !CGPointEqualToPoint(iiPoint, CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN))) {
             [self addQuadCurveToPoint:iiPoint controlPoint:iPoint];
         }
     }
     else if (([method isEqualToString:@"H"] || [method isEqualToString:@"h"]) && args.count == 1) {
-        CGFloat iValue = [self argFloat:args[0] relativeValue:([method isEqualToString:@"h"] ? self.currentPoint.x : 0.0)];
+        CGFloat iValue = [self argFloat:args[0].floatValue relativeValue:([method isEqualToString:@"h"] ? self.currentPoint.x : 0.0)];
         if (iValue != CGFLOAT_MIN) {
             [self addLineToPoint:CGPointMake(iValue, self.currentPoint.y)];
         }
     }
     else if (([method isEqualToString:@"V"] || [method isEqualToString:@"v"]) && args.count == 1) {
-        CGFloat iValue = [self argFloat:args[0] relativeValue:([method isEqualToString:@"v"] ? self.currentPoint.y : 0.0)];
+        CGFloat iValue = [self argFloat:args[0].floatValue relativeValue:([method isEqualToString:@"v"] ? self.currentPoint.y : 0.0)];
         if (iValue != CGFLOAT_MIN) {
             [self addLineToPoint:CGPointMake(self.currentPoint.x, iValue)];
         }
@@ -129,30 +101,17 @@ static NSNumberFormatter *numberFotmatter;
     }
 }
 
-- (CGFloat)argFloat:(NSString *)arg relativeValue:(CGFloat)relativeValue {
-    NSNumber *x = [numberFotmatter numberFromString:arg];
-    if (x != nil) {
-        return x.floatValue + relativeValue;
-    }
-    else {
-        return CGFLOAT_MIN;
-    }
+- (CGFloat)argFloat:(CGFloat)value relativeValue:(CGFloat)relativeValue {
+    return value + relativeValue;
 }
 
-- (CGPoint)argPoint:(NSString *)arg relative:(BOOL)relative {
-    if ([arg componentsSeparatedByString:@","].count == 2) {
-        NSNumber *x = [numberFotmatter numberFromString:[arg componentsSeparatedByString:@","][0]];
-        NSNumber *y = [numberFotmatter numberFromString:[arg componentsSeparatedByString:@","][1]];
-        if (x != nil && y != nil) {
-            if (relative) {
-                return CGPointMake(x.floatValue + self.currentPoint.x, y.floatValue + self.currentPoint.y);
-            }
-            else {
-                return CGPointMake(x.floatValue, y.floatValue);
-            }
-        }
+- (CGPoint)argPoint:(CGPoint)point relative:(BOOL)relative {
+    if (relative) {
+        return CGPointMake(point.x + self.currentPoint.x, point.y + self.currentPoint.y);
     }
-    return CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN);
+    else {
+        return point;
+    }
 }
 
 @end
