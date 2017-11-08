@@ -12,6 +12,7 @@
 
 @interface SVGAContentLayer : CALayer
 
+@property (nonatomic, strong) NSString *imageKey;
 @property (nonatomic, strong) SVGABitmapLayer *bitmapLayer;
 @property (nonatomic, strong) SVGAVectorLayer *vectorLayer;
 

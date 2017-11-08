@@ -11,6 +11,7 @@
 #import "SVGAVideoSpriteEntity.h"
 #import "SVGAVideoSpriteFrameEntity.h"
 #import "SVGAContentLayer.h"
+#import "SVGABitmapLayer.h"
 #import "SVGAVectorLayer.h"
 
 @interface SVGAPlayer () {
@@ -21,7 +22,6 @@
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSInteger currentFrame;
 @property (nonatomic, copy) NSDictionary *dynamicObjects;
-@property (nonatomic, copy) NSDictionary *dynamicLayers;
 @property (nonatomic, copy) NSDictionary *dynamicTexts;
 
 @end
@@ -112,13 +112,9 @@
             }
         }
         SVGAContentLayer *contentLayer = [sprite requestLayerWithBitmap:bitmap];
+        contentLayer.imageKey = sprite.imageKey;
         [self.drawLayer addSublayer:contentLayer];
         if (sprite.imageKey != nil) {
-            if (self.dynamicLayers[sprite.imageKey] != nil) {
-                CALayer *dynamicLayer = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self.dynamicLayers[sprite.imageKey]]];
-                dynamicLayer.contentsGravity = kCAGravityResizeAspect;
-                [contentLayer addSublayer:dynamicLayer];
-            }
             if (self.dynamicTexts[sprite.imageKey] != nil) {
                 NSAttributedString *text = self.dynamicTexts[sprite.imageKey];
                 CGSize size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
@@ -261,18 +257,37 @@
 
 #pragma mark - Dynamic Object
 
-- (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer {
+- (void)setImage:(UIImage *)image forKey:(NSString *)aKey {
     if (image == nil) {
         return;
     }
     NSMutableDictionary *mutableDynamicObjects = [self.dynamicObjects mutableCopy];
     [mutableDynamicObjects setObject:image forKey:aKey];
     self.dynamicObjects = mutableDynamicObjects;
-    if (referenceLayer != nil) {
-        NSMutableDictionary *mutableDynamicLayers = [self.dynamicLayers mutableCopy];
-        [mutableDynamicLayers setObject:referenceLayer forKey:aKey];
-        self.dynamicLayers = mutableDynamicLayers;
+    if (self.drawLayer.sublayers.count > 0) {
+        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+            if ([layer isKindOfClass:[SVGAContentLayer class]] && [layer.imageKey isEqualToString:aKey]) {
+                layer.bitmapLayer.contents = (__bridge id _Nullable)([image CGImage]);
+            }
+        }
     }
+}
+
+- (void)setImageWithURL:(NSURL *)URL forKey:(NSString *)aKey {
+    [[[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error == nil && data != nil) {
+            UIImage *image = [UIImage imageWithData:data];
+            if (image != nil) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [self setImage:image forKey:aKey];
+                }];
+            }
+        }
+    }] resume];
+}
+
+- (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer {
+    [self setImage:image forKey:aKey];
 }
 
 - (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey {
@@ -286,7 +301,6 @@
 
 - (void)clearDynamicObjects {
     self.dynamicObjects = nil;
-    self.dynamicLayers = nil;
 }
 
 - (NSDictionary *)dynamicObjects {
@@ -294,13 +308,6 @@
         _dynamicObjects = @{};
     }
     return _dynamicObjects;
-}
-
-- (NSDictionary *)dynamicLayers {
-    if (_dynamicLayers == nil) {
-        _dynamicLayers = @{};
-    }
-    return _dynamicLayers;
 }
 
 - (NSDictionary *)dynamicTexts {

@@ -36,7 +36,9 @@
 
 #pragma mark - Dynamic Object
 
-- (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer;
+- (void)setImage:(UIImage *)image forKey:(NSString *)aKey;
+- (void)setImageWithURL:(NSURL *)URL forKey:(NSString *)aKey;
+- (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer; // deprecated from 2.0.1
 - (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey;
 - (void)clearDynamicObjects;
 
