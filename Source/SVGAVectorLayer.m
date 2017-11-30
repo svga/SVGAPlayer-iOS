@@ -269,7 +269,7 @@
             shapeLayer.lineWidth = [shape[@"styles"][@"strokeWidth"] floatValue];
         }
         if ([shape[@"styles"][@"lineCap"] isKindOfClass:[NSString class]]) {
-            shapeLayer.lineCap = [shape[@"styles"][@"lineCap"] isEqualToString:kCALineCapRound] ? kCALineCapRound : kCALineCapSquare;
+            shapeLayer.lineCap = shape[@"styles"][@"lineCap"];
         }
         if ([shape[@"styles"][@"lineJoin"] isKindOfClass:[NSString class]]) {
             shapeLayer.lineJoin = shape[@"styles"][@"lineJoin"];
