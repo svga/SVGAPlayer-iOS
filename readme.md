@@ -86,6 +86,7 @@ Deliver NSData to SVGAParser, as usual.
 ### Methods
 
 * (void)startAnimation; - Play Animation from 0 frame.
+* (void)startAnimationWithRange:(NSRange)range reverse:(BOOL)reverse;
 * (void)pauseAnimation; - Pause Animation and keep on current frame.
 * (void)stopAnimation; - Stop Animation，Clears Canvas while clearsAfterStop == YES.
 * (void)clear; - Clear Canvas force.

@@ -28,6 +28,7 @@
 @property (nonatomic, copy) NSString *fillMode;
 
 - (void)startAnimation;
+- (void)startAnimationWithRange:(NSRange)range reverse:(BOOL)reverse;
 - (void)pauseAnimation;
 - (void)stopAnimation;
 - (void)clear;

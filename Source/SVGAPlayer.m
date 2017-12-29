@@ -14,15 +14,16 @@
 #import "SVGABitmapLayer.h"
 #import "SVGAVectorLayer.h"
 
-@interface SVGAPlayer () {
-    int _loopCount;
-}
+@interface SVGAPlayer ()
 
 @property (nonatomic, strong) CALayer *drawLayer;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSInteger currentFrame;
 @property (nonatomic, copy) NSDictionary *dynamicObjects;
 @property (nonatomic, copy) NSDictionary *dynamicTexts;
+@property (nonatomic, assign) int loopCount;
+@property (nonatomic, assign) NSRange currentRange;
+@property (nonatomic, assign) BOOL reversing;
 
 @end
 
@@ -46,10 +47,22 @@
 
 - (void)startAnimation {
     [self stopAnimation:NO];
-    _loopCount = 0;
+    self.loopCount = 0;
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
     self.displayLink.frameInterval = 60 / self.videoItem.FPS;
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+- (void)startAnimationWithRange:(NSRange)range reverse:(BOOL)reverse {
+    self.currentRange = range;
+    self.reversing = reverse;
+    if (reverse) {
+        self.currentFrame = MIN(self.videoItem.frames - 1, range.location + range.length - 1);
+    }
+    else {
+        self.currentFrame = MAX(0, range.location);
+    }
+    [self startAnimation];
 }
 
 - (void)pauseAnimation {
@@ -128,7 +141,6 @@
         }
     }];
     [self.layer addSublayer:self.drawLayer];
-    self.currentFrame = 0;
     [self update];
     [self resize];
 }
@@ -222,21 +234,33 @@
 }
 
 - (void)next {
-    self.currentFrame++;
-    if (self.currentFrame >= self.videoItem.frames) {
-        self.currentFrame = 0;
-        _loopCount++;
-        if (self.loops > 0 && _loopCount >= self.loops) {
-            [self stopAnimation];
-            if (!self.clearsAfterStop && [self.fillMode isEqualToString:@"Backward"]) {
-                [self stepToFrame:0 andPlay:NO];
-            }
-            id delegate = self.delegate;
-            if (delegate != nil && [delegate respondsToSelector:@selector(svgaPlayerDidFinishedAnimation:)]) {
-                [delegate svgaPlayerDidFinishedAnimation:self];
-            }
-            return;
+    if (self.reversing) {
+        self.currentFrame--;
+        if (self.currentFrame < (NSInteger)MAX(0, self.currentRange.location)) {
+            self.currentFrame = MIN(self.videoItem.frames - 1, self.currentRange.location + self.currentRange.length - 1);
+            self.loopCount++;
         }
+    }
+    else {
+        self.currentFrame++;
+        if (self.currentFrame >= MIN(self.videoItem.frames, self.currentRange.location + self.currentRange.length)) {
+            self.currentFrame = MAX(0, self.currentRange.location);
+            self.loopCount++;
+        }
+    }
+    if (self.loops > 0 && self.loopCount >= self.loops) {
+        [self stopAnimation];
+        if (!self.clearsAfterStop && [self.fillMode isEqualToString:@"Backward"]) {
+            [self stepToFrame:MAX(0, self.currentRange.location) andPlay:NO];
+        }
+        else if (!self.clearsAfterStop && [self.fillMode isEqualToString:@"Forward"]) {
+            [self stepToFrame:MIN(self.videoItem.frames - 1, self.currentRange.location + self.currentRange.length - 1) andPlay:NO];
+        }
+        id delegate = self.delegate;
+        if (delegate != nil && [delegate respondsToSelector:@selector(svgaPlayerDidFinishedAnimation:)]) {
+            [delegate svgaPlayerDidFinishedAnimation:self];
+        }
+        return;
     }
     [self update];
     id delegate = self.delegate;
@@ -250,6 +274,9 @@
 
 - (void)setVideoItem:(SVGAVideoEntity *)videoItem {
     _videoItem = videoItem;
+    _currentRange = NSMakeRange(0, videoItem.frames);
+    _reversing = NO;
+    _currentFrame = 0;
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self clear];
         [self draw];
