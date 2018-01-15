@@ -2,6 +2,10 @@
 
 ## Version
 
+### 2.1.0
+
+* Add range play mode.
+
 ### 2.0.0
 
 #### New Features
@@ -14,14 +18,6 @@
 
 * SVGAParser now can works up-to 8 concurrent tasks.
 * Improves BezierPath performance.
-
-### 1.1.6
-
-Change CADisplayLink mode to NSRunLoopCommonModes, SVGAPlayer will not pause while ScrollView tracking.
-
-### 1.1.4
-
-Improve SVGAParser under multi-thread.
 
 ## SVGA Format
 
