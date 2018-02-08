@@ -35,12 +35,16 @@ static NSOperationQueue *unzipQueue;
     if ([[NSFileManager defaultManager] fileExistsAtPath:[self cacheDirectory:[self cacheKey:URL]]]) {
         [self parseWithCacheKey:[self cacheKey:URL] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
             if (completionBlock) {
-                completionBlock(videoItem);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    completionBlock(videoItem);
+                }];
             }
         } failureBlock:^(NSError * _Nonnull error) {
             [self clearCache:[self cacheKey:URL]];
             if (failureBlock) {
-                failureBlock(error);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failureBlock(error);
+                }];
             }
         }];
         return;
@@ -49,18 +53,24 @@ static NSOperationQueue *unzipQueue;
         if (error == nil && data != nil) {
             [self parseWithData:data cacheKey:[self cacheKey:URL] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
                 if (completionBlock) {
-                    completionBlock(videoItem);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        completionBlock(videoItem);
+                    }];
                 }
             } failureBlock:^(NSError * _Nonnull error) {
                 [self clearCache:[self cacheKey:URL]];
                 if (failureBlock) {
-                    failureBlock(error);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        failureBlock(error);
+                    }];
                 }
             }];
         }
         else {
             if (failureBlock) {
-                failureBlock(error);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failureBlock(error);
+                }];
             }
         }
     }] resume];
@@ -79,7 +89,9 @@ static NSOperationQueue *unzipQueue;
                failureBlock:failureBlock];
     }
     else {
-        failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
+        }];
     }
 }
 
@@ -90,7 +102,9 @@ static NSOperationQueue *unzipQueue;
         SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
         if (cacheItem != nil) {
             if (completionBlock) {
-                completionBlock(cacheItem);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    completionBlock(cacheItem);
+                }];
             }
             return;
         }
@@ -105,12 +119,16 @@ static NSOperationQueue *unzipQueue;
                 [videoItem resetSpritesWithProtoObject:protoObject];
                 [videoItem saveCache:cacheKey];
                 if (completionBlock) {
-                    completionBlock(videoItem);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        completionBlock(videoItem);
+                    }];
                 }
             }
             else {
                 if (failureBlock) {
-                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                    }];
                 }
             }
         }
@@ -125,13 +143,17 @@ static NSOperationQueue *unzipQueue;
                     [videoItem resetSpritesWithJSONObject:JSONObject];
                     [videoItem saveCache:cacheKey];
                     if (completionBlock) {
-                        completionBlock(videoItem);
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            completionBlock(videoItem);
+                        }];
                     }
                 }
             }
             else {
                 if (failureBlock) {
-                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                    }];
                 }
             }
         }
@@ -150,7 +172,9 @@ static NSOperationQueue *unzipQueue;
     SVGAVideoEntity *cacheItem = [SVGAVideoEntity readCache:cacheKey];
     if (cacheItem != nil) {
         if (completionBlock) {
-            completionBlock(cacheItem);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                completionBlock(cacheItem);
+            }];
         }
         return;
     }
@@ -167,7 +191,9 @@ static NSOperationQueue *unzipQueue;
                 [videoItem resetSpritesWithProtoObject:protoObject];
                 [videoItem saveCache:cacheKey];
                 if (completionBlock) {
-                    completionBlock(videoItem);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        completionBlock(videoItem);
+                    }];
                 }
             }
         }];
@@ -177,12 +203,16 @@ static NSOperationQueue *unzipQueue;
         if ([[NSFileManager defaultManager] fileExistsAtPath:[self cacheDirectory:cacheKey]]) {
             [self parseWithCacheKey:cacheKey completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
                 if (completionBlock) {
-                    completionBlock(videoItem);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        completionBlock(videoItem);
+                    }];
                 }
             } failureBlock:^(NSError * _Nonnull error) {
                 [self clearCache:cacheKey];
                 if (failureBlock) {
-                    failureBlock(error);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        failureBlock(error);
+                    }];
                 }
             }];
             return;
@@ -198,7 +228,9 @@ static NSOperationQueue *unzipQueue;
                 } completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
                     if (error != nil) {
                         if (failureBlock) {
-                            failureBlock(error);
+                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                failureBlock(error);
+                            }];
                         }
                     }
                     else {
@@ -212,12 +244,16 @@ static NSOperationQueue *unzipQueue;
                                 [videoItem resetSpritesWithProtoObject:protoObject];
                                 [videoItem saveCache:cacheKey];
                                 if (completionBlock) {
-                                    completionBlock(videoItem);
+                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                        completionBlock(videoItem);
+                                    }];
                                 }
                             }
                             else {
                                 if (failureBlock) {
-                                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                        failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                                    }];
                                 }
                             }
                         }
@@ -232,13 +268,17 @@ static NSOperationQueue *unzipQueue;
                                     [videoItem resetSpritesWithJSONObject:JSONObject];
                                     [videoItem saveCache:cacheKey];
                                     if (completionBlock) {
-                                        completionBlock(videoItem);
+                                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                            completionBlock(videoItem);
+                                        }];
                                     }
                                 }
                             }
                             else {
                                 if (failureBlock) {
-                                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                        failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                                    }];
                                 }
                             }
                         }
@@ -247,13 +287,17 @@ static NSOperationQueue *unzipQueue;
             }
             else {
                 if (failureBlock) {
-                    failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        failureBlock([NSError errorWithDomain:NSFilePathErrorKey code:-1 userInfo:nil]);
+                    }];
                 }
             }
         }
         else {
             if (failureBlock) {
-                failureBlock([NSError errorWithDomain:@"Data Error" code:-1 userInfo:nil]);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failureBlock([NSError errorWithDomain:@"Data Error" code:-1 userInfo:nil]);
+                }];
             }
         }
     }];

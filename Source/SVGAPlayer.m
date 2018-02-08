@@ -74,9 +74,8 @@
 }
 
 - (void)stopAnimation:(BOOL)clear {
-    if (![self.displayLink isPaused]) {
-        [self.displayLink setPaused:YES];
-        [self.displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    if (self.displayLink != nil) {
+        [self.displayLink invalidate];
     }
     if (clear) {
         [self clear];
