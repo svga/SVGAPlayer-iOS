@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SVGAPlayer.h"
 
 @class SVGABitmapLayer, SVGAVectorLayer, SVGAVideoSpriteFrameEntity;
 
 @interface SVGAContentLayer : CALayer
 
 @property (nonatomic, strong) NSString *imageKey;
+@property (nonatomic, assign) BOOL dynamicHidden;
+@property (nonatomic, copy) SVGAPlayerDynamicDrawingBlock dynamicDrawingBlock;
 @property (nonatomic, strong) SVGABitmapLayer *bitmapLayer;
 @property (nonatomic, strong) SVGAVectorLayer *vectorLayer;
 @property (nonatomic, strong) CATextLayer *textLayer;

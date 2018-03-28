@@ -19,8 +19,10 @@
 @property (nonatomic, strong) CALayer *drawLayer;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSInteger currentFrame;
-@property (nonatomic, copy) NSDictionary *dynamicObjects;
-@property (nonatomic, copy) NSDictionary *dynamicTexts;
+@property (nonatomic, copy) NSDictionary<NSString *, UIImage *> *dynamicObjects;
+@property (nonatomic, copy) NSDictionary<NSString *, NSAttributedString *> *dynamicTexts;
+@property (nonatomic, copy) NSDictionary<NSString *, SVGAPlayerDynamicDrawingBlock> *dynamicDrawings;
+@property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *dynamicHiddens;
 @property (nonatomic, assign) int loopCount;
 @property (nonatomic, assign) NSRange currentRange;
 @property (nonatomic, assign) BOOL reversing;
@@ -136,6 +138,13 @@
                 textLayer.frame = CGRectMake(0, 0, size.width, size.height);
                 [contentLayer addSublayer:textLayer];
                 contentLayer.textLayer = textLayer;
+            }
+            if (self.dynamicHiddens[sprite.imageKey] != nil &&
+                [self.dynamicHiddens[sprite.imageKey] boolValue] == YES) {
+                contentLayer.dynamicHidden = YES;
+            }
+            if (self.dynamicDrawings[sprite.imageKey] != nil) {
+                contentLayer.dynamicDrawingBlock = self.dynamicDrawings[sprite.imageKey];
             }
         }
     }];
@@ -344,8 +353,39 @@
     }
 }
 
+- (void)setDrawingBlock:(SVGAPlayerDynamicDrawingBlock)drawingBlock forKey:(NSString *)aKey {
+    NSMutableDictionary *mutableDynamicDrawings = [self.dynamicDrawings mutableCopy];
+    [mutableDynamicDrawings setObject:drawingBlock forKey:aKey];
+    self.dynamicDrawings = mutableDynamicDrawings;
+    if (self.drawLayer.sublayers.count > 0) {
+        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+            if ([layer isKindOfClass:[SVGAContentLayer class]] &&
+                [layer.imageKey isEqualToString:aKey]) {
+                layer.dynamicDrawingBlock = drawingBlock;
+            }
+        }
+    }
+}
+
+- (void)setHidden:(BOOL)hidden forKey:(NSString *)aKey {
+    NSMutableDictionary *mutableDynamicHiddens = [self.dynamicHiddens mutableCopy];
+    [mutableDynamicHiddens setObject:@(hidden) forKey:aKey];
+    self.dynamicHiddens = mutableDynamicHiddens;
+    if (self.drawLayer.sublayers.count > 0) {
+        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+            if ([layer isKindOfClass:[SVGAContentLayer class]] &&
+                [layer.imageKey isEqualToString:aKey]) {
+                layer.dynamicHidden = hidden;
+            }
+        }
+    }
+}
+
 - (void)clearDynamicObjects {
     self.dynamicObjects = nil;
+    self.dynamicTexts = nil;
+    self.dynamicHiddens = nil;
+    self.dynamicDrawings = nil;
 }
 
 - (NSDictionary *)dynamicObjects {
@@ -360,6 +400,20 @@
         _dynamicTexts = @{};
     }
     return _dynamicTexts;
+}
+
+- (NSDictionary *)dynamicHiddens {
+    if (_dynamicHiddens == nil) {
+        _dynamicHiddens = @{};
+    }
+    return _dynamicHiddens;
+}
+
+- (NSDictionary<NSString *,SVGAPlayerDynamicDrawingBlock> *)dynamicDrawings {
+    if (_dynamicDrawings == nil) {
+        _dynamicDrawings = @{};
+    }
+    return _dynamicDrawings;
 }
 
 @end

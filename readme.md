@@ -36,7 +36,7 @@ pod 'SVGAPlayer'
 
 ### code
 
-```
+```objectivec
 SVGAParser *parser = [[SVGAParser alloc] init];
 SVGAPlayer *player = [[SVGAPlayer alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
 [self.view addSubview:player];
@@ -106,7 +106,7 @@ Use this way to replace specific image, or add text to it. (可以通过以下�
 
 #### Dynamic Image
 
-```
+```objectivec
 CALayer *iconLayer = [CALayer layer];
 iconLayer.cornerRadius = 84.0;
 iconLayer.masksToBounds = YES;
@@ -119,7 +119,7 @@ iconLayer.borderColor = [UIColor colorWithRed:0xea/255.0 green:0xb3/255.0 blue:0
 
 #### Dynamic Text
 
-```
+```objectivec
 NSShadow *shadow = [NSShadow new];
 shadow.shadowColor = [UIColor blackColor];
 shadow.shadowOffset = CGSizeMake(0, 1);
@@ -133,3 +133,21 @@ NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小�
 ```
 
 * Ask designer tell you the imageKey(or unzip the svga file, find it).
+
+#### Dynamic Hidden
+
+Now use setHidden to hide an element prevents drawing.
+
+```objectivec
+[self.aPlayer setHidden:YES forKey:@"99"];
+```
+
+#### Dynamic Drawing
+
+You can set a block, it will callback while frame step.
+
+```objectivec
+[self.aPlayer setDrawingBlock:^(CALayer *contentLayer, NSInteger frameIndex) {
+    // do thing by yourself
+} forKey:@"99"];
+```

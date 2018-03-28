@@ -31,6 +31,9 @@
 }
 
 - (void)stepToFrame:(NSInteger)frame {
+    if (self.dynamicHidden) {
+        return;
+    }
     if (frame < self.frames.count) {
         SVGAVideoSpriteFrameEntity *frameItem = self.frames[frame];
         if (frameItem.alpha > 0.0) {
@@ -51,6 +54,9 @@
         }
         else {
             self.hidden = YES;
+        }
+        if (self.dynamicDrawingBlock) {
+            self.dynamicDrawingBlock(self, frame);
         }
     }
 }
@@ -79,6 +85,11 @@
     [_vectorLayer removeFromSuperlayer];
     _vectorLayer = vectorLayer;
     [self addSublayer:vectorLayer];
+}
+
+- (void)setDynamicHidden:(BOOL)dynamicHidden {
+    _dynamicHidden = dynamicHidden;
+    self.hidden = dynamicHidden;
 }
 
 @end
