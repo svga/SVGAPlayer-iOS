@@ -184,7 +184,7 @@ static NSOperationQueue *unzipQueue;
         }
         return;
     }
-    if (!data || data.length < 5) {
+    if (!data || data.length < 4) {
         return;
     }
     NSData *tag = [data subdataWithRange:NSMakeRange(0, 4)];
