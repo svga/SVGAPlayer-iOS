@@ -184,6 +184,9 @@ static NSOperationQueue *unzipQueue;
         }
         return;
     }
+    if (!data || data.length < 4) {
+        return;
+    }
     NSData *tag = [data subdataWithRange:NSMakeRange(0, 4)];
     if (![[tag description] isEqualToString:@"<504b0304>"]) {
         // Maybe is SVGA 2.0.0
