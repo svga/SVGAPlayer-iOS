@@ -119,7 +119,7 @@ static NSOperationQueue *unzipQueue;
             NSError *err;
             NSData *protoData = [NSData dataWithContentsOfFile:[cacheDir stringByAppendingString:@"/movie.binary"]];
             SVGAProtoMovieEntity *protoObject = [SVGAProtoMovieEntity parseFromData:protoData error:&err];
-            if (!err) {
+            if (!err && [protoObject isKindOfClass:[SVGAProtoMovieEntity class]]) {
                 SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithProtoObject:protoObject cacheDir:cacheDir];
                 [videoItem resetImagesWithProtoObject:protoObject];
                 [videoItem resetSpritesWithProtoObject:protoObject];
@@ -191,7 +191,7 @@ static NSOperationQueue *unzipQueue;
             NSData *inflateData = [self zlibInflate:data];
             NSError *err;
             SVGAProtoMovieEntity *protoObject = [SVGAProtoMovieEntity parseFromData:inflateData error:&err];
-            if (!err) {
+            if (!err && [protoObject isKindOfClass:[SVGAProtoMovieEntity class]]) {
                 SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithProtoObject:protoObject cacheDir:@""];
                 [videoItem resetImagesWithProtoObject:protoObject];
                 [videoItem resetSpritesWithProtoObject:protoObject];
