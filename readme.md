@@ -1,12 +1,9 @@
 # SVGAPlayer
 
-## Version
+## 咨询服务
 
-### 2.1.0
-
-* Add range play mode.
-
-### 2.0.0
+* 如果你发现 SVGAPlayer 存在 BUG，请在 GitHub 上按照模板提交 issue。
+* 如果有使用上的问题，请勿提交 issue（会被立刻关闭），请至[知乎付费问答](https://www.zhihu.com/zhi/people/1011556735563157504)提问，我们会全程跟踪你的疑问。
 
 #### New Features
 
