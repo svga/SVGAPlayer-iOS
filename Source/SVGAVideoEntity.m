@@ -6,9 +6,11 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "SVGAVideoEntity.h"
 #import "SVGABezierPath.h"
 #import "SVGAVideoSpriteEntity.h"
+#import "SVGAAudioEntity.h"
 #import "Svga.pbobjc.h"
 
 @interface SVGAVideoEntity ()
@@ -17,7 +19,9 @@
 @property (nonatomic, assign) int FPS;
 @property (nonatomic, assign) int frames;
 @property (nonatomic, copy) NSDictionary<NSString *, UIImage *> *images;
+@property (nonatomic, copy) NSDictionary<NSString *, NSData *> *audiosData;
 @property (nonatomic, copy) NSArray<SVGAVideoSpriteEntity *> *sprites;
+@property (nonatomic, copy) NSArray<SVGAAudioEntity *> *audios;
 @property (nonatomic, copy) NSString *cacheDir;
 
 @end
@@ -129,6 +133,7 @@ static NSCache *videoCache;
 
 - (void)resetImagesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
     NSMutableDictionary<NSString *, UIImage *> *images = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary<NSString *, NSData *> *audiosData = [[NSMutableDictionary alloc] init];
     NSDictionary *protoImages = [protoObject.images copy];
     for (NSString *key in protoImages) {
         NSString *fileName = [[NSString alloc] initWithData:protoImages[key] encoding:NSUTF8StringEncoding];
@@ -147,14 +152,22 @@ static NSCache *videoCache;
                 }
             }
         }
-        else {
-            UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
-            if (image != nil) {
-                [images setObject:image forKey:key];
+        else if ([protoImages[key] isKindOfClass:[NSData class]]) {
+            NSData *fileTag = [protoImages[key] subdataWithRange:NSMakeRange(0, 4)];
+            if (![[fileTag description] isEqualToString:@"<89504e47>"]) {
+                // mp3
+                [audiosData setObject:protoImages[key] forKey:key];
+            }
+            else {
+                UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
+                if (image != nil) {
+                    [images setObject:image forKey:key];
+                }
             }
         }
     }
     self.images = images;
+    self.audiosData = audiosData;
 }
 
 - (void)resetSpritesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
@@ -167,6 +180,18 @@ static NSCache *videoCache;
         }
     }];
     self.sprites = sprites;
+}
+    
+- (void)resetAudiosWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
+    NSMutableArray<SVGAAudioEntity *> *audios = [[NSMutableArray alloc] init];
+    NSArray *protoAudios = [protoObject.audiosArray copy];
+    [protoAudios enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[SVGAProtoAudioEntity class]]) {
+            SVGAAudioEntity *audioItem = [[SVGAAudioEntity alloc] initWithProtoObject:obj];
+            [audios addObject:audioItem];
+        }
+    }];
+    self.audios = audios;
 }
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey {

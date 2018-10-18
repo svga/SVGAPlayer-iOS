@@ -59,6 +59,12 @@ static SVGAParser *parser;
             [self.aPlayer startAnimation];
         }
     } failureBlock:nil];
+//    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+//        if (videoItem != nil) {
+//            self.aPlayer.videoItem = videoItem;
+//            [self.aPlayer startAnimation];
+//        }
+//    } failureBlock:nil];
 }
 
 - (SVGAPlayer *)aPlayer {

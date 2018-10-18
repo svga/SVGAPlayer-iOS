@@ -13,7 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Svga.pbobjc.h"
+#import <stdatomic.h>
+
+#import "Svga.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -174,6 +176,87 @@ typedef struct SVGAProtoSpriteEntity__storage_ {
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
     static const char *extraTextFormatInfo =
         "\001\001\010\000";
+    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+#endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
+    NSAssert(descriptor == nil, @"Startup recursed!");
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+#pragma mark - SVGAProtoAudioEntity
+
+@implementation SVGAProtoAudioEntity
+
+@dynamic audioKey;
+@dynamic startFrame;
+@dynamic endFrame;
+@dynamic startTime;
+
+typedef struct SVGAProtoAudioEntity__storage_ {
+  uint32_t _has_storage_[1];
+  int32_t startFrame;
+  int32_t endFrame;
+  int32_t startTime;
+  NSString *audioKey;
+} SVGAProtoAudioEntity__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "audioKey",
+        .dataTypeSpecific.className = NULL,
+        .number = SVGAProtoAudioEntity_FieldNumber_AudioKey,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, audioKey),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "startFrame",
+        .dataTypeSpecific.className = NULL,
+        .number = SVGAProtoAudioEntity_FieldNumber_StartFrame,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, startFrame),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+        .dataType = GPBDataTypeInt32,
+      },
+      {
+        .name = "endFrame",
+        .dataTypeSpecific.className = NULL,
+        .number = SVGAProtoAudioEntity_FieldNumber_EndFrame,
+        .hasIndex = 2,
+        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, endFrame),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+        .dataType = GPBDataTypeInt32,
+      },
+      {
+        .name = "startTime",
+        .dataTypeSpecific.className = NULL,
+        .number = SVGAProtoAudioEntity_FieldNumber_StartTime,
+        .hasIndex = 3,
+        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, startTime),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+        .dataType = GPBDataTypeInt32,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[SVGAProtoAudioEntity class]
+                                     rootClass:[SVGAProtoSvgaRoot class]
+                                          file:SVGAProtoSvgaRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(SVGAProtoAudioEntity__storage_)
+                                         flags:GPBDescriptorInitializationFlag_None];
+#if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
+    static const char *extraTextFormatInfo =
+        "\004\001\010\000\002\n\000\003\010\000\004\t\000";
     [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
     NSAssert(descriptor == nil, @"Startup recursed!");
@@ -483,7 +566,7 @@ void SVGAProtoShapeEntity_ClearArgsOneOfCase(SVGAProtoShapeEntity *message) {
 #pragma mark - Enum SVGAProtoShapeEntity_ShapeType
 
 GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeType_EnumDescriptor(void) {
-  static GPBEnumDescriptor *descriptor = NULL;
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
   if (!descriptor) {
     static const char *valueNames =
         "Shape\000Rect\000Ellipse\000Keep\000";
@@ -499,7 +582,8 @@ GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeType_EnumDescriptor(void) {
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:SVGAProtoShapeEntity_ShapeType_IsValidValue];
-    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
       [worker release];
     }
   }
@@ -901,7 +985,7 @@ void SetSVGAProtoShapeEntity_ShapeStyle_LineJoin_RawValue(SVGAProtoShapeEntity_S
 #pragma mark - Enum SVGAProtoShapeEntity_ShapeStyle_LineCap
 
 GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeStyle_LineCap_EnumDescriptor(void) {
-  static GPBEnumDescriptor *descriptor = NULL;
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
   if (!descriptor) {
     static const char *valueNames =
         "LineCapButt\000LineCapRound\000LineCapSquare\000";
@@ -918,7 +1002,8 @@ GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeStyle_LineCap_EnumDescriptor(void) 
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:SVGAProtoShapeEntity_ShapeStyle_LineCap_IsValidValue
                               extraTextFormatInfo:extraTextFormatInfo];
-    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
       [worker release];
     }
   }
@@ -939,7 +1024,7 @@ BOOL SVGAProtoShapeEntity_ShapeStyle_LineCap_IsValidValue(int32_t value__) {
 #pragma mark - Enum SVGAProtoShapeEntity_ShapeStyle_LineJoin
 
 GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeStyle_LineJoin_EnumDescriptor(void) {
-  static GPBEnumDescriptor *descriptor = NULL;
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
   if (!descriptor) {
     static const char *valueNames =
         "LineJoinMiter\000LineJoinRound\000LineJoinBeve"
@@ -957,7 +1042,8 @@ GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeStyle_LineJoin_EnumDescriptor(void)
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:SVGAProtoShapeEntity_ShapeStyle_LineJoin_IsValidValue
                               extraTextFormatInfo:extraTextFormatInfo];
-    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
       [worker release];
     }
   }
@@ -1152,6 +1238,7 @@ typedef struct SVGAProtoFrameEntity__storage_ {
 @dynamic hasParams, params;
 @dynamic images, images_Count;
 @dynamic spritesArray, spritesArray_Count;
+@dynamic audiosArray, audiosArray_Count;
 
 typedef struct SVGAProtoMovieEntity__storage_ {
   uint32_t _has_storage_[1];
@@ -1159,6 +1246,7 @@ typedef struct SVGAProtoMovieEntity__storage_ {
   SVGAProtoMovieParams *params;
   NSMutableDictionary *images;
   NSMutableArray *spritesArray;
+  NSMutableArray *audiosArray;
 } SVGAProtoMovieEntity__storage_;
 
 // This method is threadsafe because it is initially called
@@ -1200,6 +1288,15 @@ typedef struct SVGAProtoMovieEntity__storage_ {
         .number = SVGAProtoMovieEntity_FieldNumber_SpritesArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, spritesArray),
+        .flags = GPBFieldRepeated,
+        .dataType = GPBDataTypeMessage,
+      },
+      {
+        .name = "audiosArray",
+        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoAudioEntity),
+        .number = SVGAProtoMovieEntity_FieldNumber_AudiosArray,
+        .hasIndex = GPBNoHasBit,
+        .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, audiosArray),
         .flags = GPBFieldRepeated,
         .dataType = GPBDataTypeMessage,
       },

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4B62B1C5E6CE2BE2D914927B /* libPods-SVGAPlayer React.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92332F7A897BF4379D765B05 /* libPods-SVGAPlayer React.a */; };
+		63712E6521787950001AE014 /* heartbeat.svga in Resources */ = {isa = PBXBuildFile; fileRef = 63712E6421787950001AE014 /* heartbeat.svga */; };
+		63712E6821787A45001AE014 /* SVGAAudioEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63712E6721787A45001AE014 /* SVGAAudioEntity.m */; };
+		63E817012178809D001D2D62 /* SVGAAudioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E817002178809D001D2D62 /* SVGAAudioLayer.m */; };
 		80D4C7254846B96B9C6EED83 /* libPods-SVGAPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */; };
 		904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 904D41F71D223DD20085A21A /* SVGABezierPath.m */; };
 		9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9052FC621E6EB8D4007BC925 /* SVGAExporter.m */; };
@@ -55,6 +58,11 @@
 /* Begin PBXFileReference section */
 		1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVGAPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF4851C027B3C0E45E3C5C0 /* Pods-SVGAPlayer React.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer React.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer React/Pods-SVGAPlayer React.debug.xcconfig"; sourceTree = "<group>"; };
+		63712E6421787950001AE014 /* heartbeat.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = heartbeat.svga; sourceTree = "<group>"; };
+		63712E6621787A45001AE014 /* SVGAAudioEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAAudioEntity.h; sourceTree = "<group>"; };
+		63712E6721787A45001AE014 /* SVGAAudioEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAAudioEntity.m; sourceTree = "<group>"; };
+		63E816FF2178809D001D2D62 /* SVGAAudioLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAAudioLayer.h; sourceTree = "<group>"; };
+		63E817002178809D001D2D62 /* SVGAAudioLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAAudioLayer.m; sourceTree = "<group>"; };
 		8AD65028FA2D122A34DC4A63 /* Pods-SVGAPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		904D41F61D223DD20085A21A /* SVGABezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGABezierPath.h; sourceTree = "<group>"; };
 		904D41F71D223DD20085A21A /* SVGABezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGABezierPath.m; sourceTree = "<group>"; };
@@ -193,6 +201,8 @@
 				90A676FC1D13A82A008A69F3 /* SVGAParser.m */,
 				90A677011D13AE19008A69F3 /* SVGAVideoEntity.h */,
 				90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */,
+				63712E6621787A45001AE014 /* SVGAAudioEntity.h */,
+				63712E6721787A45001AE014 /* SVGAAudioEntity.m */,
 				90A364D51E5AECBD009347F1 /* SVGAVideoSpriteEntity.h */,
 				90A364D61E5AECBD009347F1 /* SVGAVideoSpriteEntity.m */,
 				90A364D81E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.h */,
@@ -203,6 +213,8 @@
 				90A364D01E5AEC11009347F1 /* SVGABitmapLayer.m */,
 				90A364D21E5AEC1B009347F1 /* SVGAVectorLayer.h */,
 				90A364D31E5AEC1C009347F1 /* SVGAVectorLayer.m */,
+				63E816FF2178809D001D2D62 /* SVGAAudioLayer.h */,
+				63E817002178809D001D2D62 /* SVGAAudioLayer.m */,
 				90A677041D13BF77008A69F3 /* SVGAPlayer.h */,
 				90A677051D13BF77008A69F3 /* SVGAPlayer.m */,
 				90DB59B31F96026E00894727 /* SVGAImageView.h */,
@@ -227,6 +239,7 @@
 		90D7C9FA1F7E2AA3006E74F0 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				63712E6421787950001AE014 /* heartbeat.svga */,
 				90D7CA1A1F7FB114006E74F0 /* rose_1.5.0.svga */,
 				90D7CA191F7FB114006E74F0 /* rose_2.0.0.svga */,
 			);
@@ -263,8 +276,6 @@
 				90A676D91D13A6DF008A69F3 /* Sources */,
 				90A676DA1D13A6DF008A69F3 /* Frameworks */,
 				90A676DB1D13A6DF008A69F3 /* Resources */,
-				90CFF6F7E27D61F7415658A8 /* [CP] Embed Pods Frameworks */,
-				30824E0A5B95B78BA26133C9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -283,8 +294,6 @@
 				90CB64CB1EF290F400DAA382 /* Sources */,
 				90CB64DA1EF290F400DAA382 /* Frameworks */,
 				90CB64DC1EF290F400DAA382 /* Resources */,
-				97FF02AF76FF679B16FE6BE5 /* [CP] Embed Pods Frameworks */,
-				954F7371F8B4658670CCA7D4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -306,7 +315,7 @@
 				TargetAttributes = {
 					90A676DC1D13A6DF008A69F3 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 8M2FQ87SLP;
+						DevelopmentTeam = 544P5CH38C;
 					};
 					90CB64C91EF290F400DAA382 = {
 						DevelopmentTeam = 8M2FQ87SLP;
@@ -339,6 +348,7 @@
 			files = (
 				90A676F01D13A6DF008A69F3 /* LaunchScreen.storyboard in Resources */,
 				90A676ED1D13A6DF008A69F3 /* Assets.xcassets in Resources */,
+				63712E6521787950001AE014 /* heartbeat.svga in Resources */,
 				90A676EB1D13A6DF008A69F3 /* Main.storyboard in Resources */,
 				90CB64F91EF297E800DAA382 /* SVGAPlayer React-Info.plist in Resources */,
 				90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */,
@@ -359,21 +369,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		30824E0A5B95B78BA26133C9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		890FC763F2C82314110A5C8F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -390,51 +385,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		90CFF6F7E27D61F7415658A8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		954F7371F8B4658670CCA7D4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SVGAPlayer React/Pods-SVGAPlayer React-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97FF02AF76FF679B16FE6BE5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SVGAPlayer React/Pods-SVGAPlayer React-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CD70B01EE331E392E355CD26 /* [CP] Check Pods Manifest.lock */ = {
@@ -466,6 +416,8 @@
 				9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */,
 				90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */,
 				90A364DA1E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m in Sources */,
+				63712E6821787A45001AE014 /* SVGAAudioEntity.m in Sources */,
+				63E817012178809D001D2D62 /* SVGAAudioLayer.m in Sources */,
 				90A364D11E5AEC11009347F1 /* SVGABitmapLayer.m in Sources */,
 				904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */,
 				90A364D71E5AECBD009347F1 /* SVGAVideoSpriteEntity.m in Sources */,
@@ -613,6 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 544P5CH38C;
 				INFOPLIST_FILE = SVGAPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -629,6 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 544P5CH38C;
 				INFOPLIST_FILE = SVGAPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

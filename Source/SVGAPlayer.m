@@ -13,10 +13,13 @@
 #import "SVGAContentLayer.h"
 #import "SVGABitmapLayer.h"
 #import "SVGAVectorLayer.h"
+#import "SVGAAudioLayer.h"
+#import "SVGAAudioEntity.h"
 
 @interface SVGAPlayer ()
 
 @property (nonatomic, strong) CALayer *drawLayer;
+@property (nonatomic, strong) NSArray<SVGAAudioLayer *> *audioLayers;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSInteger currentFrame;
 @property (nonatomic, copy) NSDictionary<NSString *, UIImage *> *dynamicObjects;
@@ -25,6 +28,7 @@
 @property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *dynamicHiddens;
 @property (nonatomic, assign) int loopCount;
 @property (nonatomic, assign) NSRange currentRange;
+@property (nonatomic, assign) BOOL forwardAnimating;
 @property (nonatomic, assign) BOOL reversing;
 
 @end
@@ -53,6 +57,7 @@
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
     self.displayLink.frameInterval = 60 / self.videoItem.FPS;
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    self.forwardAnimating = !self.reversing;
 }
 
 - (void)startAnimationWithRange:(NSRange)range reverse:(BOOL)reverse {
@@ -76,17 +81,25 @@
 }
 
 - (void)stopAnimation:(BOOL)clear {
+    self.forwardAnimating = NO;
     if (self.displayLink != nil) {
         [self.displayLink invalidate];
     }
     if (clear) {
         [self clear];
     }
+    [self clearAudios];
     self.displayLink = nil;
 }
 
 - (void)clear {
     [self.drawLayer removeFromSuperlayer];
+}
+
+- (void)clearAudios {
+    for (SVGAAudioLayer *layer in self.audioLayers) {
+        [layer.audioPlayer stop];
+    }
 }
 
 - (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay {
@@ -149,6 +162,12 @@
         }
     }];
     [self.layer addSublayer:self.drawLayer];
+    NSMutableArray *audioLayers = [NSMutableArray array];
+    [self.videoItem.audios enumerateObjectsUsingBlock:^(SVGAAudioEntity * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        SVGAAudioLayer *audioLayer = [[SVGAAudioLayer alloc] initWithAudioItem:obj videoItem:self.videoItem];
+        [audioLayers addObject:audioLayer];
+    }];
+    self.audioLayers = audioLayers;
     [self update];
     [self resize];
 }
@@ -239,6 +258,17 @@
         }
     }
     [CATransaction setDisableActions:NO];
+    if (self.forwardAnimating && self.audioLayers.count > 0) {
+        for (SVGAAudioLayer *layer in self.audioLayers) {
+            if (layer.audioItem.startFrame == self.currentFrame) {
+                [layer.audioPlayer setCurrentTime:(NSTimeInterval)(layer.audioItem.startTime / 1000)];
+                [layer.audioPlayer play];
+            }
+            else if (layer.audioItem.endFrame <= self.currentFrame) {
+                [layer.audioPlayer stop];
+            }
+        }
+    }
 }
 
 - (void)next {
@@ -253,6 +283,7 @@
         self.currentFrame++;
         if (self.currentFrame >= MIN(self.videoItem.frames, self.currentRange.location + self.currentRange.length)) {
             self.currentFrame = MAX(0, self.currentRange.location);
+            [self clearAudios];
             self.loopCount++;
         }
     }

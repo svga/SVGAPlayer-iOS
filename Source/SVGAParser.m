@@ -123,6 +123,7 @@ static NSOperationQueue *unzipQueue;
                 SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithProtoObject:protoObject cacheDir:cacheDir];
                 [videoItem resetImagesWithProtoObject:protoObject];
                 [videoItem resetSpritesWithProtoObject:protoObject];
+                [videoItem resetAudiosWithProtoObject:protoObject];
                 [videoItem saveCache:cacheKey];
                 if (completionBlock) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -198,6 +199,7 @@ static NSOperationQueue *unzipQueue;
                 SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithProtoObject:protoObject cacheDir:@""];
                 [videoItem resetImagesWithProtoObject:protoObject];
                 [videoItem resetSpritesWithProtoObject:protoObject];
+                [videoItem resetAudiosWithProtoObject:protoObject];
                 [videoItem saveCache:cacheKey];
                 if (completionBlock) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
