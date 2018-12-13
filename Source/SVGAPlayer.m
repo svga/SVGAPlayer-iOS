@@ -373,6 +373,7 @@
                 if (textLayer == nil) {
                     textLayer = [CATextLayer layer];
                     [layer addSublayer:textLayer];
+                    layer.textLayer = textLayer;
                 }
             }
         }
