@@ -55,7 +55,10 @@
 }
 
 - (BOOL)isKeepFrame:(SVGAVideoSpriteFrameEntity *)frameItem {
-    if ([frameItem.shapes.firstObject isKindOfClass:[NSDictionary class]]) {
+    if (frameItem.shapes.count == 0) {
+        return NO;
+    }
+    else if ([frameItem.shapes.firstObject isKindOfClass:[NSDictionary class]]) {
         return [frameItem.shapes.firstObject[@"type"] isKindOfClass:[NSString class]] &&
         [frameItem.shapes.firstObject[@"type"] isEqualToString:@"keep"];
     }

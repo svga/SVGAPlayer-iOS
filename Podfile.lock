@@ -27,7 +27,7 @@ PODS:
     - React/Core
   - React/RCTWebSocket (0.45.1):
     - React/Core
-  - SSZipArchive (1.8.1)
+  - SSZipArchive (2.1.4)
   - Yoga (1.9.0)
 
 DEPENDENCIES:
@@ -43,7 +43,7 @@ DEPENDENCIES:
   - React/RCTText (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
   - React/RCTVibration (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
   - React/RCTWebSocket (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - SSZipArchive (~> 1.8.1)
+  - SSZipArchive (~> 2.1.4)
   - Yoga
 
 SPEC REPOS:
@@ -59,9 +59,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 505e0132cd9aaba1a56e47ef509220dd794ec9be
-  SSZipArchive: 04547dfa448be5ed7ecbaf7eaf8a6e9eb9b42997
+  SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
 
-PODFILE CHECKSUM: b7d71960f4fe0b08fd7d4651b412bb8bec6c19f2
+PODFILE CHECKSUM: 7f6714245d47e69d2933463289e4c4d6de65b831
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.2
