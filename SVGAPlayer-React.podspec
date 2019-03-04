@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "SVGAPlayer"
-  s.version      = "2.3.2"
+  s.version      = "2.3.3"
   s.summary      = "SVGAPlayer 是一个高性能的动画播放器"
   s.description  = <<-DESC
                    SVGA 是一个私有的动画格式，由 YY UED 主导开发。
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |ss|
     ss.source_files  = "Source/*.{h,m}", "React/*.{h,m}"
     ss.requires_arc = true
-    ss.dependency 'SSZipArchive', '~> 1.8.1'
+    ss.dependency 'SSZipArchive', '>= 1.8.1'
     ss.library = "z"
     ss.dependency 'SVGAPlayer/ProtoFiles'
   end
