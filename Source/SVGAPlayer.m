@@ -54,6 +54,10 @@ static NSArray *_contentLayers;
 }
 
 - (void)startAnimation {
+    if (self.videoItem == nil) {
+        NSLog(@"videoItem could not be nil！");
+        return;
+    }
     [self stopAnimation:NO];
     self.loopCount = 0;
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
