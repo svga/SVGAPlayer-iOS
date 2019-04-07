@@ -35,6 +35,8 @@
 
 @implementation SVGAPlayer
 
+static NSArray *_contentLayers;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -55,6 +57,7 @@
     [self stopAnimation:NO];
     self.loopCount = 0;
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
+
     self.displayLink.frameInterval = 60 / self.videoItem.FPS;
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     self.forwardAnimating = !self.reversing;
@@ -93,6 +96,7 @@
 }
 
 - (void)clear {
+    _contentLayers = nil;
     [self.drawLayer removeFromSuperlayer];
 }
 
@@ -128,7 +132,9 @@
     self.drawLayer = [[CALayer alloc] init];
     self.drawLayer.frame = CGRectMake(0, 0, self.videoItem.videoSize.width, self.videoItem.videoSize.height);
     self.drawLayer.masksToBounds = true;
-    [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableDictionary *tempHostLayers = [NSMutableDictionary dictionary];
+    NSMutableDictionary *tempContentLayers = [NSMutableDictionary dictionary];
+    for (SVGAVideoSpriteEntity * sprite in self.videoItem.sprites) {
         UIImage *bitmap;
         if (sprite.imageKey != nil) {
             if (self.dynamicObjects[sprite.imageKey] != nil) {
@@ -140,7 +146,20 @@
         }
         SVGAContentLayer *contentLayer = [sprite requestLayerWithBitmap:bitmap];
         contentLayer.imageKey = sprite.imageKey;
-        [self.drawLayer addSublayer:contentLayer];
+        tempContentLayers[sprite.imageKey] = contentLayer;
+        if ([sprite.imageKey containsString:@".mask"]) {
+            CALayer *hostLayer = [[CALayer alloc] init];
+            hostLayer.mask = contentLayer;
+            [self.drawLayer addSublayer:hostLayer];
+            tempHostLayers[sprite.imageKey] = hostLayer;
+        } else {
+            if (sprite.maskImageKey) {
+                CALayer *hostLayer = tempHostLayers[sprite.maskImageKey];
+                [hostLayer addSublayer:contentLayer];
+            } else {
+                [self.drawLayer addSublayer:contentLayer];
+            }
+        }
         if (sprite.imageKey != nil) {
             if (self.dynamicTexts[sprite.imageKey] != nil) {
                 NSAttributedString *text = self.dynamicTexts[sprite.imageKey];
@@ -160,7 +179,11 @@
                 contentLayer.dynamicDrawingBlock = self.dynamicDrawings[sprite.imageKey];
             }
         }
-    }];
+    }
+    _contentLayers = tempContentLayers.allValues;
+//    [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
+
+//    }];
     [self.layer addSublayer:self.drawLayer];
     NSMutableArray *audioLayers = [NSMutableArray array];
     [self.videoItem.audios enumerateObjectsUsingBlock:^(SVGAAudioEntity * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -252,7 +275,7 @@
 
 - (void)update {
     [CATransaction setDisableActions:YES];
-    for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+    for (SVGAContentLayer *layer in _contentLayers) {
         if ([layer isKindOfClass:[SVGAContentLayer class]]) {
             [layer stepToFrame:self.currentFrame];
         }
@@ -331,8 +354,8 @@
     NSMutableDictionary *mutableDynamicObjects = [self.dynamicObjects mutableCopy];
     [mutableDynamicObjects setObject:image forKey:aKey];
     self.dynamicObjects = mutableDynamicObjects;
-    if (self.drawLayer.sublayers.count > 0) {
-        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+    if (_contentLayers.count > 0) {
+        for (SVGAContentLayer *layer in _contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] && [layer.imageKey isEqualToString:aKey]) {
                 layer.bitmapLayer.contents = (__bridge id _Nullable)([image CGImage]);
             }
@@ -364,10 +387,10 @@
     NSMutableDictionary *mutableDynamicTexts = [self.dynamicTexts mutableCopy];
     [mutableDynamicTexts setObject:attributedText forKey:aKey];
     self.dynamicTexts = mutableDynamicTexts;
-    if (self.drawLayer.sublayers.count > 0) {
+    if (_contentLayers.count > 0) {
         CGSize size = [attributedText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
         CATextLayer *textLayer;
-        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+        for (SVGAContentLayer *layer in _contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] && [layer.imageKey isEqualToString:aKey]) {
                 textLayer = layer.textLayer;
                 if (textLayer == nil) {
@@ -389,8 +412,8 @@
     NSMutableDictionary *mutableDynamicDrawings = [self.dynamicDrawings mutableCopy];
     [mutableDynamicDrawings setObject:drawingBlock forKey:aKey];
     self.dynamicDrawings = mutableDynamicDrawings;
-    if (self.drawLayer.sublayers.count > 0) {
-        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+    if (_contentLayers.count > 0) {
+        for (SVGAContentLayer *layer in _contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] &&
                 [layer.imageKey isEqualToString:aKey]) {
                 layer.dynamicDrawingBlock = drawingBlock;
@@ -403,8 +426,8 @@
     NSMutableDictionary *mutableDynamicHiddens = [self.dynamicHiddens mutableCopy];
     [mutableDynamicHiddens setObject:@(hidden) forKey:aKey];
     self.dynamicHiddens = mutableDynamicHiddens;
-    if (self.drawLayer.sublayers.count > 0) {
-        for (SVGAContentLayer *layer in self.drawLayer.sublayers) {
+    if (_contentLayers.count > 0) {
+        for (SVGAContentLayer *layer in _contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] &&
                 [layer.imageKey isEqualToString:aKey]) {
                 layer.dynamicHidden = hidden;

@@ -29,7 +29,14 @@ static SVGAParser *parser;
     self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     parser = [[SVGAParser alloc] init];
-    [self onChange:nil];
+    [parser parseWithNamed:@"mutiMask"
+                  inBundle:[NSBundle mainBundle] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+                      if (videoItem != nil) {
+                          self.aPlayer.videoItem = videoItem;
+                          [self.aPlayer startAnimation];
+                      }
+                  } failureBlock:^(NSError * _Nonnull error) {
+                  }];
 }
 
 - (void)viewWillLayoutSubviews {

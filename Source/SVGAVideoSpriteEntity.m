@@ -20,6 +20,7 @@
     if (self) {
         if ([JSONObject isKindOfClass:[NSDictionary class]]) {
             NSString *imageKey = JSONObject[@"imageKey"];
+            NSString *maskImageKey = JSONObject[@"maskImageKey"];
             NSArray<NSDictionary *> *JSONFrames = JSONObject[@"frames"];
             if ([imageKey isKindOfClass:[NSString class]] && [JSONFrames isKindOfClass:[NSArray class]]) {
                 NSMutableArray<SVGAVideoSpriteFrameEntity *> *frames = [[NSMutableArray alloc] init];
@@ -28,6 +29,7 @@
                         [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj]];
                     }
                 }];
+                _maskImageKey = maskImageKey;
                 _imageKey = imageKey;
                 _frames = frames;
             }
