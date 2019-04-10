@@ -15,7 +15,7 @@
 @interface SVGAVideoSpriteEntity : NSObject
 
 @property (nonatomic, readonly) NSString *imageKey;
-@property (nonatomic, readonly) NSString *maskImageKey;
+@property (nonatomic, readonly) NSString *matteKey;
 @property (nonatomic, readonly) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;

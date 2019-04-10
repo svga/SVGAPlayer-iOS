@@ -151,14 +151,14 @@ static NSArray *_contentLayers;
         SVGAContentLayer *contentLayer = [sprite requestLayerWithBitmap:bitmap];
         contentLayer.imageKey = sprite.imageKey;
         tempContentLayers[sprite.imageKey] = contentLayer;
-        if ([sprite.imageKey hasSuffix:@".mask"]) {
+        if ([sprite.imageKey hasSuffix:@".matte"]) {
             CALayer *hostLayer = [[CALayer alloc] init];
             hostLayer.mask = contentLayer;
             [self.drawLayer addSublayer:hostLayer];
             tempHostLayers[sprite.imageKey] = hostLayer;
         } else {
-            if (sprite.maskImageKey) {
-                CALayer *hostLayer = tempHostLayers[sprite.maskImageKey];
+            if (sprite.matteKey && sprite.matteKey.length > 0) {
+                CALayer *hostLayer = tempHostLayers[sprite.matteKey];
                 [hostLayer addSublayer:contentLayer];
             } else {
                 [self.drawLayer addSublayer:contentLayer];
