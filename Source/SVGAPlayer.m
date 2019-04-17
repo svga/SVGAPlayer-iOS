@@ -137,7 +137,7 @@ static NSArray *_contentLayers;
     self.drawLayer.frame = CGRectMake(0, 0, self.videoItem.videoSize.width, self.videoItem.videoSize.height);
     self.drawLayer.masksToBounds = true;
     NSMutableDictionary *tempHostLayers = [NSMutableDictionary dictionary];
-    NSMutableDictionary *tempContentLayers = [NSMutableDictionary dictionary];
+    NSMutableArray *tempContentLayers = [NSMutableArray array];
     for (SVGAVideoSpriteEntity * sprite in self.videoItem.sprites) {
         UIImage *bitmap;
         if (sprite.imageKey != nil) {
@@ -150,9 +150,10 @@ static NSArray *_contentLayers;
         }
         SVGAContentLayer *contentLayer = [sprite requestLayerWithBitmap:bitmap];
         contentLayer.imageKey = sprite.imageKey;
-        tempContentLayers[sprite.imageKey] = contentLayer;
+        [tempContentLayers addObject:contentLayer];
         if ([sprite.imageKey hasSuffix:@".matte"]) {
             CALayer *hostLayer = [[CALayer alloc] init];
+            hostLayer.frame = contentLayer.frame;
             hostLayer.mask = contentLayer;
             [self.drawLayer addSublayer:hostLayer];
             tempHostLayers[sprite.imageKey] = hostLayer;
@@ -184,10 +185,8 @@ static NSArray *_contentLayers;
             }
         }
     }
-    _contentLayers = tempContentLayers.allValues;
-//    [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
-
-//    }];
+    _contentLayers = tempContentLayers;
+    
     [self.layer addSublayer:self.drawLayer];
     NSMutableArray *audioLayers = [NSMutableArray array];
     [self.videoItem.audios enumerateObjectsUsingBlock:^(SVGAAudioEntity * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
