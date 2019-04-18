@@ -138,7 +138,8 @@ static NSArray *_contentLayers;
     self.drawLayer.masksToBounds = true;
     NSMutableDictionary *tempHostLayers = [NSMutableDictionary dictionary];
     NSMutableArray *tempContentLayers = [NSMutableArray array];
-    for (SVGAVideoSpriteEntity * sprite in self.videoItem.sprites) {
+    
+    [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImage *bitmap;
         if (sprite.imageKey != nil) {
             if (self.dynamicObjects[sprite.imageKey] != nil) {
@@ -153,14 +154,15 @@ static NSArray *_contentLayers;
         [tempContentLayers addObject:contentLayer];
         if ([sprite.imageKey hasSuffix:@".matte"]) {
             CALayer *hostLayer = [[CALayer alloc] init];
-            hostLayer.frame = contentLayer.frame;
             hostLayer.mask = contentLayer;
-            [self.drawLayer addSublayer:hostLayer];
             tempHostLayers[sprite.imageKey] = hostLayer;
         } else {
             if (sprite.matteKey && sprite.matteKey.length > 0) {
                 CALayer *hostLayer = tempHostLayers[sprite.matteKey];
                 [hostLayer addSublayer:contentLayer];
+                if (![sprite.matteKey isEqualToString:self.videoItem.sprites[idx - 1].matteKey]) {
+                    [self.drawLayer addSublayer:hostLayer];
+                }
             } else {
                 [self.drawLayer addSublayer:contentLayer];
             }
@@ -184,7 +186,7 @@ static NSArray *_contentLayers;
                 contentLayer.dynamicDrawingBlock = self.dynamicDrawings[sprite.imageKey];
             }
         }
-    }
+    }];
     _contentLayers = tempContentLayers;
     
     [self.layer addSublayer:self.drawLayer];
