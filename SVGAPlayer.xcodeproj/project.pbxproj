@@ -12,6 +12,7 @@
 		63712E6821787A45001AE014 /* SVGAAudioEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63712E6721787A45001AE014 /* SVGAAudioEntity.m */; };
 		63E817012178809D001D2D62 /* SVGAAudioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E817002178809D001D2D62 /* SVGAAudioLayer.m */; };
 		71418C93225E6F710029C69E /* mutiMatte.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71418C92225E6F710029C69E /* mutiMatte.svga */; };
+		716E430322A56EFD007E5871 /* matte.svga in Resources */ = {isa = PBXBuildFile; fileRef = 716E430222A56EFD007E5871 /* matte.svga */; };
 		80D4C7254846B96B9C6EED83 /* libPods-SVGAPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */; };
 		904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 904D41F71D223DD20085A21A /* SVGABezierPath.m */; };
 		9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9052FC621E6EB8D4007BC925 /* SVGAExporter.m */; };
@@ -65,6 +66,7 @@
 		63E816FF2178809D001D2D62 /* SVGAAudioLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAAudioLayer.h; sourceTree = "<group>"; };
 		63E817002178809D001D2D62 /* SVGAAudioLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAAudioLayer.m; sourceTree = "<group>"; };
 		71418C92225E6F710029C69E /* mutiMatte.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = mutiMatte.svga; sourceTree = "<group>"; };
+		716E430222A56EFD007E5871 /* matte.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = matte.svga; sourceTree = "<group>"; };
 		8AD65028FA2D122A34DC4A63 /* Pods-SVGAPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		904D41F61D223DD20085A21A /* SVGABezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGABezierPath.h; sourceTree = "<group>"; };
 		904D41F71D223DD20085A21A /* SVGABezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGABezierPath.m; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 		90D7C9FA1F7E2AA3006E74F0 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				716E430222A56EFD007E5871 /* matte.svga */,
 				71418C92225E6F710029C69E /* mutiMatte.svga */,
 				63712E6421787950001AE014 /* heartbeat.svga */,
 				90D7CA1A1F7FB114006E74F0 /* rose_1.5.0.svga */,
@@ -358,6 +361,7 @@
 				90CB64F91EF297E800DAA382 /* SVGAPlayer React-Info.plist in Resources */,
 				90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */,
 				90D7CA1B1F7FB114006E74F0 /* rose_2.0.0.svga in Resources */,
+				716E430322A56EFD007E5871 /* matte.svga in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -30,7 +30,7 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onChange:(id)sender {
-    [parser parseWithNamed:@"mutiMatte"
+    [parser parseWithNamed:@"matte"
                   inBundle:[NSBundle mainBundle] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
                       if (videoItem != nil) {
                           self.aPlayer.videoItem = videoItem;

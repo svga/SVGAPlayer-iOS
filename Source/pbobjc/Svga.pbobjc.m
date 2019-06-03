@@ -4,16 +4,14 @@
 // This CPP symbol can be defined to use imports that match up to the framework
 // imports needed when using CocoaPods.
 #if !defined(GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS)
- #define GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS 0
+#define GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS 0
 #endif
 
 #if GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS
- #import <Protobuf/GPBProtocolBuffers_RuntimeSupport.h>
+#import <Protobuf/GPBProtocolBuffers_RuntimeSupport.h>
 #else
- #import "GPBProtocolBuffers_RuntimeSupport.h"
+#import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
-
-#import <stdatomic.h>
 
 #import "Svga.pbobjc.h"
 // @@protoc_insertion_point(imports)
@@ -34,16 +32,16 @@
 #pragma mark - SVGAProtoSvgaRoot_FileDescriptor
 
 static GPBFileDescriptor *SVGAProtoSvgaRoot_FileDescriptor(void) {
-  // This is called by +initialize so there is no need to worry
-  // about thread safety of the singleton.
-  static GPBFileDescriptor *descriptor = NULL;
-  if (!descriptor) {
-    GPB_DEBUG_CHECK_RUNTIME_VERSIONS();
-    descriptor = [[GPBFileDescriptor alloc] initWithPackage:@"com.opensource.svga"
-                                                 objcPrefix:@"SVGAProto"
-                                                     syntax:GPBFileSyntaxProto3];
-  }
-  return descriptor;
+    // This is called by +initialize so there is no need to worry
+    // about thread safety of the singleton.
+    static GPBFileDescriptor *descriptor = NULL;
+    if (!descriptor) {
+        GPB_DEBUG_CHECK_RUNTIME_VERSIONS();
+        descriptor = [[GPBFileDescriptor alloc] initWithPackage:@"com.opensource.svga"
+                                                     objcPrefix:@"SVGAProto"
+                                                         syntax:GPBFileSyntaxProto3];
+    }
+    return descriptor;
 }
 
 #pragma mark - SVGAProtoMovieParams
@@ -56,57 +54,57 @@ static GPBFileDescriptor *SVGAProtoSvgaRoot_FileDescriptor(void) {
 @dynamic frames;
 
 typedef struct SVGAProtoMovieParams__storage_ {
-  uint32_t _has_storage_[1];
-  float viewBoxWidth;
-  float viewBoxHeight;
-  int32_t fps;
-  int32_t frames;
+    uint32_t _has_storage_[1];
+    float viewBoxWidth;
+    float viewBoxHeight;
+    int32_t fps;
+    int32_t frames;
 } SVGAProtoMovieParams__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "viewBoxWidth",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoMovieParams_FieldNumber_ViewBoxWidth,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, viewBoxWidth),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "viewBoxHeight",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoMovieParams_FieldNumber_ViewBoxHeight,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, viewBoxHeight),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "fps",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoMovieParams_FieldNumber_Fps,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, fps),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeInt32,
-      },
-      {
-        .name = "frames",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoMovieParams_FieldNumber_Frames,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, frames),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeInt32,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "viewBoxWidth",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoMovieParams_FieldNumber_ViewBoxWidth,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, viewBoxWidth),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "viewBoxHeight",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoMovieParams_FieldNumber_ViewBoxHeight,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, viewBoxHeight),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "fps",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoMovieParams_FieldNumber_Fps,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, fps),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeInt32,
+            },
+            {
+                .name = "frames",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoMovieParams_FieldNumber_Frames,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieParams__storage_, frames),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeInt32,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoMovieParams class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -115,14 +113,14 @@ typedef struct SVGAProtoMovieParams__storage_ {
                                    storageSize:sizeof(SVGAProtoMovieParams__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
+        static const char *extraTextFormatInfo =
         "\002\001\014\000\002\r\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+        [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -131,41 +129,52 @@ typedef struct SVGAProtoMovieParams__storage_ {
 
 @implementation SVGAProtoSpriteEntity
 
+@dynamic matteKey;
 @dynamic imageKey;
 @dynamic framesArray, framesArray_Count;
 
 typedef struct SVGAProtoSpriteEntity__storage_ {
-  uint32_t _has_storage_[1];
-  NSString *imageKey;
-  NSMutableArray *framesArray;
+    uint32_t _has_storage_[1];
+    NSString *matteKey;
+    NSString *imageKey;
+    NSMutableArray *framesArray;
 } SVGAProtoSpriteEntity__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "imageKey",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoSpriteEntity_FieldNumber_ImageKey,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, imageKey),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeString,
-      },
-      {
-        .name = "framesArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoFrameEntity),
-        .number = SVGAProtoSpriteEntity_FieldNumber_FramesArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, framesArray),
-        .flags = GPBFieldRepeated,
-        .dataType = GPBDataTypeMessage,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "matteKey",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoSpriteEntity_FieldNumber_MatteKey,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, matteKey),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeString,
+            },
+            {
+                .name = "imageKey",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoSpriteEntity_FieldNumber_ImageKey,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, imageKey),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeString,
+            },
+            {
+                .name = "framesArray",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoFrameEntity),
+                .number = SVGAProtoSpriteEntity_FieldNumber_FramesArray,
+                .hasIndex = GPBNoHasBit,
+                .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, framesArray),
+                .flags = GPBFieldRepeated,
+                .dataType = GPBDataTypeMessage,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoSpriteEntity class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -174,14 +183,14 @@ typedef struct SVGAProtoSpriteEntity__storage_ {
                                    storageSize:sizeof(SVGAProtoSpriteEntity__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
-        "\001\001\010\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+        static const char *extraTextFormatInfo =
+        "\002\001\010\000\002\010\000";
+        [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -194,59 +203,70 @@ typedef struct SVGAProtoSpriteEntity__storage_ {
 @dynamic startFrame;
 @dynamic endFrame;
 @dynamic startTime;
+@dynamic totalTime;
 
 typedef struct SVGAProtoAudioEntity__storage_ {
-  uint32_t _has_storage_[1];
-  int32_t startFrame;
-  int32_t endFrame;
-  int32_t startTime;
-  NSString *audioKey;
+    uint32_t _has_storage_[1];
+    int32_t startFrame;
+    int32_t endFrame;
+    int32_t startTime;
+    int32_t totalTime;
+    NSString *audioKey;
 } SVGAProtoAudioEntity__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "audioKey",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoAudioEntity_FieldNumber_AudioKey,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, audioKey),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeString,
-      },
-      {
-        .name = "startFrame",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoAudioEntity_FieldNumber_StartFrame,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, startFrame),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeInt32,
-      },
-      {
-        .name = "endFrame",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoAudioEntity_FieldNumber_EndFrame,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, endFrame),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeInt32,
-      },
-      {
-        .name = "startTime",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoAudioEntity_FieldNumber_StartTime,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, startTime),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeInt32,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "audioKey",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoAudioEntity_FieldNumber_AudioKey,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, audioKey),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeString,
+            },
+            {
+                .name = "startFrame",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoAudioEntity_FieldNumber_StartFrame,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, startFrame),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeInt32,
+            },
+            {
+                .name = "endFrame",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoAudioEntity_FieldNumber_EndFrame,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, endFrame),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeInt32,
+            },
+            {
+                .name = "startTime",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoAudioEntity_FieldNumber_StartTime,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, startTime),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeInt32,
+            },
+            {
+                .name = "totalTime",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoAudioEntity_FieldNumber_TotalTime,
+                .hasIndex = 4,
+                .offset = (uint32_t)offsetof(SVGAProtoAudioEntity__storage_, totalTime),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeInt32,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoAudioEntity class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -255,14 +275,14 @@ typedef struct SVGAProtoAudioEntity__storage_ {
                                    storageSize:sizeof(SVGAProtoAudioEntity__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
-        "\004\001\010\000\002\n\000\003\010\000\004\t\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+        static const char *extraTextFormatInfo =
+        "\005\001\010\000\002\n\000\003\010\000\004\t\000\005\t\000";
+        [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -277,57 +297,57 @@ typedef struct SVGAProtoAudioEntity__storage_ {
 @dynamic height;
 
 typedef struct SVGAProtoLayout__storage_ {
-  uint32_t _has_storage_[1];
-  float x;
-  float y;
-  float width;
-  float height;
+    uint32_t _has_storage_[1];
+    float x;
+    float y;
+    float width;
+    float height;
 } SVGAProtoLayout__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "x",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoLayout_FieldNumber_X,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, x),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "y",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoLayout_FieldNumber_Y,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, y),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "width",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoLayout_FieldNumber_Width,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, width),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "height",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoLayout_FieldNumber_Height,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, height),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "x",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoLayout_FieldNumber_X,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, x),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "y",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoLayout_FieldNumber_Y,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, y),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "width",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoLayout_FieldNumber_Width,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, width),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "height",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoLayout_FieldNumber_Height,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoLayout__storage_, height),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoLayout class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -335,10 +355,10 @@ typedef struct SVGAProtoLayout__storage_ {
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SVGAProtoLayout__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -355,77 +375,77 @@ typedef struct SVGAProtoLayout__storage_ {
 @dynamic ty;
 
 typedef struct SVGAProtoTransform__storage_ {
-  uint32_t _has_storage_[1];
-  float a;
-  float b;
-  float c;
-  float d;
-  float tx;
-  float ty;
+    uint32_t _has_storage_[1];
+    float a;
+    float b;
+    float c;
+    float d;
+    float tx;
+    float ty;
 } SVGAProtoTransform__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "a",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoTransform_FieldNumber_A,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, a),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "b",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoTransform_FieldNumber_B,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, b),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "c",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoTransform_FieldNumber_C,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, c),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "d",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoTransform_FieldNumber_D,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, d),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "tx",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoTransform_FieldNumber_Tx,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, tx),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "ty",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoTransform_FieldNumber_Ty,
-        .hasIndex = 5,
-        .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, ty),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "a",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoTransform_FieldNumber_A,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, a),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "b",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoTransform_FieldNumber_B,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, b),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "c",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoTransform_FieldNumber_C,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, c),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "d",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoTransform_FieldNumber_D,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, d),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "tx",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoTransform_FieldNumber_Tx,
+                .hasIndex = 4,
+                .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, tx),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "ty",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoTransform_FieldNumber_Ty,
+                .hasIndex = 5,
+                .offset = (uint32_t)offsetof(SVGAProtoTransform__storage_, ty),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoTransform class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -433,10 +453,10 @@ typedef struct SVGAProtoTransform__storage_ {
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SVGAProtoTransform__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -454,77 +474,77 @@ typedef struct SVGAProtoTransform__storage_ {
 @dynamic hasTransform, transform;
 
 typedef struct SVGAProtoShapeEntity__storage_ {
-  uint32_t _has_storage_[2];
-  SVGAProtoShapeEntity_ShapeType type;
-  SVGAProtoShapeEntity_ShapeArgs *shape;
-  SVGAProtoShapeEntity_RectArgs *rect;
-  SVGAProtoShapeEntity_EllipseArgs *ellipse;
-  SVGAProtoShapeEntity_ShapeStyle *styles;
-  SVGAProtoTransform *transform;
+    uint32_t _has_storage_[2];
+    SVGAProtoShapeEntity_ShapeType type;
+    SVGAProtoShapeEntity_ShapeArgs *shape;
+    SVGAProtoShapeEntity_RectArgs *rect;
+    SVGAProtoShapeEntity_EllipseArgs *ellipse;
+    SVGAProtoShapeEntity_ShapeStyle *styles;
+    SVGAProtoTransform *transform;
 } SVGAProtoShapeEntity__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "type",
-        .dataTypeSpecific.enumDescFunc = SVGAProtoShapeEntity_ShapeType_EnumDescriptor,
-        .number = SVGAProtoShapeEntity_FieldNumber_Type,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, type),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor),
-        .dataType = GPBDataTypeEnum,
-      },
-      {
-        .name = "shape",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeArgs),
-        .number = SVGAProtoShapeEntity_FieldNumber_Shape,
-        .hasIndex = -1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, shape),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "rect",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_RectArgs),
-        .number = SVGAProtoShapeEntity_FieldNumber_Rect,
-        .hasIndex = -1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, rect),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "ellipse",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_EllipseArgs),
-        .number = SVGAProtoShapeEntity_FieldNumber_Ellipse,
-        .hasIndex = -1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, ellipse),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "styles",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle),
-        .number = SVGAProtoShapeEntity_FieldNumber_Styles,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, styles),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "transform",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoTransform),
-        .number = SVGAProtoShapeEntity_FieldNumber_Transform,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, transform),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "type",
+                .dataTypeSpecific.enumDescFunc = SVGAProtoShapeEntity_ShapeType_EnumDescriptor,
+                .number = SVGAProtoShapeEntity_FieldNumber_Type,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, type),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor),
+                .dataType = GPBDataTypeEnum,
+            },
+            {
+                .name = "shape",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeArgs),
+                .number = SVGAProtoShapeEntity_FieldNumber_Shape,
+                .hasIndex = -1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, shape),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "rect",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_RectArgs),
+                .number = SVGAProtoShapeEntity_FieldNumber_Rect,
+                .hasIndex = -1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, rect),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "ellipse",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_EllipseArgs),
+                .number = SVGAProtoShapeEntity_FieldNumber_Ellipse,
+                .hasIndex = -1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, ellipse),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "styles",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle),
+                .number = SVGAProtoShapeEntity_FieldNumber_Styles,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, styles),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "transform",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoTransform),
+                .number = SVGAProtoShapeEntity_FieldNumber_Transform,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity__storage_, transform),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoShapeEntity class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -532,74 +552,73 @@ typedef struct SVGAProtoShapeEntity__storage_ {
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SVGAProtoShapeEntity__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
-    static const char *oneofs[] = {
-      "args",
-    };
-    [localDescriptor setupOneofs:oneofs
-                           count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
-                   firstHasIndex:-1];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        static const char *oneofs[] = {
+            "args",
+        };
+        [localDescriptor setupOneofs:oneofs
+                               count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
+                       firstHasIndex:-1];
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
 
 int32_t SVGAProtoShapeEntity_Type_RawValue(SVGAProtoShapeEntity *message) {
-  GPBDescriptor *descriptor = [SVGAProtoShapeEntity descriptor];
-  GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_FieldNumber_Type];
-  return GPBGetMessageInt32Field(message, field);
+    GPBDescriptor *descriptor = [SVGAProtoShapeEntity descriptor];
+    GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_FieldNumber_Type];
+    return GPBGetMessageInt32Field(message, field);
 }
 
 void SetSVGAProtoShapeEntity_Type_RawValue(SVGAProtoShapeEntity *message, int32_t value) {
-  GPBDescriptor *descriptor = [SVGAProtoShapeEntity descriptor];
-  GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_FieldNumber_Type];
-  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+    GPBDescriptor *descriptor = [SVGAProtoShapeEntity descriptor];
+    GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_FieldNumber_Type];
+    GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
 }
 
 void SVGAProtoShapeEntity_ClearArgsOneOfCase(SVGAProtoShapeEntity *message) {
-  GPBDescriptor *descriptor = [message descriptor];
-  GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
-  GPBMaybeClearOneof(message, oneof, -1, 0);
+    GPBDescriptor *descriptor = [message descriptor];
+    GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
+    GPBMaybeClearOneof(message, oneof, -1, 0);
 }
 #pragma mark - Enum SVGAProtoShapeEntity_ShapeType
 
 GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeType_EnumDescriptor(void) {
-  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
-  if (!descriptor) {
-    static const char *valueNames =
+    static GPBEnumDescriptor *descriptor = NULL;
+    if (!descriptor) {
+        static const char *valueNames =
         "Shape\000Rect\000Ellipse\000Keep\000";
-    static const int32_t values[] = {
-        SVGAProtoShapeEntity_ShapeType_Shape,
-        SVGAProtoShapeEntity_ShapeType_Rect,
-        SVGAProtoShapeEntity_ShapeType_Ellipse,
-        SVGAProtoShapeEntity_ShapeType_Keep,
-    };
-    GPBEnumDescriptor *worker =
+        static const int32_t values[] = {
+            SVGAProtoShapeEntity_ShapeType_Shape,
+            SVGAProtoShapeEntity_ShapeType_Rect,
+            SVGAProtoShapeEntity_ShapeType_Ellipse,
+            SVGAProtoShapeEntity_ShapeType_Keep,
+        };
+        GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(SVGAProtoShapeEntity_ShapeType)
                                        valueNames:valueNames
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:SVGAProtoShapeEntity_ShapeType_IsValidValue];
-    GPBEnumDescriptor *expected = nil;
-    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
-      [worker release];
+        if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+            [worker release];
+        }
     }
-  }
-  return descriptor;
+    return descriptor;
 }
 
 BOOL SVGAProtoShapeEntity_ShapeType_IsValidValue(int32_t value__) {
-  switch (value__) {
-    case SVGAProtoShapeEntity_ShapeType_Shape:
-    case SVGAProtoShapeEntity_ShapeType_Rect:
-    case SVGAProtoShapeEntity_ShapeType_Ellipse:
-    case SVGAProtoShapeEntity_ShapeType_Keep:
-      return YES;
-    default:
-      return NO;
-  }
+    switch (value__) {
+        case SVGAProtoShapeEntity_ShapeType_Shape:
+        case SVGAProtoShapeEntity_ShapeType_Rect:
+        case SVGAProtoShapeEntity_ShapeType_Ellipse:
+        case SVGAProtoShapeEntity_ShapeType_Keep:
+            return YES;
+        default:
+            return NO;
+    }
 }
 
 #pragma mark - SVGAProtoShapeEntity_ShapeArgs
@@ -609,27 +628,27 @@ BOOL SVGAProtoShapeEntity_ShapeType_IsValidValue(int32_t value__) {
 @dynamic d;
 
 typedef struct SVGAProtoShapeEntity_ShapeArgs__storage_ {
-  uint32_t _has_storage_[1];
-  NSString *d;
+    uint32_t _has_storage_[1];
+    NSString *d;
 } SVGAProtoShapeEntity_ShapeArgs__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "d",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeArgs_FieldNumber_D,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeArgs__storage_, d),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeString,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "d",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeArgs_FieldNumber_D,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeArgs__storage_, d),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeString,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoShapeEntity_ShapeArgs class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -637,11 +656,11 @@ typedef struct SVGAProtoShapeEntity_ShapeArgs__storage_ {
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SVGAProtoShapeEntity_ShapeArgs__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -657,67 +676,67 @@ typedef struct SVGAProtoShapeEntity_ShapeArgs__storage_ {
 @dynamic cornerRadius;
 
 typedef struct SVGAProtoShapeEntity_RectArgs__storage_ {
-  uint32_t _has_storage_[1];
-  float x;
-  float y;
-  float width;
-  float height;
-  float cornerRadius;
+    uint32_t _has_storage_[1];
+    float x;
+    float y;
+    float width;
+    float height;
+    float cornerRadius;
 } SVGAProtoShapeEntity_RectArgs__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "x",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_X,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, x),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "y",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_Y,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, y),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "width",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_Width,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, width),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "height",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_Height,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, height),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "cornerRadius",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_CornerRadius,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, cornerRadius),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "x",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_X,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, x),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "y",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_Y,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, y),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "width",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_Width,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, width),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "height",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_Height,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, height),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "cornerRadius",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_RectArgs_FieldNumber_CornerRadius,
+                .hasIndex = 4,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_RectArgs__storage_, cornerRadius),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoShapeEntity_RectArgs class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -726,15 +745,15 @@ typedef struct SVGAProtoShapeEntity_RectArgs__storage_ {
                                    storageSize:sizeof(SVGAProtoShapeEntity_RectArgs__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
+        static const char *extraTextFormatInfo =
         "\001\005\014\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+        [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -749,57 +768,57 @@ typedef struct SVGAProtoShapeEntity_RectArgs__storage_ {
 @dynamic radiusY;
 
 typedef struct SVGAProtoShapeEntity_EllipseArgs__storage_ {
-  uint32_t _has_storage_[1];
-  float x;
-  float y;
-  float radiusX;
-  float radiusY;
+    uint32_t _has_storage_[1];
+    float x;
+    float y;
+    float radiusX;
+    float radiusY;
 } SVGAProtoShapeEntity_EllipseArgs__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "x",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_X,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, x),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "y",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_Y,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, y),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "radiusX",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_RadiusX,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, radiusX),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "radiusY",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_RadiusY,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, radiusY),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "x",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_X,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, x),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "y",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_Y,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, y),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "radiusX",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_RadiusX,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, radiusX),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "radiusY",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_EllipseArgs_FieldNumber_RadiusY,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_EllipseArgs__storage_, radiusY),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoShapeEntity_EllipseArgs class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -808,15 +827,15 @@ typedef struct SVGAProtoShapeEntity_EllipseArgs__storage_ {
                                    storageSize:sizeof(SVGAProtoShapeEntity_EllipseArgs__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
+        static const char *extraTextFormatInfo =
         "\002\003\007\000\004\007\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+        [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -836,107 +855,107 @@ typedef struct SVGAProtoShapeEntity_EllipseArgs__storage_ {
 @dynamic lineDashIii;
 
 typedef struct SVGAProtoShapeEntity_ShapeStyle__storage_ {
-  uint32_t _has_storage_[1];
-  float strokeWidth;
-  SVGAProtoShapeEntity_ShapeStyle_LineCap lineCap;
-  SVGAProtoShapeEntity_ShapeStyle_LineJoin lineJoin;
-  float miterLimit;
-  float lineDashI;
-  float lineDashIi;
-  float lineDashIii;
-  SVGAProtoShapeEntity_ShapeStyle_RGBAColor *fill;
-  SVGAProtoShapeEntity_ShapeStyle_RGBAColor *stroke;
+    uint32_t _has_storage_[1];
+    float strokeWidth;
+    SVGAProtoShapeEntity_ShapeStyle_LineCap lineCap;
+    SVGAProtoShapeEntity_ShapeStyle_LineJoin lineJoin;
+    float miterLimit;
+    float lineDashI;
+    float lineDashIi;
+    float lineDashIii;
+    SVGAProtoShapeEntity_ShapeStyle_RGBAColor *fill;
+    SVGAProtoShapeEntity_ShapeStyle_RGBAColor *stroke;
 } SVGAProtoShapeEntity_ShapeStyle__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "fill",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle_RGBAColor),
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_Fill,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, fill),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "stroke",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle_RGBAColor),
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_Stroke,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, stroke),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "strokeWidth",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_StrokeWidth,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, strokeWidth),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "lineCap",
-        .dataTypeSpecific.enumDescFunc = SVGAProtoShapeEntity_ShapeStyle_LineCap_EnumDescriptor,
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineCap,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineCap),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom | GPBFieldHasEnumDescriptor),
-        .dataType = GPBDataTypeEnum,
-      },
-      {
-        .name = "lineJoin",
-        .dataTypeSpecific.enumDescFunc = SVGAProtoShapeEntity_ShapeStyle_LineJoin_EnumDescriptor,
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineJoin,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineJoin),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom | GPBFieldHasEnumDescriptor),
-        .dataType = GPBDataTypeEnum,
-      },
-      {
-        .name = "miterLimit",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_MiterLimit,
-        .hasIndex = 5,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, miterLimit),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "lineDashI",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineDashI,
-        .hasIndex = 6,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineDashI),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "lineDashIi",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineDashIi,
-        .hasIndex = 7,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineDashIi),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "lineDashIii",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineDashIii,
-        .hasIndex = 8,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineDashIii),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeFloat,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "fill",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle_RGBAColor),
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_Fill,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, fill),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "stroke",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle_RGBAColor),
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_Stroke,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, stroke),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "strokeWidth",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_StrokeWidth,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, strokeWidth),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "lineCap",
+                .dataTypeSpecific.enumDescFunc = SVGAProtoShapeEntity_ShapeStyle_LineCap_EnumDescriptor,
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineCap,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineCap),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom | GPBFieldHasEnumDescriptor),
+                .dataType = GPBDataTypeEnum,
+            },
+            {
+                .name = "lineJoin",
+                .dataTypeSpecific.enumDescFunc = SVGAProtoShapeEntity_ShapeStyle_LineJoin_EnumDescriptor,
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineJoin,
+                .hasIndex = 4,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineJoin),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom | GPBFieldHasEnumDescriptor),
+                .dataType = GPBDataTypeEnum,
+            },
+            {
+                .name = "miterLimit",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_MiterLimit,
+                .hasIndex = 5,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, miterLimit),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "lineDashI",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineDashI,
+                .hasIndex = 6,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineDashI),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "lineDashIi",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineDashIi,
+                .hasIndex = 7,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineDashIi),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "lineDashIii",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineDashIii,
+                .hasIndex = 8,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle__storage_, lineDashIii),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeFloat,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoShapeEntity_ShapeStyle class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -945,120 +964,118 @@ typedef struct SVGAProtoShapeEntity_ShapeStyle__storage_ {
                                    storageSize:sizeof(SVGAProtoShapeEntity_ShapeStyle__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
+        static const char *extraTextFormatInfo =
         "\007\003\013\000\004\007\000\005\010\000\006\n\000\007\t\000\010\tA\000\t\tb\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+        [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity)];
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
 
 int32_t SVGAProtoShapeEntity_ShapeStyle_LineCap_RawValue(SVGAProtoShapeEntity_ShapeStyle *message) {
-  GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
-  GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineCap];
-  return GPBGetMessageInt32Field(message, field);
+    GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
+    GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineCap];
+    return GPBGetMessageInt32Field(message, field);
 }
 
 void SetSVGAProtoShapeEntity_ShapeStyle_LineCap_RawValue(SVGAProtoShapeEntity_ShapeStyle *message, int32_t value) {
-  GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
-  GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineCap];
-  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+    GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
+    GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineCap];
+    GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
 }
 
 int32_t SVGAProtoShapeEntity_ShapeStyle_LineJoin_RawValue(SVGAProtoShapeEntity_ShapeStyle *message) {
-  GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
-  GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineJoin];
-  return GPBGetMessageInt32Field(message, field);
+    GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
+    GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineJoin];
+    return GPBGetMessageInt32Field(message, field);
 }
 
 void SetSVGAProtoShapeEntity_ShapeStyle_LineJoin_RawValue(SVGAProtoShapeEntity_ShapeStyle *message, int32_t value) {
-  GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
-  GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineJoin];
-  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+    GPBDescriptor *descriptor = [SVGAProtoShapeEntity_ShapeStyle descriptor];
+    GPBFieldDescriptor *field = [descriptor fieldWithNumber:SVGAProtoShapeEntity_ShapeStyle_FieldNumber_LineJoin];
+    GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
 }
 
 #pragma mark - Enum SVGAProtoShapeEntity_ShapeStyle_LineCap
 
 GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeStyle_LineCap_EnumDescriptor(void) {
-  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
-  if (!descriptor) {
-    static const char *valueNames =
+    static GPBEnumDescriptor *descriptor = NULL;
+    if (!descriptor) {
+        static const char *valueNames =
         "LineCapButt\000LineCapRound\000LineCapSquare\000";
-    static const int32_t values[] = {
-        SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapButt,
-        SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapRound,
-        SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapSquare,
-    };
-    static const char *extraTextFormatInfo = "\003\000\007\344\000\001\007\345\000\002\007\346\000";
-    GPBEnumDescriptor *worker =
+        static const int32_t values[] = {
+            SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapButt,
+            SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapRound,
+            SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapSquare,
+        };
+        static const char *extraTextFormatInfo = "\003\000\007\344\000\001\007\345\000\002\007\346\000";
+        GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(SVGAProtoShapeEntity_ShapeStyle_LineCap)
                                        valueNames:valueNames
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:SVGAProtoShapeEntity_ShapeStyle_LineCap_IsValidValue
                               extraTextFormatInfo:extraTextFormatInfo];
-    GPBEnumDescriptor *expected = nil;
-    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
-      [worker release];
+        if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+            [worker release];
+        }
     }
-  }
-  return descriptor;
+    return descriptor;
 }
 
 BOOL SVGAProtoShapeEntity_ShapeStyle_LineCap_IsValidValue(int32_t value__) {
-  switch (value__) {
-    case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapButt:
-    case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapRound:
-    case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapSquare:
-      return YES;
-    default:
-      return NO;
-  }
+    switch (value__) {
+        case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapButt:
+        case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapRound:
+        case SVGAProtoShapeEntity_ShapeStyle_LineCap_LineCapSquare:
+            return YES;
+        default:
+            return NO;
+    }
 }
 
 #pragma mark - Enum SVGAProtoShapeEntity_ShapeStyle_LineJoin
 
 GPBEnumDescriptor *SVGAProtoShapeEntity_ShapeStyle_LineJoin_EnumDescriptor(void) {
-  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
-  if (!descriptor) {
-    static const char *valueNames =
+    static GPBEnumDescriptor *descriptor = NULL;
+    if (!descriptor) {
+        static const char *valueNames =
         "LineJoinMiter\000LineJoinRound\000LineJoinBeve"
         "l\000";
-    static const int32_t values[] = {
-        SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinMiter,
-        SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinRound,
-        SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinBevel,
-    };
-    static const char *extraTextFormatInfo = "\003\000\010\345\000\001\010\345\000\002\010\345\000";
-    GPBEnumDescriptor *worker =
+        static const int32_t values[] = {
+            SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinMiter,
+            SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinRound,
+            SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinBevel,
+        };
+        static const char *extraTextFormatInfo = "\003\000\010\345\000\001\010\345\000\002\010\345\000";
+        GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(SVGAProtoShapeEntity_ShapeStyle_LineJoin)
                                        valueNames:valueNames
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:SVGAProtoShapeEntity_ShapeStyle_LineJoin_IsValidValue
                               extraTextFormatInfo:extraTextFormatInfo];
-    GPBEnumDescriptor *expected = nil;
-    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
-      [worker release];
+        if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+            [worker release];
+        }
     }
-  }
-  return descriptor;
+    return descriptor;
 }
 
 BOOL SVGAProtoShapeEntity_ShapeStyle_LineJoin_IsValidValue(int32_t value__) {
-  switch (value__) {
-    case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinMiter:
-    case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinRound:
-    case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinBevel:
-      return YES;
-    default:
-      return NO;
-  }
+    switch (value__) {
+        case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinMiter:
+        case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinRound:
+        case SVGAProtoShapeEntity_ShapeStyle_LineJoin_LineJoinBevel:
+            return YES;
+        default:
+            return NO;
+    }
 }
 
 #pragma mark - SVGAProtoShapeEntity_ShapeStyle_RGBAColor
@@ -1071,57 +1088,57 @@ BOOL SVGAProtoShapeEntity_ShapeStyle_LineJoin_IsValidValue(int32_t value__) {
 @dynamic a;
 
 typedef struct SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_ {
-  uint32_t _has_storage_[1];
-  float r;
-  float g;
-  float b;
-  float a;
+    uint32_t _has_storage_[1];
+    float r;
+    float g;
+    float b;
+    float a;
 } SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "r",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_R,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, r),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "g",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_G,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, g),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "b",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_B,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, b),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "a",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_A,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, a),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "r",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_R,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, r),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "g",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_G,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, g),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "b",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_B,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, b),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "a",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoShapeEntity_ShapeStyle_RGBAColor_FieldNumber_A,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_, a),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoShapeEntity_ShapeStyle_RGBAColor class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -1129,11 +1146,11 @@ typedef struct SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_ {
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(SVGAProtoShapeEntity_ShapeStyle)];
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -1149,67 +1166,67 @@ typedef struct SVGAProtoShapeEntity_ShapeStyle_RGBAColor__storage_ {
 @dynamic shapesArray, shapesArray_Count;
 
 typedef struct SVGAProtoFrameEntity__storage_ {
-  uint32_t _has_storage_[1];
-  float alpha;
-  SVGAProtoLayout *layout;
-  SVGAProtoTransform *transform;
-  NSString *clipPath;
-  NSMutableArray *shapesArray;
+    uint32_t _has_storage_[1];
+    float alpha;
+    SVGAProtoLayout *layout;
+    SVGAProtoTransform *transform;
+    NSString *clipPath;
+    NSMutableArray *shapesArray;
 } SVGAProtoFrameEntity__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "alpha",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoFrameEntity_FieldNumber_Alpha,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, alpha),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
-        .name = "layout",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoLayout),
-        .number = SVGAProtoFrameEntity_FieldNumber_Layout,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, layout),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "transform",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoTransform),
-        .number = SVGAProtoFrameEntity_FieldNumber_Transform,
-        .hasIndex = 2,
-        .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, transform),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "clipPath",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoFrameEntity_FieldNumber_ClipPath,
-        .hasIndex = 3,
-        .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, clipPath),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-        .dataType = GPBDataTypeString,
-      },
-      {
-        .name = "shapesArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity),
-        .number = SVGAProtoFrameEntity_FieldNumber_ShapesArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, shapesArray),
-        .flags = GPBFieldRepeated,
-        .dataType = GPBDataTypeMessage,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "alpha",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoFrameEntity_FieldNumber_Alpha,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, alpha),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeFloat,
+            },
+            {
+                .name = "layout",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoLayout),
+                .number = SVGAProtoFrameEntity_FieldNumber_Layout,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, layout),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "transform",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoTransform),
+                .number = SVGAProtoFrameEntity_FieldNumber_Transform,
+                .hasIndex = 2,
+                .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, transform),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "clipPath",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoFrameEntity_FieldNumber_ClipPath,
+                .hasIndex = 3,
+                .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, clipPath),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeString,
+            },
+            {
+                .name = "shapesArray",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoShapeEntity),
+                .number = SVGAProtoFrameEntity_FieldNumber_ShapesArray,
+                .hasIndex = GPBNoHasBit,
+                .offset = (uint32_t)offsetof(SVGAProtoFrameEntity__storage_, shapesArray),
+                .flags = GPBFieldRepeated,
+                .dataType = GPBDataTypeMessage,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoFrameEntity class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -1218,14 +1235,14 @@ typedef struct SVGAProtoFrameEntity__storage_ {
                                    storageSize:sizeof(SVGAProtoFrameEntity__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    static const char *extraTextFormatInfo =
+        static const char *extraTextFormatInfo =
         "\001\004\010\000";
-    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+        [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
@@ -1241,67 +1258,67 @@ typedef struct SVGAProtoFrameEntity__storage_ {
 @dynamic audiosArray, audiosArray_Count;
 
 typedef struct SVGAProtoMovieEntity__storage_ {
-  uint32_t _has_storage_[1];
-  NSString *version;
-  SVGAProtoMovieParams *params;
-  NSMutableDictionary *images;
-  NSMutableArray *spritesArray;
-  NSMutableArray *audiosArray;
+    uint32_t _has_storage_[1];
+    NSString *version;
+    SVGAProtoMovieParams *params;
+    NSMutableDictionary *images;
+    NSMutableArray *spritesArray;
+    NSMutableArray *audiosArray;
 } SVGAProtoMovieEntity__storage_;
 
 // This method is threadsafe because it is initially called
 // in +initialize for each subclass.
 + (GPBDescriptor *)descriptor {
-  static GPBDescriptor *descriptor = nil;
-  if (!descriptor) {
-    static GPBMessageFieldDescription fields[] = {
-      {
-        .name = "version",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoMovieEntity_FieldNumber_Version,
-        .hasIndex = 0,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, version),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeString,
-      },
-      {
-        .name = "params",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoMovieParams),
-        .number = SVGAProtoMovieEntity_FieldNumber_Params,
-        .hasIndex = 1,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, params),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "images",
-        .dataTypeSpecific.className = NULL,
-        .number = SVGAProtoMovieEntity_FieldNumber_Images,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, images),
-        .flags = GPBFieldMapKeyString,
-        .dataType = GPBDataTypeBytes,
-      },
-      {
-        .name = "spritesArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoSpriteEntity),
-        .number = SVGAProtoMovieEntity_FieldNumber_SpritesArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, spritesArray),
-        .flags = GPBFieldRepeated,
-        .dataType = GPBDataTypeMessage,
-      },
-      {
-        .name = "audiosArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoAudioEntity),
-        .number = SVGAProtoMovieEntity_FieldNumber_AudiosArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, audiosArray),
-        .flags = GPBFieldRepeated,
-        .dataType = GPBDataTypeMessage,
-      },
-    };
-    GPBDescriptor *localDescriptor =
+    static GPBDescriptor *descriptor = nil;
+    if (!descriptor) {
+        static GPBMessageFieldDescription fields[] = {
+            {
+                .name = "version",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoMovieEntity_FieldNumber_Version,
+                .hasIndex = 0,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, version),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeString,
+            },
+            {
+                .name = "params",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoMovieParams),
+                .number = SVGAProtoMovieEntity_FieldNumber_Params,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, params),
+                .flags = GPBFieldOptional,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "images",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoMovieEntity_FieldNumber_Images,
+                .hasIndex = GPBNoHasBit,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, images),
+                .flags = GPBFieldMapKeyString,
+                .dataType = GPBDataTypeBytes,
+            },
+            {
+                .name = "spritesArray",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoSpriteEntity),
+                .number = SVGAProtoMovieEntity_FieldNumber_SpritesArray,
+                .hasIndex = GPBNoHasBit,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, spritesArray),
+                .flags = GPBFieldRepeated,
+                .dataType = GPBDataTypeMessage,
+            },
+            {
+                .name = "audiosArray",
+                .dataTypeSpecific.className = GPBStringifySymbol(SVGAProtoAudioEntity),
+                .number = SVGAProtoMovieEntity_FieldNumber_AudiosArray,
+                .hasIndex = GPBNoHasBit,
+                .offset = (uint32_t)offsetof(SVGAProtoMovieEntity__storage_, audiosArray),
+                .flags = GPBFieldRepeated,
+                .dataType = GPBDataTypeMessage,
+            },
+        };
+        GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoMovieEntity class]
                                      rootClass:[SVGAProtoSvgaRoot class]
                                           file:SVGAProtoSvgaRoot_FileDescriptor()
@@ -1309,10 +1326,10 @@ typedef struct SVGAProtoMovieEntity__storage_ {
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SVGAProtoMovieEntity__storage_)
                                          flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
-    descriptor = localDescriptor;
-  }
-  return descriptor;
+        NSAssert(descriptor == nil, @"Startup recursed!");
+        descriptor = localDescriptor;
+    }
+    return descriptor;
 }
 
 @end
