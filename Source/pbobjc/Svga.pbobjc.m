@@ -129,15 +129,15 @@ typedef struct SVGAProtoMovieParams__storage_ {
 
 @implementation SVGAProtoSpriteEntity
 
-@dynamic matteKey;
 @dynamic imageKey;
 @dynamic framesArray, framesArray_Count;
+@dynamic matteKey;
 
 typedef struct SVGAProtoSpriteEntity__storage_ {
     uint32_t _has_storage_[1];
-    NSString *matteKey;
     NSString *imageKey;
     NSMutableArray *framesArray;
+    NSString *matteKey;
 } SVGAProtoSpriteEntity__storage_;
 
 // This method is threadsafe because it is initially called
@@ -147,19 +147,10 @@ typedef struct SVGAProtoSpriteEntity__storage_ {
     if (!descriptor) {
         static GPBMessageFieldDescription fields[] = {
             {
-                .name = "matteKey",
-                .dataTypeSpecific.className = NULL,
-                .number = SVGAProtoSpriteEntity_FieldNumber_MatteKey,
-                .hasIndex = 0,
-                .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, matteKey),
-                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
-                .dataType = GPBDataTypeString,
-            },
-            {
                 .name = "imageKey",
                 .dataTypeSpecific.className = NULL,
                 .number = SVGAProtoSpriteEntity_FieldNumber_ImageKey,
-                .hasIndex = 1,
+                .hasIndex = 0,
                 .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, imageKey),
                 .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
                 .dataType = GPBDataTypeString,
@@ -173,6 +164,15 @@ typedef struct SVGAProtoSpriteEntity__storage_ {
                 .flags = GPBFieldRepeated,
                 .dataType = GPBDataTypeMessage,
             },
+            {
+                .name = "matteKey",
+                .dataTypeSpecific.className = NULL,
+                .number = SVGAProtoSpriteEntity_FieldNumber_MatteKey,
+                .hasIndex = 1,
+                .offset = (uint32_t)offsetof(SVGAProtoSpriteEntity__storage_, matteKey),
+                .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldTextFormatNameCustom),
+                .dataType = GPBDataTypeString,
+            },
         };
         GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[SVGAProtoSpriteEntity class]
@@ -184,7 +184,7 @@ typedef struct SVGAProtoSpriteEntity__storage_ {
                                          flags:GPBDescriptorInitializationFlag_None];
 #if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
         static const char *extraTextFormatInfo =
-        "\002\001\010\000\002\010\000";
+        "\002\001\010\000\003\010\000";
         [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
 #endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
         NSAssert(descriptor == nil, @"Startup recursed!");
