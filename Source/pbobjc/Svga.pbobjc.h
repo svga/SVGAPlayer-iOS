@@ -159,12 +159,15 @@ typedef GPB_ENUM(SVGAProtoMovieParams_FieldNumber) {
 #pragma mark - SVGAProtoSpriteEntity
 
 typedef GPB_ENUM(SVGAProtoSpriteEntity_FieldNumber) {
-    SVGAProtoSpriteEntity_FieldNumber_ImageKey = 1,
-    SVGAProtoSpriteEntity_FieldNumber_FramesArray = 2,
-    SVGAProtoSpriteEntity_FieldNumber_MatteKey = 3,
+    SVGAProtoSpriteEntity_FieldNumber_MatteKey = 1,
+    SVGAProtoSpriteEntity_FieldNumber_ImageKey = 2,
+    SVGAProtoSpriteEntity_FieldNumber_FramesArray = 3,
 };
 
 @interface SVGAProtoSpriteEntity : GPBMessage
+
+/** 元件所对应的位图键名, 如果 imageKey 含有 .vector 后缀，该 sprite 为矢量图层。 */
+@property(nonatomic, readwrite, copy, null_resettable) NSString *matteKey;
 
 /** 元件所对应的位图键名, 如果 imageKey 含有 .vector 后缀，该 sprite 为矢量图层 含有 .matte 后缀，该 sprite 为遮罩图层。 */
 @property(nonatomic, readwrite, copy, null_resettable) NSString *imageKey;
@@ -173,9 +176,6 @@ typedef GPB_ENUM(SVGAProtoSpriteEntity_FieldNumber) {
 @property(nonatomic, readwrite, strong, null_resettable) NSMutableArray<SVGAProtoFrameEntity*> *framesArray;
 /** The number of items in @c framesArray without causing the array to be created. */
 @property(nonatomic, readonly) NSUInteger framesArray_Count;
-
-/** 元件所对应的位图键名, 如果 imageKey 含有 .vector 后缀，该 sprite 为矢量图层。 */
-@property(nonatomic, readwrite, copy, null_resettable) NSString *matteKey;
 
 @end
 
