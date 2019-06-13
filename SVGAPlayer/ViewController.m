@@ -40,4 +40,7 @@ static SVGAParser *parser;
                   }];
 }
 
+- (IBAction)onSlide:(UISlider *)sender {
+    [self.aPlayer stepToPercentage:sender.value andPlay:NO];
+}
 @end

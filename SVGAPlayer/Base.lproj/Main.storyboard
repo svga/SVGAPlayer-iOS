@@ -28,12 +28,24 @@
                                     <constraint firstAttribute="width" secondItem="cmN-DO-oLC" secondAttribute="height" multiplier="1:1" id="xm5-jB-e5a"/>
                                 </constraints>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="iu9-fO-pPv">
+                                <rect key="frame" x="24" y="617" width="327" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="0iR-Ol-uxF"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="ra7-7t-qog"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="iu9-fO-pPv" secondAttribute="bottom" constant="20" id="CRZ-6U-acj"/>
                             <constraint firstItem="cmN-DO-oLC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HF3-PL-7Ua"/>
                             <constraint firstItem="cmN-DO-oLC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="V4O-Ov-ZmN"/>
                             <constraint firstItem="cmN-DO-oLC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aSq-Gs-nkk"/>
+                            <constraint firstItem="iu9-fO-pPv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="bJf-cY-y2d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iu9-fO-pPv" secondAttribute="trailing" constant="10" id="oNb-um-6Qz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cmN-DO-oLC" secondAttribute="trailing" id="vsb-Wl-Nhq"/>
                         </constraints>
                     </view>
@@ -50,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-15" y="36"/>
+            <point key="canvasLocation" x="-15.199999999999999" y="35.532233883058474"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r3U-AC-YtV">
