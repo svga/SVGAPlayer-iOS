@@ -30,15 +30,35 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onChange:(id)sender {
-    [parser parseWithNamed:@"matteRect"
-                  inBundle:[NSBundle mainBundle] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
-                      if (videoItem != nil) {
-                          self.aPlayer.videoItem = videoItem;
-                          [self.aPlayer startAnimation];
-                      }
-                  } failureBlock:^(NSError * _Nonnull error) {
-                  }];
+    NSArray *items = @[
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/EmptyState.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/HamburgerArrow.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/PinJump.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/TwitterHeart.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/Walkthrough.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/angel.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/halloween.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
+                       ];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % 10]]
+         completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+             if (videoItem != nil) {
+                 self.aPlayer.videoItem = videoItem;
+                 [self.aPlayer startAnimation];
+             }
+         } failureBlock:nil];
+    //    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+    //        if (videoItem != nil) {
+    //            self.aPlayer.videoItem = videoItem;
+    //            [self.aPlayer startAnimation];
+    //        }
+    //    } failureBlock:nil];
 }
+
 
 - (IBAction)onSlide:(UISlider *)sender {
     [self.aPlayer stepToPercentage:sender.value andPlay:NO];
