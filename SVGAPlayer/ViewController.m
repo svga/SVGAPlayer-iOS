@@ -30,7 +30,7 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onChange:(id)sender {
-    [parser parseWithNamed:@"rose_2.0.0"
+    [parser parseWithNamed:@"matteRect"
                   inBundle:[NSBundle mainBundle] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
                       if (videoItem != nil) {
                           self.aPlayer.videoItem = videoItem;

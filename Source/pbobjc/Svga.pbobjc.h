@@ -174,7 +174,7 @@ typedef GPB_ENUM(SVGAProtoSpriteEntity_FieldNumber) {
 /** The number of items in @c framesArray without causing the array to be created. */
 @property(nonatomic, readonly) NSUInteger framesArray_Count;
 
-/** 元件所对应的位图键名, 如果 imageKey 含有 .vector 后缀，该 sprite 为矢量图层。 */
+/** 被遮罩图层的 matteKey 对应的是其遮罩图层的 imageKey. */
 @property(nonatomic, readwrite, copy, null_resettable) NSString *matteKey;
 
 @end

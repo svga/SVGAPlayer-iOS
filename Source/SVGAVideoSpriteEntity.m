@@ -29,9 +29,9 @@
                         [frames addObject:[[SVGAVideoSpriteFrameEntity alloc] initWithJSONObject:obj]];
                     }
                 }];
-                _matteKey = matteKey;
                 _imageKey = imageKey;
                 _frames = frames;
+                _matteKey = matteKey;
             }
         }
     }
@@ -43,6 +43,7 @@
     if (self) {
         if ([protoObject isKindOfClass:[SVGAProtoSpriteEntity class]]) {
             NSString *imageKey = protoObject.imageKey;
+            NSString *matteKey = protoObject.matteKey;
             NSArray<NSDictionary *> *protoFrames = [protoObject.framesArray copy];
             if ([imageKey isKindOfClass:[NSString class]] && [protoFrames isKindOfClass:[NSArray class]]) {
                 NSMutableArray<SVGAVideoSpriteFrameEntity *> *frames = [[NSMutableArray alloc] init];
@@ -53,6 +54,7 @@
                 }];
                 _imageKey = imageKey;
                 _frames = frames;
+                _matteKey = matteKey;
             }
         }
     }

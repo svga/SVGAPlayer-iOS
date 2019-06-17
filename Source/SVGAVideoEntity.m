@@ -208,6 +208,7 @@ static NSCache *videoCache;
 
 @property (nonatomic, copy) NSString *imageKey;
 @property (nonatomic, copy) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
+@property (nonatomic, copy) NSString *matteKey;
 
 @end
 
