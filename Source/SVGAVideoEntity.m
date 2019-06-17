@@ -85,7 +85,7 @@ static NSCache *videoCache;
                     if (imageData != nil) {
                         UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                         if (image != nil) {
-                            [images setObject:image forKey:key];
+                            [images setObject:image forKey:[key stringByDeletingPathExtension]];
                         }
                     }
                 }
