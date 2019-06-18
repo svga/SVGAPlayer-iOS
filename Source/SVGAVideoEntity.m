@@ -85,7 +85,7 @@ static NSCache *videoCache;
                     if (imageData != nil) {
                         UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                         if (image != nil) {
-                            [images setObject:image forKey:key];
+                            [images setObject:image forKey:[key stringByDeletingPathExtension]];
                         }
                     }
                 }
@@ -208,6 +208,7 @@ static NSCache *videoCache;
 
 @property (nonatomic, copy) NSString *imageKey;
 @property (nonatomic, copy) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
+@property (nonatomic, copy) NSString *matteKey;
 
 @end
 

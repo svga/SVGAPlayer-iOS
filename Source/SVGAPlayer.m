@@ -142,11 +142,12 @@ static NSArray *_contentLayers;
     [self.videoItem.sprites enumerateObjectsUsingBlock:^(SVGAVideoSpriteEntity * _Nonnull sprite, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImage *bitmap;
         if (sprite.imageKey != nil) {
-            if (self.dynamicObjects[sprite.imageKey] != nil) {
-                bitmap = self.dynamicObjects[sprite.imageKey];
+            NSString *bitmapKey = [sprite.imageKey stringByDeletingPathExtension];
+            if (self.dynamicObjects[bitmapKey] != nil) {
+                bitmap = self.dynamicObjects[bitmapKey];
             }
             else {
-                bitmap = self.videoItem.images[sprite.imageKey];
+                bitmap = self.videoItem.images[bitmapKey];
             }
         }
         SVGAContentLayer *contentLayer = [sprite requestLayerWithBitmap:bitmap];
