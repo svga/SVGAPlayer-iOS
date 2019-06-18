@@ -54,16 +54,21 @@ static SVGAParser *parser;
                  [self.aPlayer startAnimation];
              }
          } failureBlock:nil];
-    //    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
-    //        if (videoItem != nil) {
-    //            self.aPlayer.videoItem = videoItem;
-    //            [self.aPlayer startAnimation];
-    //        }
-    //    } failureBlock:nil];
+//        [parser parseWithNamed:@"Goddess" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+//            if (videoItem != nil) {
+//                self.aPlayer.videoItem = videoItem;
+//                [self.aPlayer startAnimation];
+//            }
+//        } failureBlock:nil];
 }
 
 
 - (IBAction)onSlide:(UISlider *)sender {
     [self.aPlayer stepToPercentage:sender.value andPlay:NO];
 }
+
+- (IBAction)onChangeColor:(UIButton *)sender {
+    self.view.backgroundColor = sender.backgroundColor;
+}
+
 @end
