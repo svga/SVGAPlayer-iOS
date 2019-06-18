@@ -21,7 +21,6 @@ static SVGAParser *parser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.aPlayer.delegate = self;
     self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
@@ -41,9 +40,13 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap_1.x.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteRect.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/mutiMatte.svga?raw=true",
                        ];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % 10]]
+    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
          completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
              if (videoItem != nil) {
