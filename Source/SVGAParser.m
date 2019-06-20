@@ -95,9 +95,11 @@ static NSOperationQueue *unzipQueue;
                failureBlock:failureBlock];
     }
     else {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
-        }];
+        if (failureBlock) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
+            }];
+        }
     }
 }
 
