@@ -91,3 +91,7 @@ Here are many feature samples.
 ## APIs
 
 Head on over to [https://github.com/yyued/SVGAPlayer-iOS/wiki/APIs](https://github.com/yyued/SVGAPlayer-iOS/wiki/APIs)
+
+## CHANGELOG
+
+Head on over to [CHANGELOG](./CHANGELOG.md)
