@@ -1,6 +1,6 @@
 # SVGAPlayer-iOS (2019-06-20)
 
-## [2.5.0](https://github.com/yyued/SVGAPlayer-iOS/compare/2.5.0...2.3.3) (2019-06-20)
+## [Next release](https://github.com/yyued/SVGAPlayer-iOS/compare/2.5.0...2.3.3) (2019-06-20)
 
 ### Bug Fixes
 
