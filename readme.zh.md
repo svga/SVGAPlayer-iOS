@@ -85,3 +85,7 @@ SVGAParser *parser = [[SVGAParser alloc] init];
 ## APIs
 
 请参阅此处 [https://github.com/yyued/SVGAPlayer-iOS/wiki/APIs](https://github.com/yyued/SVGAPlayer-iOS/wiki/APIs)
+
+## CHANGELOG
+
+请参阅此处 [CHANGELOG](./CHANGELOG.md)
