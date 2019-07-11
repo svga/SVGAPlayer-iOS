@@ -301,6 +301,9 @@ static NSArray *_contentLayers;
 }
 
 - (void)next {
+    if (!self.window) {
+        return;
+    }
     if (self.reversing) {
         self.currentFrame--;
         if (self.currentFrame < (NSInteger)MAX(0, self.currentRange.location)) {
