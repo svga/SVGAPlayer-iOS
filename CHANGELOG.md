@@ -30,3 +30,29 @@
 
 * add enabledMemoryCache option to SVGAParser, disable memory cache to default. ([116a91f](https://github.com/yyued/SVGAPlayer-iOS/commit/116a91f))
 
+## 2.3.0
+
+### Features
+
+*  Add audio support.
+
+## 2.1.4 
+
+### Bug Fixes
+
+*  Add classtype asserts to avoid crash.
+
+## 2.1.3
+
+* Add SVGAImageView and SVGAVideoEntity to SVGA.h;
+* Add URLRequest params to SVGAParser;
+
+## 2.1.2
+
+* Add dynamicHidden and dynamicDrawing.
+
+## 2.1.1
+
+### Bug Fixes
+* Use CADisplayLink::invalid() replace removeFromRunloop.
+improve: all Parser callback will perform on Main Thread.
