@@ -2,6 +2,10 @@
 
 [简体中文](./readme.zh.md)
 
+## 2.3.4 Released
+
+This version fixed SVGAPlayer parse issue on iOS 13, all apps should upgrade ASAP.
+
 ## Introduce
 
 SVGAPlayer is a light-weight animation renderer. You use [tools](http://svga.io/designer.html) to export `svga` file from `Adobe Animate CC` or `Adobe After Effects`, and then use SVGAPlayer to render animation on mobile application.
