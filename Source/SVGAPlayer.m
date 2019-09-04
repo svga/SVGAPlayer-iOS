@@ -36,13 +36,30 @@
 
 @implementation SVGAPlayer
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.contentMode = UIViewContentModeTop;
+- (instancetype)init {
+    if (self = [super init]) {
+        [self initPlayer];
     }
     return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initPlayer];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self initPlayer];
+    }
+    return self;
+}
+
+- (void)initPlayer {
+    self.contentMode = UIViewContentModeTop;
+    self.clearsAfterStop = YES;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
