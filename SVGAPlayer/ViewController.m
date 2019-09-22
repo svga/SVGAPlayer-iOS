@@ -12,6 +12,7 @@
 @interface ViewController ()<SVGAPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet SVGAPlayer *aPlayer;
+@property (weak, nonatomic) IBOutlet UISlider *aSlider;
 
 @end
 
@@ -29,39 +30,41 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onChange:(id)sender {
-    NSArray *items = @[
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/EmptyState.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/HamburgerArrow.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/PinJump.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/TwitterHeart.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/Walkthrough.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/angel.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/halloween.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap_1.x.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteRect.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/mutiMatte.svga?raw=true",
-                       ];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
-         completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
-             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-             if (videoItem != nil) {
-                 self.aPlayer.videoItem = videoItem;
-                 [self.aPlayer startAnimation];
-             }
-         } failureBlock:nil];
-//        [parser parseWithNamed:@"Goddess" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
-//            if (videoItem != nil) {
-//                self.aPlayer.videoItem = videoItem;
-//                [self.aPlayer startAnimation];
-//            }
-//        } failureBlock:nil];
+    //    NSArray *items = @[
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/EmptyState.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/HamburgerArrow.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/PinJump.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/TwitterHeart.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/Walkthrough.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/angel.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/halloween.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap_1.x.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteRect.svga?raw=true",
+    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/mutiMatte.svga?raw=true",
+    //                       ];
+    //    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    //    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
+    //         completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    //             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    //             if (videoItem != nil) {
+    //                 self.aPlayer.videoItem = videoItem;
+    //                 [self.aPlayer startAnimation];
+    //             }
+    //         } failureBlock:nil];
+    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+        if (videoItem != nil) {
+            self.aPlayer.videoItem = videoItem;
+            [self.aPlayer startAnimation];
+        }
+    } failureBlock:nil];
 }
-
+- (IBAction)onSliderClick:(UISlider *)sender {
+    [self.aPlayer stepToPercentage:sender.value andPlay:YES];
+}
 
 - (IBAction)onSlide:(UISlider *)sender {
     [self.aPlayer stepToPercentage:sender.value andPlay:NO];
@@ -71,4 +74,26 @@ static SVGAParser *parser;
     self.view.backgroundColor = sender.backgroundColor;
 }
 
+- (IBAction)onBeginButton:(UIButton *)sender {
+    sender.selected = !sender.isSelected;
+    if (sender.selected) {
+        [self.aPlayer pauseAnimation];
+    } else {
+        [self.aPlayer startAnimation];
+    }
+}
+
+- (IBAction)onRetreatButton:(UIButton *)sender {
+    
+}
+
+- (IBAction)onForwardButton:(UIButton *)sender {
+    
+}
+
+
+#pragma - mark SVGAPlayer Delegate
+- (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage {
+    self.aSlider.value = percentage;
+}
 @end
