@@ -85,7 +85,7 @@
                 return;
             }
         }
-        [self.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+        while(self.sublayers.count) [self.sublayers.firstObject removeFromSuperlayer];
         for (NSDictionary *shape in frameItem.shapes) {
             if ([shape isKindOfClass:[NSDictionary class]]) {
                 if ([shape[@"type"] isKindOfClass:[NSString class]]) {

@@ -11,7 +11,7 @@
 
 @interface ViewController ()<SVGAPlayerDelegate>
 
-@property (nonatomic, strong) SVGAPlayer *aPlayer;
+@property (weak, nonatomic) IBOutlet SVGAPlayer *aPlayer;
 
 @end
 
@@ -21,20 +21,11 @@ static SVGAParser *parser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.aPlayer];
     self.aPlayer.delegate = self;
-    self.aPlayer.frame = CGRectMake(0, 0, 320, 320);
     self.aPlayer.loops = 0;
     self.aPlayer.clearsAfterStop = YES;
     parser = [[SVGAParser alloc] init];
     [self onChange:nil];
-}
-
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    self.aPlayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
 }
 
 - (IBAction)onChange:(id)sender {
@@ -49,29 +40,35 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap_1.x.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteRect.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/mutiMatte.svga?raw=true",
                        ];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % 10]]
+    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
          completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        if (videoItem != nil) {
-            self.aPlayer.videoItem = videoItem;
-            [self.aPlayer startAnimation];
-        }
-    } failureBlock:nil];
-//    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
-//        if (videoItem != nil) {
-//            self.aPlayer.videoItem = videoItem;
-//            [self.aPlayer startAnimation];
-//        }
-//    } failureBlock:nil];
+             if (videoItem != nil) {
+                 self.aPlayer.videoItem = videoItem;
+                 [self.aPlayer startAnimation];
+             }
+         } failureBlock:nil];
+//        [parser parseWithNamed:@"Goddess" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+//            if (videoItem != nil) {
+//                self.aPlayer.videoItem = videoItem;
+//                [self.aPlayer startAnimation];
+//            }
+//        } failureBlock:nil];
 }
 
-- (SVGAPlayer *)aPlayer {
-    if (_aPlayer == nil) {
-        _aPlayer = [[SVGAPlayer alloc] init];
-    }
-    return _aPlayer;
+
+- (IBAction)onSlide:(UISlider *)sender {
+    [self.aPlayer stepToPercentage:sender.value andPlay:NO];
+}
+
+- (IBAction)onChangeColor:(UIButton *)sender {
+    self.view.backgroundColor = sender.backgroundColor;
 }
 
 @end
