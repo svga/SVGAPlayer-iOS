@@ -41,6 +41,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.contentMode = UIViewContentModeTop;
+        self.clearsAfterStop = YES;
     }
     return self;
 }
