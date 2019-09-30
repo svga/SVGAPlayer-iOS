@@ -13,6 +13,8 @@
 #import "SVGAAudioEntity.h"
 #import "Svga.pbobjc.h"
 
+#define MP3_MAGIC_NUMBER "ID3"
+
 @interface SVGAVideoEntity ()
 
 @property (nonatomic, assign) CGSize videoSize;
@@ -131,6 +133,14 @@ static NSCache *videoCache;
     }
 }
 
++ (BOOL)isMP3Data:(NSData *)data {
+    BOOL result = NO;
+    if (!strncmp([data bytes], MP3_MAGIC_NUMBER, strlen(MP3_MAGIC_NUMBER))) {
+        result = YES;
+    }
+    return result;
+}
+
 - (void)resetImagesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
     NSMutableDictionary<NSString *, UIImage *> *images = [[NSMutableDictionary alloc] init];
     NSMutableDictionary<NSString *, NSData *> *audiosData = [[NSMutableDictionary alloc] init];
@@ -153,9 +163,7 @@ static NSCache *videoCache;
             }
         }
         else if ([protoImages[key] isKindOfClass:[NSData class]]) {
-            NSData *fileTag = [protoImages[key] subdataWithRange:NSMakeRange(0, 4)];
-            NSString *fileTagDes = [fileTag description];
-            if (![fileTagDes containsString:@"89504e47"]) {
+            if ([SVGAVideoEntity isMP3Data:protoImages[key]]) {
                 // mp3
                 [audiosData setObject:protoImages[key] forKey:key];
             } else {

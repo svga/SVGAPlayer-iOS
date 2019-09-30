@@ -2,9 +2,9 @@
 
 [简体中文](./readme.zh.md)
 
-## 2.3.4 Released
+## 2.3.5 Released
 
-This version fixed SVGAPlayer parse issue on iOS 13, all apps should upgrade ASAP.
+This version fixed SVGAPlayer render issue on iOS 13.1, upgrade to this version ASAP.
 
 ## Introduce
 
