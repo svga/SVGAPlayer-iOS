@@ -31,19 +31,36 @@
 @property (nonatomic, assign) NSRange currentRange;
 @property (nonatomic, assign) BOOL forwardAnimating;
 @property (nonatomic, assign) BOOL reversing;
+@property (nonatomic, assign) BOOL audioPlaying;
 
-@end
+@end 
 
 @implementation SVGAPlayer
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.contentMode = UIViewContentModeTop;
-        self.clearsAfterStop = YES;
+- (instancetype)init {
+    if (self = [super init]) {
+        [self initPlayer];
     }
     return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initPlayer];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self initPlayer];
+    }
+    return self;
+}
+
+- (void)initPlayer {
+    self.contentMode = UIViewContentModeTop;
+    self.clearsAfterStop = YES;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
@@ -105,9 +122,13 @@
 }
 
 - (void)clearAudios {
+    if (!self.audioPlaying) {
+        return;
+    }
     for (SVGAAudioLayer *layer in self.audioLayers) {
         [layer.audioPlayer stop];
     }
+    self.audioPlaying = NO;
 }
 
 - (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay {
@@ -118,6 +139,7 @@
     self.currentFrame = frame;
     [self update];
     if (andPlay) {
+        self.forwardAnimating = YES;
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
         self.displayLink.frameInterval = 60 / self.videoItem.FPS;
         [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
@@ -289,12 +311,14 @@
     [CATransaction setDisableActions:NO];
     if (self.forwardAnimating && self.audioLayers.count > 0) {
         for (SVGAAudioLayer *layer in self.audioLayers) {
-            if (layer.audioItem.startFrame == self.currentFrame) {
+            if (!self.audioPlaying && layer.audioItem.startFrame >= self.currentFrame) {
                 [layer.audioPlayer setCurrentTime:(NSTimeInterval)(layer.audioItem.startTime / 1000)];
                 [layer.audioPlayer play];
+                self.audioPlaying = YES;
             }
-            else if (layer.audioItem.endFrame <= self.currentFrame) {
+            if (self.audioPlaying && layer.audioItem.endFrame <= self.currentFrame) {
                 [layer.audioPlayer stop];
+                self.audioPlaying = NO;
             }
         }
     }
