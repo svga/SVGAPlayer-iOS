@@ -2,6 +2,8 @@
 
 ## 2.3.5 版本
 
+该版本修正了 SVGAPlayer `clearsAfterStop 默认值为 YES`，请检查代码，修正不需要 clear 的 SVGAPlayer。
+
 该版本修正了 SVGAPlayer 无法在 iOS 13.1 上播放异常的问题，请尽快升级。
 
 ## 介绍
