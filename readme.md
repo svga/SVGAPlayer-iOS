@@ -2,6 +2,13 @@
 
 [简体中文](./readme.zh.md)
 
+## 2.5.0 Released
+
+This version add Support for matte layer and dynamic matte bitmap.
+Head on over to [Dynamic · Matte Layer](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-%C2%B7-Matte-Layer)
+
+This version add Support for audio step to frame & percentage.
+
 ## 2.3.5 Released
 
 This version fixed SVGAPlayer `clearsAfterStop defaults too YES`, Please check your player when it doesn't need to be cleared.

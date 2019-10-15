@@ -51,14 +51,15 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
                        ];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
-             completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
-                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                 if (videoItem != nil) {
-                     self.aPlayer.videoItem = videoItem;
-                     [self.aPlayer startAnimation];
-                 }
-             } failureBlock:nil];
+    //        [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
+    //             completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    //                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    //                 if (videoItem != nil) {
+    //                     self.aPlayer.videoItem = videoItem;
+    //                     [self.aPlayer startAnimation];
+    //                 }
+    //             } failureBlock:nil];
+    
     //    [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
     //        if (videoItem != nil) {
     //            self.aPlayer.videoItem = videoItem;
@@ -66,6 +67,11 @@ static SVGAParser *parser;
     //            [self.aPlayer startAnimation];
     //        }
     //    } failureBlock:nil];
+    
+    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+        self.aPlayer.videoItem = videoItem;
+        [self.aPlayer startAnimation];
+    } failureBlock:nil];
 }
 
 - (IBAction)onSliderClick:(UISlider *)sender {

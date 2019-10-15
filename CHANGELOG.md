@@ -1,6 +1,11 @@
 # SVGAPlayer-iOS CHANGELOG (2019-10-15)
 
-## [2.5.0]()
+## [2.5.0](https://github.com/yyued/SVGAPlayer-iOS/tree/2.5.0-release)(2019-10-15)
+
+### Features
+
+* Add Support for matte layer and dynamic matte bitmap.
+* Add Support for audio step to frame & percentage.
 
 ## [2.3.5](https://github.com/yyued/SVGAPlayer-iOS/compare/2.3.4...2.3.5) (2019-09-29)
 
@@ -8,8 +13,8 @@
 
 * Let clearsAfterStop defaults too YES. ([4932be5](https://github.com/yyued/SVGAPlayer-iOS/commit/4932be5))
 * Add support for audio play in stepToFrame. ([873f8e4](https://github.com/yyued/SVGAPlayer-iOS/commit/873f8e4))
-* Correct mp3 file match in proto image. ([eb45964](https://github.com/yyued/SVGAPlayer-iOS/commit/eb45964))
-* Correct ZIP file match when parse. ([f3e204f](https://github.com/yyued/SVGAPlayer-iOS/commit/f3e204f))
+* Correct mp3 file match in proto image for iOS13. ([eb45964](https://github.com/yyued/SVGAPlayer-iOS/commit/eb45964))
+* Correct ZIP file match when parse for iOS13. ([f3e204f](https://github.com/yyued/SVGAPlayer-iOS/commit/f3e204f))
 
 ## [2.3.4](https://github.com/yyued/SVGAPlayer-iOS/compare/2.3.3...2.3.4) (2019-08-02)
 
