@@ -37,38 +37,38 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onChange:(id)sender {
-    //    NSArray *items = @[
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/EmptyState.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/HamburgerArrow.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/PinJump.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/TwitterHeart.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/Walkthrough.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/angel.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/halloween.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteBitmap_1.x.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/matteRect.svga?raw=true",
-    //                       @"https://github.com/yyued/SVGA-Samples/blob/master/mutiMatte.svga?raw=true",
-    //                       ];
-    //    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    //    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
-    //         completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
-    //             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    //             if (videoItem != nil) {
-    //                 self.aPlayer.videoItem = videoItem;
-    //                 [self.aPlayer startAnimation];
-    //             }
-    //         } failureBlock:nil];
-    [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
-        if (videoItem != nil) {
-            self.aPlayer.videoItem = videoItem;
-            [self.aPlayer setImageWithURL:[NSURL URLWithString: @"https://i.imgur.com/vd4GuUh.png"] forKey:@"matte_EEKdlEml.matte"];
-            [self.aPlayer startAnimation];
-        }
-    } failureBlock:nil];
+    NSArray *items = @[
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/EmptyState.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/HamburgerArrow.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/PinJump.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/TwitterHeart.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/Walkthrough.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/angel.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/halloween.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
+                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
+                       @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
+                       
+                       
+                       ];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
+         completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+             if (videoItem != nil) {
+                 self.aPlayer.videoItem = videoItem;
+                 [self.aPlayer startAnimation];
+             }
+         } failureBlock:nil];
+    //    [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    //        if (videoItem != nil) {
+    //            self.aPlayer.videoItem = videoItem;
+    //            [self.aPlayer setImageWithURL:[NSURL URLWithString: @"https://i.imgur.com/vd4GuUh.png"] forKey:@"matte_EEKdlEml.matte"];
+    //            [self.aPlayer startAnimation];
+    //        }
+    //    } failureBlock:nil];
 }
 
 - (IBAction)onSliderClick:(UISlider *)sender {
