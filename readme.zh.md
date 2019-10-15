@@ -2,7 +2,7 @@
 
 ## 2.5.0 版本
 
-该版本增加了对遮罩图层和遮罩图片动态替换的支持。
+该版本增加了对遮罩图层和遮罩图片动态替换的支持。<br>
 请参阅此处 [Dynamic · Matte Layer](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-%C2%B7-Matte-Layer)
 
 该版本增加了对音频进度切换的支持。
