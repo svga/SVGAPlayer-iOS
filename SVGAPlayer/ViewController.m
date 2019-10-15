@@ -41,6 +41,7 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/EmptyState.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/HamburgerArrow.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/PinJump.svga?raw=true",
+                       @"https://github.com/svga/SVGA-Samples/raw/master/Rocket.svga",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/TwitterHeart.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/Walkthrough.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/angel.svga?raw=true",
@@ -48,20 +49,16 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/kingset.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
-                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
-                       @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
-                       
-                       
                        ];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
-         completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
-             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-             if (videoItem != nil) {
-                 self.aPlayer.videoItem = videoItem;
-                 [self.aPlayer startAnimation];
-             }
-         } failureBlock:nil];
+        [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
+             completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                 if (videoItem != nil) {
+                     self.aPlayer.videoItem = videoItem;
+                     [self.aPlayer startAnimation];
+                 }
+             } failureBlock:nil];
     //    [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
     //        if (videoItem != nil) {
     //            self.aPlayer.videoItem = videoItem;
