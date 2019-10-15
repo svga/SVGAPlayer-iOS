@@ -4,7 +4,7 @@
 
 ## 2.5.0 Released
 
-This version add Support for matte layer and dynamic matte bitmap.
+This version add Support for matte layer and dynamic matte bitmap.<br>
 Head on over to [Dynamic · Matte Layer](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-%C2%B7-Matte-Layer)
 
 This version add Support for audio step to frame & percentage.
