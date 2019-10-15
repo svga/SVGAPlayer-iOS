@@ -1,86 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "64DA03BB-C5DC-42D4-BADC-AD0639445B58"
+   uuid = "62068DA9-4A75-4226-A638-9340300C6605"
    type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3AE24567-7384-4566-B71B-DED67D03525A"
+            uuid = "4B3D1F80-8EF8-4233-8D9D-0B2454FF1D73"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SVGAPlayer/ViewController.m"
+            filePath = "Source/SVGAParser.m"
+            timestampString = "592814888.7285351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-onSliderClick:"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "-parseWithData:cacheKey:completionBlock:failureBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D8154CC8-03F2-40FD-87BF-47C3CFBDBFC5"
+            uuid = "EE5F9C78-0C52-4896-AAE6-9B6CCE0422A6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Source/SVGAPlayer.m"
+            filePath = "Source/SVGAParser.m"
+            timestampString = "592814888.728616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "-stepToFrame:andPlay:"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "-parseWithCacheKey:completionBlock:failureBlock:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61-[SVGAParser parseWithCacheKey:completionBlock:failureBlock:]_block_invoke"
+                  moduleName = "SVGAPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/errnull/Desktop/Code_errnull/SVGA/SVGAPlayer-iOS/Source/SVGAParser.m"
+                  timestampString = "592808732.094293"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "1595">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61-[SVGAParser parseWithCacheKey:completionBlock:failureBlock:]_block_invoke"
+                  moduleName = "SVGAPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/errnull/Desktop/Code_errnull/SVGA/SVGAPlayer-iOS/Source/SVGAParser.m"
+                  timestampString = "592808732.097017"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "1639">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/SVGAParser.m"
+            timestampString = "592814888.728675"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "-parseWithData:cacheKey:completionBlock:failureBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0AF589EC-210A-4B63-8DCF-18F1727DF3D5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Source/SVGAPlayer.m"
+            filePath = "Source/SVGAParser.m"
+            timestampString = "592814888.7287281"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "-update"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "-parseWithCacheKey:completionBlock:failureBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "08D33BAA-30CD-475A-A15C-BE5608038FCD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Source/SVGAPlayer.m"
+            filePath = "Source/SVGAVideoEntity.m"
+            timestampString = "592808732.035756"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "-update"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-resetImagesWithJSONObject:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D6A59950-2B5E-4C3F-A760-A6B911356ECD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Source/SVGAPlayer.m"
+            filePath = "Source/SVGAVideoEntity.m"
+            timestampString = "592808732.035814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-clearAudios"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "-resetImagesWithJSONObject:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet SVGAPlayer *aPlayer;
 @property (weak, nonatomic) IBOutlet UISlider *aSlider;
+@property (weak, nonatomic) IBOutlet UIButton *onBeginButton;
 
 @end
 
@@ -27,6 +28,12 @@ static SVGAParser *parser;
     self.aPlayer.clearsAfterStop = YES;
     parser = [[SVGAParser alloc] init];
     [self onChange:nil];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    
+    [self onBeginButton:self.onBeginButton];
 }
 
 - (IBAction)onChange:(id)sender {
@@ -55,15 +62,17 @@ static SVGAParser *parser;
     //                 [self.aPlayer startAnimation];
     //             }
     //         } failureBlock:nil];
-    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+    [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
         if (videoItem != nil) {
             self.aPlayer.videoItem = videoItem;
+            [self.aPlayer setImageWithURL:[NSURL URLWithString: @"https://i.imgur.com/vd4GuUh.png"] forKey:@"matte_EEKdlEml.matte"];
             [self.aPlayer startAnimation];
         }
     } failureBlock:nil];
 }
+
 - (IBAction)onSliderClick:(UISlider *)sender {
-    [self.aPlayer stepToPercentage:sender.value andPlay:YES];
+    [self.aPlayer stepToPercentage:sender.value andPlay:NO];
 }
 
 - (IBAction)onSlide:(UISlider *)sender {
@@ -79,7 +88,7 @@ static SVGAParser *parser;
     if (sender.selected) {
         [self.aPlayer pauseAnimation];
     } else {
-        [self.aPlayer startAnimation];
+        [self.aPlayer stepToPercentage:self.aSlider.value andPlay:YES];
     }
 }
 
