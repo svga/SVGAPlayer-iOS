@@ -74,6 +74,8 @@
     if (self.videoItem == nil) {
         NSLog(@"videoItem could not be nil！");
         return;
+    } else if (self.drawLayer == nil) {
+        self.videoItem = _videoItem;
     }
     [self stopAnimation:NO];
     self.loopCount = 0;
@@ -117,8 +119,9 @@
 }
 
 - (void)clear {
-    _contentLayers = nil;
+    self.contentLayers = nil;
     [self.drawLayer removeFromSuperlayer];
+    self.drawLayer = nil;
 }
 
 - (void)clearAudios {
@@ -132,6 +135,12 @@
 }
 
 - (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay {
+    if (self.videoItem == nil) {
+        NSLog(@"videoItem could not be nil！");
+        return;
+    } else if (self.drawLayer == nil) {
+        self.videoItem = _videoItem;
+    }
     if (frame >= self.videoItem.frames || frame < 0) {
         return;
     }
@@ -210,7 +219,7 @@
             }
         }
     }];
-    _contentLayers = tempContentLayers;
+    self.contentLayers = tempContentLayers;
     
     [self.layer addSublayer:self.drawLayer];
     NSMutableArray *audioLayers = [NSMutableArray array];
@@ -303,7 +312,7 @@
 
 - (void)update {
     [CATransaction setDisableActions:YES];
-    for (SVGAContentLayer *layer in _contentLayers) {
+    for (SVGAContentLayer *layer in self.contentLayers) {
         if ([layer isKindOfClass:[SVGAContentLayer class]]) {
             [layer stepToFrame:self.currentFrame];
         }
@@ -369,6 +378,7 @@
     _currentRange = NSMakeRange(0, videoItem.frames);
     _reversing = NO;
     _currentFrame = 0;
+    _loopCount = 0;
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self clear];
         [self draw];
@@ -384,8 +394,8 @@
     NSMutableDictionary *mutableDynamicObjects = [self.dynamicObjects mutableCopy];
     [mutableDynamicObjects setObject:image forKey:aKey];
     self.dynamicObjects = mutableDynamicObjects;
-    if (_contentLayers.count > 0) {
-        for (SVGAContentLayer *layer in _contentLayers) {
+    if (self.contentLayers.count > 0) {
+        for (SVGAContentLayer *layer in self.contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] && [layer.imageKey isEqualToString:aKey]) {
                 layer.bitmapLayer.contents = (__bridge id _Nullable)([image CGImage]);
             }
@@ -417,10 +427,10 @@
     NSMutableDictionary *mutableDynamicTexts = [self.dynamicTexts mutableCopy];
     [mutableDynamicTexts setObject:attributedText forKey:aKey];
     self.dynamicTexts = mutableDynamicTexts;
-    if (_contentLayers.count > 0) {
+    if (self.contentLayers.count > 0) {
         CGSize size = [attributedText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
         CATextLayer *textLayer;
-        for (SVGAContentLayer *layer in _contentLayers) {
+        for (SVGAContentLayer *layer in self.contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] && [layer.imageKey isEqualToString:aKey]) {
                 textLayer = layer.textLayer;
                 if (textLayer == nil) {
@@ -442,8 +452,8 @@
     NSMutableDictionary *mutableDynamicDrawings = [self.dynamicDrawings mutableCopy];
     [mutableDynamicDrawings setObject:drawingBlock forKey:aKey];
     self.dynamicDrawings = mutableDynamicDrawings;
-    if (_contentLayers.count > 0) {
-        for (SVGAContentLayer *layer in _contentLayers) {
+    if (self.contentLayers.count > 0) {
+        for (SVGAContentLayer *layer in self.contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] &&
                 [layer.imageKey isEqualToString:aKey]) {
                 layer.dynamicDrawingBlock = drawingBlock;
@@ -456,8 +466,8 @@
     NSMutableDictionary *mutableDynamicHiddens = [self.dynamicHiddens mutableCopy];
     [mutableDynamicHiddens setObject:@(hidden) forKey:aKey];
     self.dynamicHiddens = mutableDynamicHiddens;
-    if (_contentLayers.count > 0) {
-        for (SVGAContentLayer *layer in _contentLayers) {
+    if (self.contentLayers.count > 0) {
+        for (SVGAContentLayer *layer in self.contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] &&
                 [layer.imageKey isEqualToString:aKey]) {
                 layer.dynamicHidden = hidden;

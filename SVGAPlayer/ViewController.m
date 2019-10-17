@@ -24,7 +24,7 @@ static SVGAParser *parser;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.aPlayer.delegate = self;
-    self.aPlayer.loops = 0;
+    self.aPlayer.loops = 1;
     self.aPlayer.clearsAfterStop = YES;
     parser = [[SVGAParser alloc] init];
     [self onChange:nil];
@@ -32,7 +32,6 @@ static SVGAParser *parser;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    
     [self onBeginButton:self.onBeginButton];
 }
 
@@ -59,16 +58,16 @@ static SVGAParser *parser;
                  [self.aPlayer startAnimation];
              }
          } failureBlock:nil];
-   
-    //    [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
-    //        if (videoItem != nil) {
-    //            self.aPlayer.videoItem = videoItem;
-    //            [self.aPlayer setImageWithURL:[NSURL URLWithString: @"https://i.imgur.com/vd4GuUh.png"] forKey:@"matte_EEKdlEml.matte"];
-    //            [self.aPlayer startAnimation];
-    //        }
-    //    } failureBlock:nil];
+
+//        [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+//            if (videoItem != nil) {
+//                self.aPlayer.videoItem = videoItem;
+//                [self.aPlayer setImageWithURL:[NSURL URLWithString: @"https://i.imgur.com/vd4GuUh.png"] forKey:@"matte_EEKdlEml.matte"];
+//                [self.aPlayer startAnimation];
+//            }
+//        } failureBlock:nil];
     
-//    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+//    [parser parseWithNamed:@"Rocket" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
 //        self.aPlayer.videoItem = videoItem;
 //        [self.aPlayer startAnimation];
 //    } failureBlock:nil];
@@ -91,7 +90,7 @@ static SVGAParser *parser;
     if (sender.selected) {
         [self.aPlayer pauseAnimation];
     } else {
-        [self.aPlayer stepToPercentage:self.aSlider.value andPlay:YES];
+        [self.aPlayer stepToPercentage:(self.aSlider.value == 1 ? 0 : self.aSlider.value) andPlay:YES];
     }
 }
 
@@ -107,5 +106,9 @@ static SVGAParser *parser;
 #pragma - mark SVGAPlayer Delegate
 - (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage {
     self.aSlider.value = percentage;
+}
+
+- (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player {
+    self.onBeginButton.selected = YES;
 }
 @end
