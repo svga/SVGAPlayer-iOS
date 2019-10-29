@@ -12,9 +12,10 @@
 		63712E6821787A45001AE014 /* SVGAAudioEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63712E6721787A45001AE014 /* SVGAAudioEntity.m */; };
 		63E817012178809D001D2D62 /* SVGAAudioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E817002178809D001D2D62 /* SVGAAudioLayer.m */; };
 		71418C93225E6F710029C69E /* mutiMatte.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71418C92225E6F710029C69E /* mutiMatte.svga */; };
+		718A146D235718E000FED5D3 /* Rocket.svga in Resources */ = {isa = PBXBuildFile; fileRef = 718A146C235718E000FED5D3 /* Rocket.svga */; };
 		71A8679122B7785100176CD6 /* matteRect.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71A8679022B7785100176CD6 /* matteRect.svga */; };
 		71A8679322B7853600176CD6 /* matteBitmap.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71A8679222B7853600176CD6 /* matteBitmap.svga */; };
-		71A8679B22B8CF7400176CD6 /* Goddess.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71A8679A22B8CF7400176CD6 /* Goddess.svga */; };
+		71DAA8A52355B3ED006608A1 /* Goddess.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71DAA8A42355B3ED006608A1 /* Goddess.svga */; };
 		80D4C7254846B96B9C6EED83 /* libPods-SVGAPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */; };
 		904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 904D41F71D223DD20085A21A /* SVGABezierPath.m */; };
 		9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9052FC621E6EB8D4007BC925 /* SVGAExporter.m */; };
@@ -68,9 +69,10 @@
 		63E816FF2178809D001D2D62 /* SVGAAudioLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAAudioLayer.h; sourceTree = "<group>"; };
 		63E817002178809D001D2D62 /* SVGAAudioLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAAudioLayer.m; sourceTree = "<group>"; };
 		71418C92225E6F710029C69E /* mutiMatte.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = mutiMatte.svga; sourceTree = "<group>"; };
+		718A146C235718E000FED5D3 /* Rocket.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rocket.svga; sourceTree = "<group>"; };
 		71A8679022B7785100176CD6 /* matteRect.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = matteRect.svga; sourceTree = "<group>"; };
 		71A8679222B7853600176CD6 /* matteBitmap.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = matteBitmap.svga; sourceTree = "<group>"; };
-		71A8679A22B8CF7400176CD6 /* Goddess.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = Goddess.svga; sourceTree = "<group>"; };
+		71DAA8A42355B3ED006608A1 /* Goddess.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = Goddess.svga; sourceTree = "<group>"; };
 		8AD65028FA2D122A34DC4A63 /* Pods-SVGAPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		904D41F61D223DD20085A21A /* SVGABezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGABezierPath.h; sourceTree = "<group>"; };
 		904D41F71D223DD20085A21A /* SVGABezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGABezierPath.m; sourceTree = "<group>"; };
@@ -247,7 +249,8 @@
 		90D7C9FA1F7E2AA3006E74F0 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
-				71A8679A22B8CF7400176CD6 /* Goddess.svga */,
+				718A146C235718E000FED5D3 /* Rocket.svga */,
+				71DAA8A42355B3ED006608A1 /* Goddess.svga */,
 				71A8679022B7785100176CD6 /* matteRect.svga */,
 				71A8679222B7853600176CD6 /* matteBitmap.svga */,
 				71418C92225E6F710029C69E /* mutiMatte.svga */,
@@ -361,6 +364,7 @@
 			files = (
 				71418C93225E6F710029C69E /* mutiMatte.svga in Resources */,
 				90A676F01D13A6DF008A69F3 /* LaunchScreen.storyboard in Resources */,
+				718A146D235718E000FED5D3 /* Rocket.svga in Resources */,
 				90A676ED1D13A6DF008A69F3 /* Assets.xcassets in Resources */,
 				63712E6521787950001AE014 /* heartbeat.svga in Resources */,
 				90A676EB1D13A6DF008A69F3 /* Main.storyboard in Resources */,
@@ -369,7 +373,7 @@
 				71A8679322B7853600176CD6 /* matteBitmap.svga in Resources */,
 				90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */,
 				90D7CA1B1F7FB114006E74F0 /* rose_2.0.0.svga in Resources */,
-				71A8679B22B8CF7400176CD6 /* Goddess.svga in Resources */,
+				71DAA8A52355B3ED006608A1 /* Goddess.svga in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
