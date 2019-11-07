@@ -16,6 +16,7 @@
 
 @property (nonatomic, readonly) NSString *imageKey;
 @property (nonatomic, readonly) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
+@property (nonatomic, readonly) NSString *matteKey;
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject;
 - (instancetype)initWithProtoObject:(SVGAProtoSpriteEntity *)protoObject;

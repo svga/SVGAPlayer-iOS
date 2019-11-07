@@ -55,7 +55,10 @@
 }
 
 - (BOOL)isKeepFrame:(SVGAVideoSpriteFrameEntity *)frameItem {
-    if ([frameItem.shapes.firstObject isKindOfClass:[NSDictionary class]]) {
+    if (frameItem.shapes.count == 0) {
+        return NO;
+    }
+    else if ([frameItem.shapes.firstObject isKindOfClass:[NSDictionary class]]) {
         return [frameItem.shapes.firstObject[@"type"] isKindOfClass:[NSString class]] &&
         [frameItem.shapes.firstObject[@"type"] isEqualToString:@"keep"];
     }
@@ -82,7 +85,7 @@
                 return;
             }
         }
-        [self.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+        while(self.sublayers.count) [self.sublayers.firstObject removeFromSuperlayer];
         for (NSDictionary *shape in frameItem.shapes) {
             if ([shape isKindOfClass:[NSDictionary class]]) {
                 if ([shape[@"type"] isKindOfClass:[NSString class]]) {

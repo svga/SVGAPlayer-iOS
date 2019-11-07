@@ -11,7 +11,9 @@
 
 @interface ViewController ()<SVGAPlayerDelegate>
 
-@property (nonatomic, strong) SVGAPlayer *aPlayer;
+@property (weak, nonatomic) IBOutlet SVGAPlayer *aPlayer;
+@property (weak, nonatomic) IBOutlet UISlider *aSlider;
+@property (weak, nonatomic) IBOutlet UIButton *onBeginButton;
 
 @end
 
@@ -21,20 +23,16 @@ static SVGAParser *parser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.aPlayer];
     self.aPlayer.delegate = self;
-    self.aPlayer.frame = CGRectMake(0, 0, 320, 320);
-    self.aPlayer.loops = 0;
+    self.aPlayer.loops = 1;
     self.aPlayer.clearsAfterStop = YES;
     parser = [[SVGAParser alloc] init];
     [self onChange:nil];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    self.aPlayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    [self onBeginButton:self.onBeginButton];
 }
 
 - (IBAction)onChange:(id)sender {
@@ -42,6 +40,7 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/EmptyState.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/HamburgerArrow.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/PinJump.svga?raw=true",
+                       @"https://github.com/svga/SVGA-Samples/raw/master/Rocket.svga",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/TwitterHeart.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/Walkthrough.svga?raw=true",
                        @"https://github.com/yyued/SVGA-Samples/blob/master/angel.svga?raw=true",
@@ -51,27 +50,65 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
                        ];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % 10]]
+    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
          completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        if (videoItem != nil) {
-            self.aPlayer.videoItem = videoItem;
-            [self.aPlayer startAnimation];
-        }
-    } failureBlock:nil];
-//    [parser parseWithNamed:@"heartbeat" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
-//        if (videoItem != nil) {
-//            self.aPlayer.videoItem = videoItem;
-//            [self.aPlayer startAnimation];
-//        }
+             if (videoItem != nil) {
+                 self.aPlayer.videoItem = videoItem;
+                 [self.aPlayer startAnimation];
+             }
+         } failureBlock:nil];
+
+//        [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+//            if (videoItem != nil) {
+//                self.aPlayer.videoItem = videoItem;
+//                [self.aPlayer setImageWithURL:[NSURL URLWithString: @"https://i.imgur.com/vd4GuUh.png"] forKey:@"matte_EEKdlEml.matte"];
+//                [self.aPlayer startAnimation];
+//            }
+//        } failureBlock:nil];
+    
+//    [parser parseWithNamed:@"Rocket" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+//        self.aPlayer.videoItem = videoItem;
+//        [self.aPlayer startAnimation];
 //    } failureBlock:nil];
 }
 
-- (SVGAPlayer *)aPlayer {
-    if (_aPlayer == nil) {
-        _aPlayer = [[SVGAPlayer alloc] init];
-    }
-    return _aPlayer;
+- (IBAction)onSliderClick:(UISlider *)sender {
+    [self.aPlayer stepToPercentage:sender.value andPlay:NO];
 }
 
+- (IBAction)onSlide:(UISlider *)sender {
+    [self.aPlayer stepToPercentage:sender.value andPlay:NO];
+}
+
+- (IBAction)onChangeColor:(UIButton *)sender {
+    self.view.backgroundColor = sender.backgroundColor;
+}
+
+- (IBAction)onBeginButton:(UIButton *)sender {
+    sender.selected = !sender.isSelected;
+    if (sender.selected) {
+        [self.aPlayer pauseAnimation];
+    } else {
+        [self.aPlayer stepToPercentage:(self.aSlider.value == 1 ? 0 : self.aSlider.value) andPlay:YES];
+    }
+}
+
+- (IBAction)onRetreatButton:(UIButton *)sender {
+    
+}
+
+- (IBAction)onForwardButton:(UIButton *)sender {
+    
+}
+
+
+#pragma - mark SVGAPlayer Delegate
+- (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage {
+    self.aSlider.value = percentage;
+}
+
+- (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player {
+    self.onBeginButton.selected = YES;
+}
 @end

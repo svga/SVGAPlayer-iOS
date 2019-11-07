@@ -1,150 +1,110 @@
 # SVGAPlayer
 
-## 咨询服务
+[简体中文](./readme.zh.md)
 
-* 如果你发现 SVGAPlayer 存在 BUG，请在 GitHub 上按照模板提交 issue。
-* 如果有使用上的问题，请勿提交 issue（会被立刻关闭），请至[知乎付费问答](https://www.zhihu.com/zhi/people/1011556735563157504)提问，我们会全程跟踪你的疑问。
+## 2.5.0 Released
 
-#### New Features
+This version add Support for matte layer and dynamic matte bitmap.<br>
+Head on over to [Dynamic · Matte Layer](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-%C2%B7-Matte-Layer)
 
-* Add SVGA-Format 2.0.0 support.
-* Add SVGAImageView.
-* Add more UIViewContentMode support.
+This version add Support for audio step to frame & percentage.
 
-#### Improvements
+## 2.3.5 Released
 
-* SVGAParser now can works up-to 8 concurrent tasks.
-* Improves BezierPath performance.
+This version fixed SVGAPlayer `clearsAfterStop defaults too YES`, Please check your player when it doesn't need to be cleared.
 
-## SVGA Format
+This version fixed SVGAPlayer render issue on iOS 13.1, upgrade to this version ASAP.
 
-@see https://github.com/yyued/SVGA-Format
+## Introduce
 
-## Install
+SVGAPlayer is a light-weight animation renderer. You use [tools](http://svga.io/designer.html) to export `svga` file from `Adobe Animate CC` or `Adobe After Effects`, and then use SVGAPlayer to render animation on mobile application.
 
-### CocoaPods
+`SVGAPlayer-iOS` render animation natively via iOS CoreAnimation Framework, brings you a high-performance, low-cost animation experience.
 
-Add following dependency to Podfile
-```
-pod 'SVGAPlayer'
-```
+If wonder more information, go to this [website](http://svga.io/).
 
 ## Usage
 
-### code
+Here introduce `SVGAPlayer-iOS` usage. Wonder exporting usage? Click [here](http://svga.io/designer.html).
+
+### Install Via CocoaPods
+
+You want to add pod 'SVGAPlayer', '~> 2.3' similar to the following to your Podfile:
+
+target 'MyApp' do
+  pod 'SVGAPlayer', '~> 2.3'
+end
+
+Then run a `pod install` inside your terminal, or from CocoaPods.app.
+
+### Locate files
+
+SVGAPlayer could load svga file from application bundle or remote server.
+
+### Using code
+
+#### Create a `SVGAPlayer` instance.
+
+```objectivec
+SVGAPlayer *player = [[SVGAPlayer alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+[self.view addSubview:player]; // Add subview by yourself.
+```
+
+#### Create a `SVGAParser` instance, parse from bundle like this.
+```objectivec
+SVGAParser *parser = [[SVGAParser alloc] init];
+[parser parseWithNamed:@"posche" inBundle:nil completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
+    
+} failureBlock:nil];
+```
+
+#### Create a `SVGAParser` instance, parse from remote server like this.
 
 ```objectivec
 SVGAParser *parser = [[SVGAParser alloc] init];
-SVGAPlayer *player = [[SVGAPlayer alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-[self.view addSubview:player];
-[parser parseWithURL:[NSURL URLWithString:@"http://uedfe.yypm.com/assets/svga-samples/angel.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+[parser parseWithURL:[NSURL URLWithString:@"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
+    
+} failureBlock:nil];
+```
+
+#### Set videoItem to `SVGAPlayer`, play it as you want.
+
+```objectivec
+[parser parseWithURL:[NSURL URLWithString:@"https://github.com/yyued/SVGA-Samples/blob/master/posche.svga?raw=true"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
     if (videoItem != nil) {
         player.videoItem = videoItem;
         [player startAnimation];
     }
 } failureBlock:nil];
-
 ```
 
-### xib
+### Cache
 
-1. Add UIView to IB layout area.
-2. Let UIView subclass SVGAImageView.
-3. Input imageName on IB Properties Area.
-4. Animation will start after loaded.
+`SVGAParser` use `NSURLSession` request remote data via network. You may use following ways to control cache.
 
-## Cache
-
-SVGAParser use NSURLSession request remote data via network. You may use following ways to control cache.
-
-### Response Header
+#### Response Header
 
 Server response SVGA files in Body, and response header either. response header has cache-control / etag / expired keys, all these keys telling NSURLSession how to handle cache.
 
-### Request NSData By Yourself
+#### Request NSData By Yourself
 
 If you couldn't fix Server Response Header, You should build NSURLRequest with CachePolicy by yourself, and fetch NSData.
 
 Deliver NSData to SVGAParser, as usual.
 
-## API
+## Features
 
-### Properties
-* id<SVGAPlayerDelegate> delegate; - Callbacks
-* SVGAVideoEntity *videoItem; - Animation Instance
-* Int loops; - Loop Count，0 = Infinity Loop
-* BOOL clearsAfterStop; - Clears Canvas After Animation Stop
-* String fillMode; - defaults to Forward，optional Forward / Backward，fillMode = Forward，Animation will pause on last frame while finished，fillMode = Backward , Animation will pause on first frame.
+Here are many feature samples.
 
-### Methods
+* [Replace an element with Bitmap.](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-Image)
+* [Add text above an element.](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-Text)
+* [Hides an element dynamicaly.](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-Hidden)
+* [Use a custom drawer for element.](https://github.com/yyued/SVGAPlayer-iOS/wiki/Dynamic-Drawer)
 
-* (void)startAnimation; - Play Animation from 0 frame.
-* (void)startAnimationWithRange:(NSRange)range reverse:(BOOL)reverse;
-* (void)pauseAnimation; - Pause Animation and keep on current frame.
-* (void)stopAnimation; - Stop Animation，Clears Canvas while clearsAfterStop == YES.
-* (void)clear; - Clear Canvas force.
-* (void)stepToFrame:(NSInteger)frame andPlay:(BOOL)andPlay; - Step to N frame, and then Play Animation if andPlay === true.
-* (void)stepToPercentage:(CGFloat)percentage andPlay:(BOOL)andPlay; - Step to x%, and then Play Animation if andPlay === true.
-* (void)setImage:(UIImage *)image forKey:(NSString *)aKey; - Set Dynamic Image.
-* (void)setImageWithURL:(NSURL *)URL forKey:(NSString *)aKey; - Set Dynamic Image via remote URL.
-* (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey; - Set Dynamic Text.
-* (void)clearDynamicObjects; - Clear all dynamic Images and Texts.
+## APIs
 
-### SVGAPlayerDelegate
+Head on over to [https://github.com/yyued/SVGAPlayer-iOS/wiki/APIs](https://github.com/yyued/SVGAPlayer-iOS/wiki/APIs)
 
-* @optional
-* - (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player; - Call after animation finished.
-* - (void)svgaPlayerDidAnimatedToFrame:(NSInteger)frame; - Call after animation play to specific frame.
-* - (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage; - Call after animation play to specific percentage.
+## CHANGELOG
 
-### Dynamic Object
-
-Use this way to replace specific image, or add text to it. (可以通过以下方式，替换动画文件中的指定图像，以及动态添加富文本。)
-
-#### Dynamic Image
-
-```objectivec
-CALayer *iconLayer = [CALayer layer];
-iconLayer.cornerRadius = 84.0;
-iconLayer.masksToBounds = YES;
-iconLayer.borderWidth = 4.0;
-iconLayer.borderColor = [UIColor colorWithRed:0xea/255.0 green:0xb3/255.0 blue:0x7d/255.0 alpha:1.0].CGColor;
-[self.aPlayer setImage:iconImage forKey:@"99" referenceLayer:iconLayer];
-```
-
-* Ask designer tell you the imageKey(or unzip the svga file, find it).
-
-#### Dynamic Text
-
-```objectivec
-NSShadow *shadow = [NSShadow new];
-shadow.shadowColor = [UIColor blackColor];
-shadow.shadowOffset = CGSizeMake(0, 1);
-NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"崔小姐不吃鱼 送了魔法奇缘"
-                                                            attributes:@{
-                                                                        NSForegroundColorAttributeName: [UIColor colorWithRed:0xff/255.0 green:0xe0/255.0 blue:0xa4/255.0 alpha:1.0],
-                                                                        NSFontAttributeName: [UIFont boldSystemFontOfSize:30.0],
-                                                                        NSShadowAttributeName: shadow,
-                                                                        }];
-[self.aPlayer setAttributedText:text forKey:@"banner"];
-```
-
-* Ask designer tell you the imageKey(or unzip the svga file, find it).
-
-#### Dynamic Hidden
-
-Now use setHidden to hide an element prevents drawing.
-
-```objectivec
-[self.aPlayer setHidden:YES forKey:@"99"];
-```
-
-#### Dynamic Drawing
-
-You can set a block, it will callback while frame step.
-
-```objectivec
-[self.aPlayer setDrawingBlock:^(CALayer *contentLayer, NSInteger frameIndex) {
-    // do thing by yourself
-} forKey:@"99"];
-```
+Head on over to [CHANGELOG](./CHANGELOG.md)

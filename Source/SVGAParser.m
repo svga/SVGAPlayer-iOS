@@ -13,6 +13,8 @@
 #import <SSZipArchive/SSZipArchive.h>
 #import <CommonCrypto/CommonDigest.h>
 
+#define ZIP_MAGIC_NUMBER "PK"
+
 @interface SVGAParser ()
 
 @end
@@ -95,9 +97,11 @@ static NSOperationQueue *unzipQueue;
                failureBlock:failureBlock];
     }
     else {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
-        }];
+        if (failureBlock) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
+            }];
+        }
     }
 }
 
@@ -124,7 +128,9 @@ static NSOperationQueue *unzipQueue;
                 [videoItem resetImagesWithProtoObject:protoObject];
                 [videoItem resetSpritesWithProtoObject:protoObject];
                 [videoItem resetAudiosWithProtoObject:protoObject];
-                [videoItem saveCache:cacheKey];
+                if (self.enabledMemoryCache) {
+                    [videoItem saveCache:cacheKey];
+                }
                 if (completionBlock) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                         completionBlock(videoItem);
@@ -148,7 +154,9 @@ static NSOperationQueue *unzipQueue;
                     SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
                     [videoItem resetImagesWithJSONObject:JSONObject];
                     [videoItem resetSpritesWithJSONObject:JSONObject];
-                    [videoItem saveCache:cacheKey];
+                    if (self.enabledMemoryCache) {
+                        [videoItem saveCache:cacheKey];
+                    }
                     if (completionBlock) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             completionBlock(videoItem);
@@ -172,6 +180,14 @@ static NSOperationQueue *unzipQueue;
     [[NSFileManager defaultManager] removeItemAtPath:cacheDir error:NULL];
 }
 
++ (BOOL)isZIPData:(NSData *)data {
+    BOOL result = NO;
+    if (!strncmp([data bytes], ZIP_MAGIC_NUMBER, strlen(ZIP_MAGIC_NUMBER))) {
+        result = YES;
+    }
+    return result;
+}
+
 - (void)parseWithData:(nonnull NSData *)data
              cacheKey:(nonnull NSString *)cacheKey
       completionBlock:(void ( ^ _Nullable)(SVGAVideoEntity * _Nonnull videoItem))completionBlock
@@ -188,8 +204,7 @@ static NSOperationQueue *unzipQueue;
     if (!data || data.length < 4) {
         return;
     }
-    NSData *tag = [data subdataWithRange:NSMakeRange(0, 4)];
-    if (![[tag description] isEqualToString:@"<504b0304>"]) {
+    if (![SVGAParser isZIPData:data]) {
         // Maybe is SVGA 2.0.0
         [parseQueue addOperationWithBlock:^{
             NSData *inflateData = [self zlibInflate:data];
@@ -200,7 +215,9 @@ static NSOperationQueue *unzipQueue;
                 [videoItem resetImagesWithProtoObject:protoObject];
                 [videoItem resetSpritesWithProtoObject:protoObject];
                 [videoItem resetAudiosWithProtoObject:protoObject];
-                [videoItem saveCache:cacheKey];
+                if (self.enabledMemoryCache) {
+                    [videoItem saveCache:cacheKey];
+                }
                 if (completionBlock) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                         completionBlock(videoItem);
@@ -253,7 +270,9 @@ static NSOperationQueue *unzipQueue;
                                 SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithProtoObject:protoObject cacheDir:cacheDir];
                                 [videoItem resetImagesWithProtoObject:protoObject];
                                 [videoItem resetSpritesWithProtoObject:protoObject];
-                                [videoItem saveCache:cacheKey];
+                                if (self.enabledMemoryCache) {
+                                    [videoItem saveCache:cacheKey];
+                                }
                                 if (completionBlock) {
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         completionBlock(videoItem);
@@ -277,7 +296,9 @@ static NSOperationQueue *unzipQueue;
                                     SVGAVideoEntity *videoItem = [[SVGAVideoEntity alloc] initWithJSONObject:JSONObject cacheDir:cacheDir];
                                     [videoItem resetImagesWithJSONObject:JSONObject];
                                     [videoItem resetSpritesWithJSONObject:JSONObject];
-                                    [videoItem saveCache:cacheKey];
+                                    if (self.enabledMemoryCache) {
+                                        [videoItem saveCache:cacheKey];
+                                    }
                                     if (completionBlock) {
                                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                             completionBlock(videoItem);
