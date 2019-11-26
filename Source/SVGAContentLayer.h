@@ -23,5 +23,6 @@
 - (instancetype)initWithFrames:(NSArray<SVGAVideoSpriteFrameEntity *> *)frames;
 
 - (void)stepToFrame:(NSInteger)frame;
+- (void)resetTextLayerProperties:(NSAttributedString *)attributedString;
 
 @end

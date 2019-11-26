@@ -202,13 +202,17 @@
         if (sprite.imageKey != nil) {
             if (self.dynamicTexts[sprite.imageKey] != nil) {
                 NSAttributedString *text = self.dynamicTexts[sprite.imageKey];
-                CGSize size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
+                CGSize bitmapSize = CGSizeMake(self.videoItem.images[sprite.imageKey].size.width * self.videoItem.images[sprite.imageKey].scale, self.videoItem.images[sprite.imageKey].size.height * self.videoItem.images[sprite.imageKey].scale);
+                CGSize size = [text boundingRectWithSize:bitmapSize
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                                 context:NULL].size;
                 CATextLayer *textLayer = [CATextLayer layer];
                 textLayer.contentsScale = [[UIScreen mainScreen] scale];
                 [textLayer setString:self.dynamicTexts[sprite.imageKey]];
                 textLayer.frame = CGRectMake(0, 0, size.width, size.height);
                 [contentLayer addSublayer:textLayer];
                 contentLayer.textLayer = textLayer;
+                [contentLayer resetTextLayerProperties:text];
             }
             if (self.dynamicHiddens[sprite.imageKey] != nil &&
                 [self.dynamicHiddens[sprite.imageKey] boolValue] == YES) {
@@ -428,7 +432,9 @@
     [mutableDynamicTexts setObject:attributedText forKey:aKey];
     self.dynamicTexts = mutableDynamicTexts;
     if (self.contentLayers.count > 0) {
-        CGSize size = [attributedText boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
+        CGSize bitmapSize = CGSizeMake(self.videoItem.images[aKey].size.width * self.videoItem.images[aKey].scale, self.videoItem.images[aKey].size.height * self.videoItem.images[aKey].scale);
+        CGSize size = [attributedText boundingRectWithSize:bitmapSize
+                                                   options:NSStringDrawingUsesLineFragmentOrigin context:NULL].size;
         CATextLayer *textLayer;
         for (SVGAContentLayer *layer in self.contentLayers) {
             if ([layer isKindOfClass:[SVGAContentLayer class]] && [layer.imageKey isEqualToString:aKey]) {
@@ -437,6 +443,7 @@
                     textLayer = [CATextLayer layer];
                     [layer addSublayer:textLayer];
                     layer.textLayer = textLayer;
+                    [layer resetTextLayerProperties:attributedText];
                 }
             }
         }
