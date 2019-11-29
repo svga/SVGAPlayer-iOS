@@ -14,6 +14,7 @@
 @interface SVGAContentLayer ()
 
 @property (nonatomic, strong) NSArray<SVGAVideoSpriteFrameEntity *> *frames;
+@property (nonatomic, assign) NSTextAlignment textLayerAlignment;
 
 @end
 
@@ -25,6 +26,7 @@
         self.backgroundColor = [UIColor clearColor].CGColor;
         self.masksToBounds = NO;
         _frames = frames;
+        _textLayerAlignment = NSTextAlignmentCenter;
         [self stepToFrame:0];
     }
     return self;
@@ -68,7 +70,20 @@
     for (CALayer *sublayer in self.sublayers) {
         if ([sublayer isKindOfClass:[CATextLayer class]]) {
             CGRect frame = sublayer.frame;
-            frame.origin.x = (self.frame.size.width - sublayer.frame.size.width) / 2.0;
+            switch (self.textLayerAlignment) {
+                case NSTextAlignmentLeft:
+                    frame.origin.x = 0.0;
+                    break;
+                case NSTextAlignmentCenter:
+                    frame.origin.x = (self.frame.size.width - sublayer.frame.size.width) / 2.0;
+                    break;
+                case NSTextAlignmentRight:
+                    frame.origin.x = self.frame.size.width - sublayer.frame.size.width;
+                    break;
+                default:
+                    frame.origin.x = (self.frame.size.width - sublayer.frame.size.width) / 2.0;
+                    break;
+            }
             frame.origin.y = (self.frame.size.height - sublayer.frame.size.height) / 2.0;
             sublayer.frame = frame;
         }
@@ -90,6 +105,36 @@
 - (void)setDynamicHidden:(BOOL)dynamicHidden {
     _dynamicHidden = dynamicHidden;
     self.hidden = dynamicHidden;
+}
+
+- (void)resetTextLayerProperties:(NSAttributedString *)attributedString {
+    NSDictionary *textAttrs = (id)[attributedString attributesAtIndex:0 effectiveRange:nil];
+    NSParagraphStyle *paragraphStyle = textAttrs[NSParagraphStyleAttributeName];
+    if (paragraphStyle == nil) {
+        return;
+    }
+    if (paragraphStyle.lineBreakMode == NSLineBreakByTruncatingTail) {
+        self.textLayer.truncationMode = kCATruncationEnd;
+        [self.textLayer setWrapped:NO];
+    }
+    else if (paragraphStyle.lineBreakMode == NSLineBreakByTruncatingMiddle) {
+        self.textLayer.truncationMode = kCATruncationMiddle;
+        [self.textLayer setWrapped:NO];
+    }
+    else if (paragraphStyle.lineBreakMode == NSLineBreakByTruncatingHead) {
+        self.textLayer.truncationMode = kCATruncationStart;
+        [self.textLayer setWrapped:NO];
+    }
+    else {
+        self.textLayer.truncationMode = kCATruncationNone;
+        [self.textLayer setWrapped:YES];
+    }
+    if (paragraphStyle.alignment == NSTextAlignmentNatural) {
+        self.textLayerAlignment = NSTextAlignmentCenter;
+    }
+    else {
+        self.textLayerAlignment = paragraphStyle.alignment;
+    }
 }
 
 @end

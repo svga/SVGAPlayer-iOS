@@ -55,6 +55,17 @@ static SVGAParser *parser;
              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
              if (videoItem != nil) {
                  self.aPlayer.videoItem = videoItem;
+                 NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
+                 [para setLineBreakMode:NSLineBreakByTruncatingTail];
+                 [para setAlignment:NSTextAlignmentCenter];
+                 NSAttributedString *str = [[NSAttributedString alloc]
+                                            initWithString:@"Hello, World! Hello, World!"
+                                            attributes:@{
+                                                NSFontAttributeName: [UIFont systemFontOfSize:28],
+                                                NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                NSParagraphStyleAttributeName: para,
+                                            }];
+                 [self.aPlayer setAttributedText:str forKey:@"banner"];
                  [self.aPlayer startAnimation];
              }
          } failureBlock:nil];
