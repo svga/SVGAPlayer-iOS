@@ -41,7 +41,7 @@ static NSOperationQueue *unzipQueue;
     } else {
         if (failureBlock) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"URL cannot be nil."}]);
+                failureBlock([NSError errorWithDomain:@"SVGAParser" code:411 userInfo:@{NSLocalizedDescriptionKey: @"URL cannot be nil."}]);
             }];
         }
     }
