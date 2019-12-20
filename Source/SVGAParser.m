@@ -35,11 +35,19 @@ static NSOperationQueue *unzipQueue;
      completionBlock:(void ( ^ _Nonnull )(SVGAVideoEntity * _Nullable videoItem))completionBlock
         failureBlock:(void ( ^ _Nullable)(NSError * _Nullable error))failureBlock {
     [self parseWithURLRequest:[NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:20.0]
-              completionBlock:completionBlock
-                 failureBlock:failureBlock];
+    completionBlock:completionBlock
+       failureBlock:failureBlock];
 }
 
 - (void)parseWithURLRequest:(NSURLRequest *)URLRequest completionBlock:(void (^)(SVGAVideoEntity * _Nullable))completionBlock failureBlock:(void (^)(NSError * _Nullable))failureBlock {
+    if (URLRequest.URL == nil) {
+        if (failureBlock) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                failureBlock([NSError errorWithDomain:@"SVGAParser" code:411 userInfo:@{NSLocalizedDescriptionKey: @"URL cannot be nil."}]);
+            }];
+        }
+        return;
+    }
     if ([[NSFileManager defaultManager] fileExistsAtPath:[self cacheDirectory:[self cacheKey:URLRequest.URL]]]) {
         [self parseWithCacheKey:[self cacheKey:URLRequest.URL] completionBlock:^(SVGAVideoEntity * _Nonnull videoItem) {
             if (completionBlock) {
@@ -89,20 +97,18 @@ static NSOperationQueue *unzipQueue;
        completionBlock:(void (^)(SVGAVideoEntity * _Nonnull))completionBlock
           failureBlock:(void (^)(NSError * _Nonnull))failureBlock {
     NSString *filePath = [(inBundle ?: [NSBundle mainBundle]) pathForResource:named ofType:@"svga"];
-    if (filePath != nil) {
-        NSString *cacheKey = [self cacheKey:[NSURL fileURLWithPath:filePath]];
-        [self parseWithData:[NSData dataWithContentsOfFile:filePath]
-                   cacheKey:cacheKey
-            completionBlock:completionBlock
-               failureBlock:failureBlock];
-    }
-    else {
+    if (filePath == nil) {
         if (failureBlock) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 failureBlock([NSError errorWithDomain:@"SVGAParser" code:404 userInfo:@{NSLocalizedDescriptionKey: @"File not exist."}]);
             }];
         }
+        return;
     }
+    [self parseWithData:[NSData dataWithContentsOfFile:filePath]
+               cacheKey:[self cacheKey:[NSURL fileURLWithPath:filePath]]
+        completionBlock:completionBlock
+           failureBlock:failureBlock];
 }
 
 - (void)parseWithCacheKey:(nonnull NSString *)cacheKey
@@ -360,7 +366,7 @@ static NSOperationQueue *unzipQueue;
 - (NSData *)zlibInflate:(NSData *)data
 {
     if ([data length] == 0) return data;
-
+    
     unsigned full_length = (unsigned)[data length];
     unsigned half_length = (unsigned)[data length] / 2;
     
