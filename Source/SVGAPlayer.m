@@ -324,7 +324,7 @@
     [CATransaction setDisableActions:NO];
     if (self.forwardAnimating && self.audioLayers.count > 0) {
         for (SVGAAudioLayer *layer in self.audioLayers) {
-            if (!self.audioPlaying && layer.audioItem.startFrame >= self.currentFrame) {
+            if (!self.audioPlaying && layer.audioItem.startFrame+1 >= self.currentFrame) {
                 [layer.audioPlayer setCurrentTime:(NSTimeInterval)(layer.audioItem.startTime / 1000)];
                 [layer.audioPlayer play];
                 self.audioPlaying = YES;
