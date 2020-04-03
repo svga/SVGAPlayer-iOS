@@ -32,8 +32,10 @@
 - (void)resetAudiosWithProtoObject:(SVGAProtoMovieEntity *)protoObject;
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey;
+// NSCache缓存
 - (void)saveCache:(NSString *)cacheKey;
-
+// NSMapTable弱缓存
+- (void)saveWeakCache:(NSString *)cacheKey;
 @end
 
 
