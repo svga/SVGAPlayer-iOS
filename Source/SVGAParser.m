@@ -136,6 +136,8 @@ static NSOperationQueue *unzipQueue;
                 [videoItem resetAudiosWithProtoObject:protoObject];
                 if (self.enabledMemoryCache) {
                     [videoItem saveCache:cacheKey];
+                } else {
+                    [videoItem saveWeakCache:cacheKey];
                 }
                 if (completionBlock) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -162,6 +164,8 @@ static NSOperationQueue *unzipQueue;
                     [videoItem resetSpritesWithJSONObject:JSONObject];
                     if (self.enabledMemoryCache) {
                         [videoItem saveCache:cacheKey];
+                    } else {
+                        [videoItem saveWeakCache:cacheKey];
                     }
                     if (completionBlock) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -223,6 +227,8 @@ static NSOperationQueue *unzipQueue;
                 [videoItem resetAudiosWithProtoObject:protoObject];
                 if (self.enabledMemoryCache) {
                     [videoItem saveCache:cacheKey];
+                } else {
+                    [videoItem saveWeakCache:cacheKey];
                 }
                 if (completionBlock) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -278,6 +284,8 @@ static NSOperationQueue *unzipQueue;
                                 [videoItem resetSpritesWithProtoObject:protoObject];
                                 if (self.enabledMemoryCache) {
                                     [videoItem saveCache:cacheKey];
+                                } else {
+                                    [videoItem saveWeakCache:cacheKey];
                                 }
                                 if (completionBlock) {
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -304,6 +312,8 @@ static NSOperationQueue *unzipQueue;
                                     [videoItem resetSpritesWithJSONObject:JSONObject];
                                     if (self.enabledMemoryCache) {
                                         [videoItem saveCache:cacheKey];
+                                    } else {
+                                        [videoItem saveWeakCache:cacheKey];
                                     }
                                     if (completionBlock) {
                                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{

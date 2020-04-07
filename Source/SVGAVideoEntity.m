@@ -31,11 +31,15 @@
 @implementation SVGAVideoEntity
 
 static NSCache *videoCache;
+static NSMapTable * weakCache;
 
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         videoCache = [[NSCache alloc] init];
+        weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory
+        valueOptions:NSPointerFunctionsWeakMemory
+            capacity:64];
     });
 }
 
@@ -83,7 +87,8 @@ static NSCache *videoCache;
             [JSONImages enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
                 if ([obj isKindOfClass:[NSString class]]) {
                     NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", obj];
-                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+//                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+                    NSData *imageData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:NULL];
                     if (imageData != nil) {
                         UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                         if (image != nil) {
@@ -153,7 +158,8 @@ static NSCache *videoCache;
                 filePath = [self.cacheDir stringByAppendingFormat:@"/%@", fileName];
             }
             if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-                NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+//                NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+                NSData *imageData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:NULL];
                 if (imageData != nil) {
                     UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                     if (image != nil) {
@@ -203,11 +209,19 @@ static NSCache *videoCache;
 }
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey {
-    return [videoCache objectForKey:cacheKey];
+    SVGAVideoEntity * object = [videoCache objectForKey:cacheKey];
+    if (!object) {
+        object = [weakCache objectForKey:cacheKey];
+    }
+    return object;
 }
 
 - (void)saveCache:(NSString *)cacheKey {
     [videoCache setObject:self forKey:cacheKey];
+}
+
+- (void)saveWeakCache:(NSString *)cacheKey {
+    [weakCache setObject:self forKey:cacheKey];
 }
 
 @end
