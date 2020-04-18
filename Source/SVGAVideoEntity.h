@@ -17,6 +17,8 @@
 @property (nonatomic, readonly) CGSize videoSize;
 @property (nonatomic, readonly) int FPS;
 @property (nonatomic, readonly) int frames;
+// 所有图片的总像素数（像素数决定了占用内存的大小）
+@property (nonatomic, readonly) NSUInteger totalPixelCount;
 @property (nonatomic, readonly) NSDictionary<NSString *, UIImage *> *images;
 @property (nonatomic, readonly) NSDictionary<NSString *, NSData *> *audiosData;
 @property (nonatomic, readonly) NSArray<SVGAVideoSpriteEntity *> *sprites;
@@ -32,7 +34,7 @@
 - (void)resetAudiosWithProtoObject:(SVGAProtoMovieEntity *)protoObject;
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey;
-// NSCache缓存
+
 - (void)saveCache:(NSString *)cacheKey;
 // NSMapTable弱缓存
 - (void)saveWeakCache:(NSString *)cacheKey;
