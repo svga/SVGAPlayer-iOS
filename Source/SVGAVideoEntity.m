@@ -11,6 +11,7 @@
 #import "SVGABezierPath.h"
 #import "SVGAVideoSpriteEntity.h"
 #import "SVGAAudioEntity.h"
+#import "SVGAVideoEntityMemoryCache.h"
 #import "Svga.pbobjc.h"
 
 #define MP3_MAGIC_NUMBER "ID3"
@@ -20,6 +21,7 @@
 @property (nonatomic, assign) CGSize videoSize;
 @property (nonatomic, assign) int FPS;
 @property (nonatomic, assign) int frames;
+@property (nonatomic, readwrite) NSUInteger totalPixelCount;
 @property (nonatomic, copy) NSDictionary<NSString *, UIImage *> *images;
 @property (nonatomic, copy) NSDictionary<NSString *, NSData *> *audiosData;
 @property (nonatomic, copy) NSArray<SVGAVideoSpriteEntity *> *sprites;
@@ -30,16 +32,16 @@
 
 @implementation SVGAVideoEntity
 
-static NSCache *videoCache;
 static NSMapTable * weakCache;
+static dispatch_semaphore_t cacheLock;
 
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        videoCache = [[NSCache alloc] init];
         weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory
         valueOptions:NSPointerFunctionsWeakMemory
-            capacity:64];
+            capacity:128];
+        cacheLock = dispatch_semaphore_create(1);
     });
 }
 
@@ -50,6 +52,7 @@ static NSMapTable * weakCache;
         _FPS = 20;
         _images = @{};
         _cacheDir = cacheDir;
+        _totalPixelCount = 0;
         [self resetMovieWithJSONObject:JSONObject];
     }
     return self;
@@ -80,6 +83,7 @@ static NSMapTable * weakCache;
 }
 
 - (void)resetImagesWithJSONObject:(NSDictionary *)JSONObject {
+    _totalPixelCount = 0;
     if ([JSONObject isKindOfClass:[NSDictionary class]]) {
         NSMutableDictionary<NSString *, UIImage *> *images = [[NSMutableDictionary alloc] init];
         NSDictionary<NSString *, NSString *> *JSONImages = JSONObject[@"images"];
@@ -87,13 +91,13 @@ static NSMapTable * weakCache;
             [JSONImages enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
                 if ([obj isKindOfClass:[NSString class]]) {
                     NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", obj];
-//                    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
                     NSData *imageData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:NULL];
                     if (imageData != nil) {
                         UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                         if (image != nil) {
                             [images setObject:image forKey:[key stringByDeletingPathExtension]];
                         }
+                        [self increasePixelCount:image];
                     }
                 }
             }];
@@ -147,6 +151,7 @@ static NSMapTable * weakCache;
 }
 
 - (void)resetImagesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
+    _totalPixelCount = 0;
     NSMutableDictionary<NSString *, UIImage *> *images = [[NSMutableDictionary alloc] init];
     NSMutableDictionary<NSString *, NSData *> *audiosData = [[NSMutableDictionary alloc] init];
     NSDictionary *protoImages = [protoObject.images copy];
@@ -158,13 +163,13 @@ static NSMapTable * weakCache;
                 filePath = [self.cacheDir stringByAppendingFormat:@"/%@", fileName];
             }
             if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-//                NSData *imageData = [NSData dataWithContentsOfFile:filePath];
                 NSData *imageData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:NULL];
                 if (imageData != nil) {
                     UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                     if (image != nil) {
                         [images setObject:image forKey:key];
                     }
+                    [self increasePixelCount:image];
                 }
             }
         }
@@ -177,6 +182,7 @@ static NSMapTable * weakCache;
                 if (image != nil) {
                     [images setObject:image forKey:key];
                 }
+                [self increasePixelCount:image];
             }
         }
     }
@@ -208,20 +214,30 @@ static NSMapTable * weakCache;
     self.audios = audios;
 }
 
+- (void)increasePixelCount:(UIImage *)image {
+    if (image) {
+        _totalPixelCount += image.size.width * image.size.height * image.scale * image.scale;
+    }
+}
+
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey {
-    SVGAVideoEntity * object = [videoCache objectForKey:cacheKey];
+    SVGAVideoEntity * object = [SVGAVideoEntityMemoryCache videoEntityForKey:cacheKey];
     if (!object) {
+        dispatch_semaphore_wait(cacheLock, DISPATCH_TIME_FOREVER);
         object = [weakCache objectForKey:cacheKey];
+        dispatch_semaphore_signal(cacheLock);
     }
     return object;
 }
 
 - (void)saveCache:(NSString *)cacheKey {
-    [videoCache setObject:self forKey:cacheKey];
+    [SVGAVideoEntityMemoryCache setVideoEntity:self forKey:cacheKey];
 }
 
 - (void)saveWeakCache:(NSString *)cacheKey {
+    dispatch_semaphore_wait(cacheLock, DISPATCH_TIME_FOREVER);
     [weakCache setObject:self forKey:cacheKey];
+    dispatch_semaphore_signal(cacheLock)
 }
 
 @end

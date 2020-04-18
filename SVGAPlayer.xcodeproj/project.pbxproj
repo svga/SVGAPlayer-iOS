@@ -58,6 +58,7 @@
 		90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */ = {isa = PBXBuildFile; fileRef = 90D7CA1A1F7FB114006E74F0 /* rose_1.5.0.svga */; };
 		90D7CA1E1F7FB34E006E74F0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D7CA1D1F7FB34E006E74F0 /* libz.tbd */; };
 		90DB59B51F96026E00894727 /* SVGAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB59B41F96026E00894727 /* SVGAImageView.m */; };
+		FA44BB1A244B1394001B5D75 /* SVGAVideoEntityMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FA44BB19244B1394001B5D75 /* SVGAVideoEntityMemoryCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +120,8 @@
 		90DB59B41F96026E00894727 /* SVGAImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAImageView.m; sourceTree = "<group>"; };
 		92332F7A897BF4379D765B05 /* libPods-SVGAPlayer React.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVGAPlayer React.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E02B8713B25C0283C736EE03 /* Pods-SVGAPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		FA44BB18244B1394001B5D75 /* SVGAVideoEntityMemoryCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAVideoEntityMemoryCache.h; sourceTree = "<group>"; };
+		FA44BB19244B1394001B5D75 /* SVGAVideoEntityMemoryCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAVideoEntityMemoryCache.m; sourceTree = "<group>"; };
 		FF89C40C3E9839DA5DE71191 /* Pods-SVGAPlayer React.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer React.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer React/Pods-SVGAPlayer React.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +236,8 @@
 				9052FC621E6EB8D4007BC925 /* SVGAExporter.m */,
 				904D41F61D223DD20085A21A /* SVGABezierPath.h */,
 				904D41F71D223DD20085A21A /* SVGABezierPath.m */,
+				FA44BB18244B1394001B5D75 /* SVGAVideoEntityMemoryCache.h */,
+				FA44BB19244B1394001B5D75 /* SVGAVideoEntityMemoryCache.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */,
 				90A364D71E5AECBD009347F1 /* SVGAVideoSpriteEntity.m in Sources */,
 				90A676E51D13A6DF008A69F3 /* AppDelegate.m in Sources */,
+				FA44BB1A244B1394001B5D75 /* SVGAVideoEntityMemoryCache.m in Sources */,
 				90A364DD1E5D33F8009347F1 /* SVGAContentLayer.m in Sources */,
 				90DB59B51F96026E00894727 /* SVGAImageView.m in Sources */,
 				90A676FA1D13A81F008A69F3 /* SVGA.m in Sources */,
