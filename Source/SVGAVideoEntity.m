@@ -92,6 +92,7 @@ static NSMapTable * weakCache;
                     if (imageData != nil) {
                         UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                         if (image != nil) {
+                            image = [self imageByResizeToSize:image.size];
                             [images setObject:image forKey:[key stringByDeletingPathExtension]];
                         }
                     }
@@ -163,6 +164,7 @@ static NSMapTable * weakCache;
                 if (imageData != nil) {
                     UIImage *image = [[UIImage alloc] initWithData:imageData scale:2.0];
                     if (image != nil) {
+                        image = [self imageByResizeToSize:image.size];
                         [images setObject:image forKey:key];
                     }
                 }
@@ -175,6 +177,7 @@ static NSMapTable * weakCache;
             } else {
                 UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
                 if (image != nil) {
+                    image = [self imageByResizeToSize:image.size];
                     [images setObject:image forKey:key];
                 }
             }
@@ -222,6 +225,15 @@ static NSMapTable * weakCache;
 
 - (void)saveWeakCache:(NSString *)cacheKey {
     [weakCache setObject:self forKey:cacheKey];
+}
+
+- (UIImage *)imageByResizeToSize:(CGSize)size {
+    if (size.width <= 0 || size.height <= 0) return nil;
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end
