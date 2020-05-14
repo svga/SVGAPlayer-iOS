@@ -1,19 +1,19 @@
 
 Pod::Spec.new do |s|
   s.name         = "SVGAPlayer"
-  s.version      = "2.5.2"
+  s.version      = "2.5.3"
   s.summary      = "SVGAPlayer 是一个高性能的动画播放器"
   s.description  = <<-DESC
-                   SVGA 是一个私有的动画格式，由 YY UED 主导开发。
-                   SVGA 由 SVG 演进而成，与 SVG 不兼容。
-                   SVGA 可以在 iOS / Android / Web(PC/移动端) 实现高性能的动画播放。
+                   SVGA 是一种全新的动画格式，由 YY UED 团队主导开发；
+                   SVGA 让动画开发分工明确，大大减少动画交互的沟通成本，提升开发效率；
+                   SVGA 可以在 iOS / Android / Web / Flutter 实现高性能的动画播放。
                    DESC
 
   s.homepage     = "http://code.yy.com/ued/SVGAPlayer"
   s.license      = "Apache 2.0"
   s.author       = { "PonyCui" => "cuiminghui1@yy.com" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/yyued/SVGAPlayer-iOS.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/svga/SVGAPlayer-iOS.git", :tag => s.version }
   s.subspec 'Core' do |ss|
     ss.source_files  = "Source/*.{h,m}"
     ss.requires_arc = true
