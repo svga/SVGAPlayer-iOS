@@ -175,6 +175,7 @@ static NSMapTable * weakCache;
             } else {
                 UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
                 if (image != nil) {
+                     image = [self imageByResizeToSize:image.size image:image];
                     [images setObject:image forKey:key];
                 }
             }
@@ -182,6 +183,15 @@ static NSMapTable * weakCache;
     }
     self.images = images;
     self.audiosData = audiosData;
+}
+
+- (UIImage *)imageByResizeToSize:(CGSize)size image:(UIImage *)orgImage {
+    if (size.width <= 0 || size.height <= 0) return nil;
+    UIGraphicsBeginImageContextWithOptions(size, NO, orgImage.scale);
+    [orgImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 - (void)resetSpritesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
