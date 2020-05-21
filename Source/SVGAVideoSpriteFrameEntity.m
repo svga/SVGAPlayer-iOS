@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *clipPath;
 @property (nonatomic, strong) CALayer *maskLayer;
 @property (nonatomic, strong) NSArray *shapes;
+@property (nonatomic, strong) SVGABezierPath *bezierPath;
 
 @end
 
@@ -128,9 +129,9 @@
 
 - (CALayer *)maskLayer {
     if (_maskLayer == nil && self.clipPath != nil) {
-        SVGABezierPath *bezierPath = [[SVGABezierPath alloc] init];
-        [bezierPath setValues:self.clipPath];
-        _maskLayer = [bezierPath createLayer];
+        self.bezierPath = [[SVGABezierPath alloc] init];
+        [self.bezierPath setValues:self.clipPath];
+        _maskLayer = [self.bezierPath createLayer];
     }
     return _maskLayer;
 }
