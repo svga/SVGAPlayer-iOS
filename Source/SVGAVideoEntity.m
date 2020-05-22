@@ -175,8 +175,10 @@ static NSMapTable * weakCache;
             } else {
                 UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
                 if (image != nil) {
-                     image = [self imageByResizeToSize:image.size image:image];
-                    [images setObject:image forKey:key];
+                    image = [self imageByResizeToSize:image.size image:image];
+                    if (image != nil) {
+                        [images setObject:image forKey:key];
+                    }
                 }
             }
         }

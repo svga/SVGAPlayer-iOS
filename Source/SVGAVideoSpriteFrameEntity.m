@@ -128,11 +128,11 @@
 }
 
 - (CALayer *)maskLayer {
-    if (_maskLayer == nil && self.clipPath != nil) {
+    if (_bezierPath == nil && self.clipPath != nil) {
         self.bezierPath = [[SVGABezierPath alloc] init];
         [self.bezierPath setValues:self.clipPath];
-        _maskLayer = [self.bezierPath createLayer];
     }
+    _maskLayer = [self.bezierPath createLayer];
     return _maskLayer;
 }
 
