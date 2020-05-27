@@ -58,6 +58,7 @@
 		90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */ = {isa = PBXBuildFile; fileRef = 90D7CA1A1F7FB114006E74F0 /* rose_1.5.0.svga */; };
 		90D7CA1E1F7FB34E006E74F0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D7CA1D1F7FB34E006E74F0 /* libz.tbd */; };
 		90DB59B51F96026E00894727 /* SVGAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB59B41F96026E00894727 /* SVGAImageView.m */; };
+		E83A58D9247E0E6A00D9F404 /* audio_biling.svga in Resources */ = {isa = PBXBuildFile; fileRef = E83A58D8247E0E6A00D9F404 /* audio_biling.svga */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +120,7 @@
 		90DB59B41F96026E00894727 /* SVGAImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAImageView.m; sourceTree = "<group>"; };
 		92332F7A897BF4379D765B05 /* libPods-SVGAPlayer React.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVGAPlayer React.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E02B8713B25C0283C736EE03 /* Pods-SVGAPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		E83A58D8247E0E6A00D9F404 /* audio_biling.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio_biling.svga; sourceTree = "<group>"; };
 		FF89C40C3E9839DA5DE71191 /* Pods-SVGAPlayer React.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer React.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer React/Pods-SVGAPlayer React.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +251,7 @@
 		90D7C9FA1F7E2AA3006E74F0 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				E83A58D8247E0E6A00D9F404 /* audio_biling.svga */,
 				718A146C235718E000FED5D3 /* Rocket.svga */,
 				71DAA8A42355B3ED006608A1 /* Goddess.svga */,
 				71A8679022B7785100176CD6 /* matteRect.svga */,
@@ -373,6 +376,7 @@
 				71A8679322B7853600176CD6 /* matteBitmap.svga in Resources */,
 				90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */,
 				90D7CA1B1F7FB114006E74F0 /* rose_2.0.0.svga in Resources */,
+				E83A58D9247E0E6A00D9F404 /* audio_biling.svga in Resources */,
 				71DAA8A52355B3ED006608A1 /* Goddess.svga in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

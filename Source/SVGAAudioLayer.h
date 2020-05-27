@@ -15,6 +15,8 @@
 
 @property (nonatomic, readonly) AVAudioPlayer *audioPlayer;
 @property (nonatomic, readonly) SVGAAudioEntity *audioItem;
+@property (nonatomic, assign) BOOL audioPlaying;
+
 
 - (instancetype)initWithAudioItem:(SVGAAudioEntity *)audioItem videoItem:(SVGAVideoEntity *)videoItem;
 
