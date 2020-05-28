@@ -1,4 +1,8 @@
-# SVGAPlayer-iOS CHANGELOG (2019-10-15)
+# SVGAPlayer-iOS CHANGELOG (2020-05-28)
+
+## [2.5.4](https://github.com/yyued/SVGAPlayer-iOS/tree/2.5.0-release)(2020-05-28)
+### Bug Fixes
+* Fix: audio could not play. ([cd6cca8](https://github.com/yyued/SVGAPlayer-iOS/commit/cd6cca8))
 
 ## [2.5.0](https://github.com/yyued/SVGAPlayer-iOS/tree/2.5.0-release)(2019-10-15)
 
