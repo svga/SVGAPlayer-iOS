@@ -58,6 +58,9 @@
 		90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */ = {isa = PBXBuildFile; fileRef = 90D7CA1A1F7FB114006E74F0 /* rose_1.5.0.svga */; };
 		90D7CA1E1F7FB34E006E74F0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D7CA1D1F7FB34E006E74F0 /* libz.tbd */; };
 		90DB59B51F96026E00894727 /* SVGAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB59B41F96026E00894727 /* SVGAImageView.m */; };
+		FA7FA4DF24B09BE600413DF0 /* SVGAVideoMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7FA4DE24B09BE600413DF0 /* SVGAVideoMemoryCache.m */; };
+		FA7FA4E224B0B66500413DF0 /* SVGAVideoEntity+mm.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7FA4E124B0B66500413DF0 /* SVGAVideoEntity+mm.m */; };
+		FA7FA4E524B0C36A00413DF0 /* SVGAParser+mm.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7FA4E424B0C36A00413DF0 /* SVGAParser+mm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +122,12 @@
 		90DB59B41F96026E00894727 /* SVGAImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAImageView.m; sourceTree = "<group>"; };
 		92332F7A897BF4379D765B05 /* libPods-SVGAPlayer React.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVGAPlayer React.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E02B8713B25C0283C736EE03 /* Pods-SVGAPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		FA7FA4DD24B09BE600413DF0 /* SVGAVideoMemoryCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAVideoMemoryCache.h; sourceTree = "<group>"; };
+		FA7FA4DE24B09BE600413DF0 /* SVGAVideoMemoryCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAVideoMemoryCache.m; sourceTree = "<group>"; };
+		FA7FA4E024B0B66500413DF0 /* SVGAVideoEntity+mm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGAVideoEntity+mm.h"; sourceTree = "<group>"; };
+		FA7FA4E124B0B66500413DF0 /* SVGAVideoEntity+mm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SVGAVideoEntity+mm.m"; sourceTree = "<group>"; };
+		FA7FA4E324B0C36A00413DF0 /* SVGAParser+mm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGAParser+mm.h"; sourceTree = "<group>"; };
+		FA7FA4E424B0C36A00413DF0 /* SVGAParser+mm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SVGAParser+mm.m"; sourceTree = "<group>"; };
 		FF89C40C3E9839DA5DE71191 /* Pods-SVGAPlayer React.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer React.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer React/Pods-SVGAPlayer React.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +242,12 @@
 				9052FC621E6EB8D4007BC925 /* SVGAExporter.m */,
 				904D41F61D223DD20085A21A /* SVGABezierPath.h */,
 				904D41F71D223DD20085A21A /* SVGABezierPath.m */,
+				FA7FA4DD24B09BE600413DF0 /* SVGAVideoMemoryCache.h */,
+				FA7FA4DE24B09BE600413DF0 /* SVGAVideoMemoryCache.m */,
+				FA7FA4E024B0B66500413DF0 /* SVGAVideoEntity+mm.h */,
+				FA7FA4E124B0B66500413DF0 /* SVGAVideoEntity+mm.m */,
+				FA7FA4E324B0C36A00413DF0 /* SVGAParser+mm.h */,
+				FA7FA4E424B0C36A00413DF0 /* SVGAParser+mm.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -434,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90A676E81D13A6DF008A69F3 /* ViewController.m in Sources */,
+				FA7FA4DF24B09BE600413DF0 /* SVGAVideoMemoryCache.m in Sources */,
 				9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */,
 				90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */,
 				90A364DA1E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m in Sources */,
@@ -449,7 +465,9 @@
 				90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */,
 				90A364D41E5AEC1C009347F1 /* SVGAVectorLayer.m in Sources */,
 				90D7CA161F7FA07A006E74F0 /* Svga.pbobjc.m in Sources */,
+				FA7FA4E224B0B66500413DF0 /* SVGAVideoEntity+mm.m in Sources */,
 				90A676E21D13A6DF008A69F3 /* main.m in Sources */,
+				FA7FA4E524B0C36A00413DF0 /* SVGAParser+mm.m in Sources */,
 				90A676FD1D13A82A008A69F3 /* SVGAParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
