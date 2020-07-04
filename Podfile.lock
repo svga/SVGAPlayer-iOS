@@ -1,5 +1,5 @@
 PODS:
-  - Protobuf (3.6.1)
+  - Protobuf (3.12.0)
   - React/ART (0.45.1):
     - React/Core
   - React/Core (0.45.1):
@@ -27,8 +27,8 @@ PODS:
     - React/Core
   - React/RCTWebSocket (0.45.1):
     - React/Core
-  - SSZipArchive (2.1.4)
-  - Yoga (1.9.0)
+  - SSZipArchive (2.1.5)
+  - Yoga (1.14.0)
 
 DEPENDENCIES:
   - Protobuf (~> 3.4)
@@ -47,7 +47,7 @@ DEPENDENCIES:
   - Yoga
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Protobuf
     - SSZipArchive
     - Yoga
@@ -57,11 +57,11 @@ EXTERNAL SOURCES:
     :podspec: https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec
 
 SPEC CHECKSUMS:
-  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   React: 505e0132cd9aaba1a56e47ef509220dd794ec9be
-  SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
-  Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
+  SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
+  Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
 
 PODFILE CHECKSUM: 7f6714245d47e69d2933463289e4c4d6de65b831
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.9.1
