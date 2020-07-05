@@ -12,6 +12,7 @@
 #import "SVGAVideoSpriteEntity.h"
 #import "SVGAAudioEntity.h"
 #import "Svga.pbobjc.h"
+#import "SVGAVideoMemoryCache.h"
 
 #define MP3_MAGIC_NUMBER "ID3"
 
@@ -26,18 +27,12 @@
 @property (nonatomic, copy) NSArray<SVGAAudioEntity *> *audios;
 @property (nonatomic, copy) NSString *cacheDir;
 
+@property (nonatomic, copy) NSString * cacheKey;
+@property (nonatomic, readwrite) NSUInteger memoryCost;
+
 @end
 
 @implementation SVGAVideoEntity
-
-static NSCache *videoCache;
-
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        videoCache = [[NSCache alloc] init];
-    });
-}
 
 - (instancetype)initWithJSONObject:(NSDictionary *)JSONObject cacheDir:(NSString *)cacheDir {
     self = [super init];
@@ -202,12 +197,50 @@ static NSCache *videoCache;
     self.audios = audios;
 }
 
+#pragma mark - memory
+
+- (void)setImages:(NSDictionary<NSString *,UIImage *> *)images {
+    _images = images;
+    
+    // cache存在说明以缓存，本次更新内存占用情况即可
+    if (_cacheKey) {
+        NSUInteger formerCost = self.memoryCost;
+        [self resetMemoryCost];
+        [[SVGAVideoMemoryCache sharedCache] updateCost:self.memoryCost - formerCost];
+    } else {
+        [self resetMemoryCost];
+    }
+}
+
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey {
-    return [videoCache objectForKey:cacheKey];
+    return [[SVGAVideoMemoryCache sharedCache] objectForKey:cacheKey];
 }
 
 - (void)saveCache:(NSString *)cacheKey {
-    [videoCache setObject:self forKey:cacheKey];
+    _cacheKey = cacheKey;
+    [[SVGAVideoMemoryCache sharedCache] setObject:self forKey:cacheKey];
+}
+
+/// 重置内存占用计算
+- (void)resetMemoryCost {
+    _memoryCost = 0;
+    
+    [self.images enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, UIImage * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UIImage class]]) {
+            NSUInteger cost = [self costForImage:obj];
+            _memoryCost += cost;
+        }
+    }];
+}
+
+- (NSUInteger)costForImage:(UIImage *)image {
+    CGImageRef imageRef = image.CGImage;
+    if (!imageRef) {
+        return 0;
+    }
+    NSUInteger bytesPerFrame = CGImageGetBytesPerRow(imageRef) * CGImageGetHeight(imageRef);
+    NSUInteger frameCount = image.images.count > 0 ? image.images.count : 1;
+    return bytesPerFrame * frameCount;
 }
 
 @end

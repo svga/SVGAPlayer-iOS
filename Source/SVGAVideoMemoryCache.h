@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SVGAVideoEntity.h"
-#import "SVGAVideoEntity+mm.h"
+#import "SVGAVideoEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 关闭后内存使用统计和内存占用提示将失效
 @property (nonatomic, assign) BOOL memoryCacheEnable;
 
+/// 退后台是否自动清理，默认为YES
+@property (nonatomic, assign) BOOL clearInBackground;
+
 + (instancetype)sharedCache;
 
 
@@ -41,6 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (SVGAVideoEntity *)objectForKey:(id)key;
 - (void)removeAllObjects;
 - (void)removeObjectForKey:(id)key;
+
+/// 当图片资源被替换时更新内存占用
+/// @param cost 内存占用情况
+- (void)updateCost:(NSInteger)cost;
 
 @end
 

@@ -8,6 +8,12 @@
 //  用于处理SVGA内存缓存
 //
 
+#define safe_async_to_main(block) \
+if ([NSThread isMainThread]) { \
+    block(); \
+} else { \
+    dispatch_async(dispatch_get_main_queue(), block); \
+}
 
 #import "SVGAVideoMemoryCache.h"
 
@@ -42,14 +48,16 @@ static SVGAVideoMemoryCache *instance;
 }
 
 - (void)cutomeInit {
-    _memoryCostTipFrame = CGRectMake(10, [UIApplication sharedApplication].keyWindow.bounds.size.height - 75, 150, 15);
-    _weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsStrongMemory capacity:128];
+    _weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory capacity:128];
     _dispatchLock = dispatch_semaphore_create(1);
     _memoryCacheEnable = YES;
+    _clearInBackground = YES;
     
 #ifdef DEBUG
     _showMemoryCostTip = YES;
 #endif
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 #pragma mark - public
@@ -80,19 +88,37 @@ static SVGAVideoMemoryCache *instance;
 - (void)removeAllObjects {
     if (_memoryCacheEnable) {
         [self.strongCache removeAllObjects];
-        self.totalMemoryCost = 0;
+        
+        dispatch_semaphore_wait(_dispatchLock, DISPATCH_TIME_FOREVER);
+        NSUInteger cost = 0;
+        NSEnumerator *enu = self.weakCache.objectEnumerator;
+        SVGAVideoEntity *ent;
+        while ((ent = enu.nextObject)) {
+            cost += ent.memoryCost;
+        }
+        self.totalMemoryCost = cost;
+        dispatch_semaphore_signal(_dispatchLock);
     }
 }
 
 - (void)removeObjectForKey:(id)key {
-    SVGAVideoEntity * obj = [self objectForKey:key];
-    if (obj) {
-        self.totalMemoryCost -= [obj getMemoryCost];
+    SVGAVideoEntity * ent = [self objectForKey:key];
+    if (ent) {
+        self.totalMemoryCost -= ent.memoryCost;
     }
     
     [self.strongCache removeObjectForKey:key];
 }
 
+- (void)updateCost:(NSInteger)cost {
+    self.totalMemoryCost += cost;
+}
+
+- (void)didEnterBackground {
+    if (_clearInBackground) {
+        [self removeAllObjects];
+    }
+}
 
 #pragma mark - ptivate
 
@@ -108,7 +134,7 @@ static SVGAVideoMemoryCache *instance;
         if ([self.strongCache objectForKey:key]) {
             return;
         }
-        NSUInteger cost = [object getMemoryCost];
+        NSUInteger cost = object.memoryCost;
         [self.strongCache setObject:object forKey:key cost:cost];
         self.totalMemoryCost += cost;
     }
@@ -120,7 +146,7 @@ static SVGAVideoMemoryCache *instance;
 /// NSCache将要移除元素
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
     SVGAVideoEntity * ent = (SVGAVideoEntity *)obj;
-    self.totalMemoryCost -= [ent getMemoryCost];
+    self.totalMemoryCost -= ent.memoryCost;
 }
 
 #pragma mark - setter & getter
@@ -136,30 +162,29 @@ static SVGAVideoMemoryCache *instance;
                 [[UIApplication sharedApplication].keyWindow addSubview:self.memoryCostTip];
             }
         };
-        if ([NSThread isMainThread]) {
-            showTip();
-        } else {
-            dispatch_async(dispatch_get_main_queue(), showTip);
-        }
+        safe_async_to_main(showTip);
     } else if (self.memoryCostTip && self.memoryCostTip.superview) {
         void(^removeView)() = ^{
             [self.memoryCostTip removeFromSuperview];
         };
-        if ([NSThread isMainThread]) {
-            removeView();
-        } else {
-            dispatch_async(dispatch_get_main_queue(), removeView);
-        }
+        safe_async_to_main(removeView);
     }
 }
 
 - (UILabel *)memoryCostTip {
     if (!_memoryCostTip) {
-        _memoryCostTip = [[UILabel alloc] initWithFrame:_memoryCostTipFrame];
+        _memoryCostTip = [[UILabel alloc] initWithFrame:self.memoryCostTipFrame];
         _memoryCostTip.textColor = [UIColor redColor];
         _memoryCostTip.font = [UIFont systemFontOfSize:12];
     }
     return _memoryCostTip;
+}
+
+- (CGRect)memoryCostTipFrame {
+    if (CGRectEqualToRect(_memoryCostTipFrame, CGRectZero)) {
+        _memoryCostTipFrame = CGRectMake(10, [UIApplication sharedApplication].keyWindow.bounds.size.height - 75, 150, 15);
+    }
+    return _memoryCostTipFrame;
 }
 
 - (void)setMemoryCostLimit:(NSUInteger)memoryCostLimit {
