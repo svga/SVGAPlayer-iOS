@@ -42,7 +42,7 @@ static SVGAVideoMemoryCache *instance;
 }
 
 - (void)cutomeInit {
-    _memoryCostTipFrame = CGRectMake(10, 100, 150, 15);
+    _memoryCostTipFrame = CGRectMake(10, [UIApplication sharedApplication].keyWindow.bounds.size.height - 75, 150, 15);
     _weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsStrongMemory capacity:128];
     _dispatchLock = dispatch_semaphore_create(1);
     _memoryCacheEnable = YES;

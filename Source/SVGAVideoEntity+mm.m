@@ -40,7 +40,6 @@ static char mmMemoryCostKey;
     }
     
     [self resetMemoryCost];
-    NSLog(@"======= %lu M", self.mmMemoryCost/1024/1024);
     return  self.mmMemoryCost;
 }
 
@@ -56,7 +55,7 @@ static char mmMemoryCostKey;
             self.mmMemoryCost += cost;
         }
     }];
-    NSLog(@"------ %lu , image count:%ld", self.mmMemoryCost, self.images.count);
+//    NSLog(@"------ %lu , image count:%ld", self.mmMemoryCost, self.images.count);
 }
 
 - (NSUInteger)costForImage:(UIImage *)image {

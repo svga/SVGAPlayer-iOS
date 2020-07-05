@@ -17,8 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SVGAVideoMemoryCache : NSObject
 
 
-/// 是否显示内存占用tip，开启统计后才生效，默认为NO
+/// 是否显示内存占用tip，开启统计后才生效，默认为NO，debug环境下默认为YES
 @property (nonatomic, assign) BOOL showMemoryCostTip;
+
+/// 设置内存占用显示位置
 @property (nonatomic, assign) CGRect memoryCostTipFrame;
 
 /// 内存使用限制
