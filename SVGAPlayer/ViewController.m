@@ -66,6 +66,7 @@ static SVGAParser *parser;
                                                 NSParagraphStyleAttributeName: para,
                                             }];
                  [self.aPlayer setAttributedText:str forKey:@"banner"];
+//                 self.aPlayer.mianRunLoopMode = NSDefaultRunLoopMode;
                  [self.aPlayer startAnimation];
              }
          } failureBlock:nil];
