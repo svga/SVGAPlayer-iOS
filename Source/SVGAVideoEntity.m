@@ -209,19 +209,27 @@ static NSMapTable * weakCache;
 }
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey {
-    SVGAVideoEntity * object = [videoCache objectForKey:cacheKey];
-    if (!object) {
-        object = [weakCache objectForKey:cacheKey];
+    @synchronized (videoCache) {
+        SVGAVideoEntity * object = [videoCache objectForKey:cacheKey];
+        if (!object) {
+            @synchronized (weakCache) {
+                object = [weakCache objectForKey:cacheKey];
+            }
+        }
+        return object;
     }
-    return object;
 }
 
 - (void)saveCache:(NSString *)cacheKey {
-    [videoCache setObject:self forKey:cacheKey];
+    @synchronized (videoCache) {
+        [videoCache setObject:self forKey:cacheKey];
+    }
 }
 
 - (void)saveWeakCache:(NSString *)cacheKey {
-    [weakCache setObject:self forKey:cacheKey];
+    @synchronized (weakCache) {
+        [weakCache setObject:self forKey:cacheKey];
+    }
 }
 
 @end
