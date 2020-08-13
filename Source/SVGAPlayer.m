@@ -26,6 +26,7 @@
 @property (nonatomic, copy) NSDictionary<NSString *, UIImage *> *dynamicObjects;
 @property (nonatomic, copy) NSDictionary<NSString *, NSAttributedString *> *dynamicTexts;
 @property (nonatomic, copy) NSDictionary<NSString *, SVGAPlayerDynamicDrawingBlock> *dynamicDrawings;
+@property (nonatomic, copy) NSDictionary<NSString *, SVGAEventBlock> *dynamicEvents;
 @property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *dynamicHiddens;
 @property (nonatomic, assign) int loopCount;
 @property (nonatomic, assign) NSRange currentRange;
@@ -394,6 +395,29 @@
     }];
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = touches.anyObject;
+    CGPoint touchPoint = [touch locationInView:touch.view];
+    if (self.contentLayers.count > 0) {
+        for (SVGAContentLayer *layer in self.contentLayers) {
+            if ([layer isKindOfClass:[SVGAContentLayer class]]) {
+                for (NSString *key in self.dynamicEvents.allKeys) {
+                    if ([layer.imageKey isEqualToString:key]) {
+                        CGRect layerRect = layer.bounds;
+                        CGPoint layerPoint = [layer convertPoint:touchPoint fromLayer:self.layer];
+                        SVGAEventBlock block = self.dynamicEvents[key];
+                        if (CGRectContainsPoint(layerRect, layerPoint)) {
+                            if (block) {
+                                block(self);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 #pragma mark - Dynamic Object
 
 - (void)setImage:(UIImage *)image forKey:(NSString *)aKey {
@@ -474,6 +498,15 @@
     }
 }
 
+- (void)setEventBlock:(SVGAEventBlock)eventBlock forKey:(NSString *)aKey {
+    if (eventBlock == nil || aKey.length <= 0) {
+        return;
+    }
+    NSMutableDictionary *mutableDynamicEvents = [self.dynamicEvents mutableCopy];
+    [mutableDynamicEvents setObject:eventBlock forKey:aKey];
+    self.dynamicEvents = mutableDynamicEvents.copy;
+}
+
 - (void)setHidden:(BOOL)hidden forKey:(NSString *)aKey {
     NSMutableDictionary *mutableDynamicHiddens = [self.dynamicHiddens mutableCopy];
     [mutableDynamicHiddens setObject:@(hidden) forKey:aKey];
@@ -493,6 +526,7 @@
     self.dynamicTexts = nil;
     self.dynamicHiddens = nil;
     self.dynamicDrawings = nil;
+    self.dynamicEvents = nil;
 }
 
 - (NSDictionary *)dynamicObjects {
@@ -521,6 +555,13 @@
         _dynamicDrawings = @{};
     }
     return _dynamicDrawings;
+}
+
+- (NSDictionary<NSString *,SVGAEventBlock> *)dynamicEvents {
+    if (_dynamicEvents == nil) {
+        _dynamicEvents = @{};
+    }
+    return _dynamicEvents;
 }
 
 @end

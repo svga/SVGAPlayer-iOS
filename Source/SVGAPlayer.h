@@ -21,6 +21,8 @@
 
 typedef void(^SVGAPlayerDynamicDrawingBlock)(CALayer *contentLayer, NSInteger frameIndex);
 
+typedef void(^SVGAEventBlock)(SVGAPlayer *player);
+
 @interface SVGAPlayer : UIView
 
 @property (nonatomic, weak) id<SVGAPlayerDelegate> delegate;
@@ -44,6 +46,7 @@ typedef void(^SVGAPlayerDynamicDrawingBlock)(CALayer *contentLayer, NSInteger fr
 - (void)setImage:(UIImage *)image forKey:(NSString *)aKey referenceLayer:(CALayer *)referenceLayer; // deprecated from 2.0.1
 - (void)setAttributedText:(NSAttributedString *)attributedText forKey:(NSString *)aKey;
 - (void)setDrawingBlock:(SVGAPlayerDynamicDrawingBlock)drawingBlock forKey:(NSString *)aKey;
+- (void)setEventBlock:(SVGAEventBlock)eventBlock forKey:(NSString *)aKey;
 - (void)setHidden:(BOOL)hidden forKey:(NSString *)aKey;
 - (void)clearDynamicObjects;
 
