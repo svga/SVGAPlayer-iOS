@@ -84,7 +84,7 @@
     }
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
     self.displayLink.frameInterval = 60 / self.videoItem.FPS;
-    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:self.mianRunLoopMode];
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:self.mainRunLoopMode];
     self.forwardAnimating = !self.reversing;
 }
 
@@ -156,7 +156,7 @@
         }
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
         self.displayLink.frameInterval = 60 / self.videoItem.FPS;
-        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:self.mianRunLoopMode];
+        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:self.mainRunLoopMode];
     }
 }
 
@@ -523,11 +523,11 @@
     return _dynamicDrawings;
 }
 
-- (NSRunLoopMode)mianRunLoopMode {
-    if (!_mianRunLoopMode) {
-        _mianRunLoopMode = NSRunLoopCommonModes;
+- (NSRunLoopMode)mainRunLoopMode {
+    if (!_mainRunLoopMode) {
+        _mainRunLoopMode = NSRunLoopCommonModes;
     }
-    return _mianRunLoopMode;
+    return _mainRunLoopMode;
 }
 
 @end
