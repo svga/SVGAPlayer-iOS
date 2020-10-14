@@ -32,6 +32,7 @@
 
 static NSCache *videoCache;
 static NSMapTable * weakCache;
+static dispatch_semaphore_t videoSemaphore;
 
 + (void)load {
     static dispatch_once_t onceToken;
@@ -40,6 +41,7 @@ static NSMapTable * weakCache;
         weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory
         valueOptions:NSPointerFunctionsWeakMemory
             capacity:64];
+        videoSemaphore = dispatch_semaphore_create(1);
     });
 }
 
@@ -209,19 +211,26 @@ static NSMapTable * weakCache;
 }
 
 + (SVGAVideoEntity *)readCache:(NSString *)cacheKey {
+    dispatch_semaphore_wait(videoSemaphore, DISPATCH_TIME_FOREVER);
     SVGAVideoEntity * object = [videoCache objectForKey:cacheKey];
     if (!object) {
         object = [weakCache objectForKey:cacheKey];
     }
-    return object;
+    dispatch_semaphore_signal(videoSemaphore);
+
+    return  object;
 }
 
 - (void)saveCache:(NSString *)cacheKey {
+    dispatch_semaphore_wait(videoSemaphore, DISPATCH_TIME_FOREVER);
     [videoCache setObject:self forKey:cacheKey];
+    dispatch_semaphore_signal(videoSemaphore);
 }
 
 - (void)saveWeakCache:(NSString *)cacheKey {
+    dispatch_semaphore_wait(videoSemaphore, DISPATCH_TIME_FOREVER);
     [weakCache setObject:self forKey:cacheKey];
+    dispatch_semaphore_signal(videoSemaphore);
 }
 
 @end

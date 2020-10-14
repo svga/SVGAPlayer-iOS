@@ -50,6 +50,7 @@ static SVGAParser *parser;
                        @"https://github.com/yyued/SVGA-Samples/blob/master/rose.svga?raw=true",
                        ];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//    parser.enabledMemoryCache = YES;
     [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
          completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -66,6 +67,8 @@ static SVGAParser *parser;
                                                 NSParagraphStyleAttributeName: para,
                                             }];
                  [self.aPlayer setAttributedText:str forKey:@"banner"];
+                 
+//                 self.aPlayer.mianRunLoopMode = NSDefaultRunLoopMode;
                  [self.aPlayer startAnimation];
              }
          } failureBlock:nil];
