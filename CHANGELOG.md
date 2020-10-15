@@ -1,4 +1,8 @@
-# SVGAPlayer-iOS CHANGELOG (2020-05-28)
+# SVGAPlayer-iOS CHANGELOG (2020-10-15)
+
+## [2.5.5](https://github.com/svga/SVGAPlayer-iOS/tree/2.5.5)(2020-10-15)
+### Bug Fixes
+* Fix: Add semaphore lock to videoCache and  weakCache. ([5b3e530](https://github.com/yyued/SVGAPlayer-iOS/commit/5b3e530))
 
 ## [2.5.4](https://github.com/yyued/SVGAPlayer-iOS/tree/2.5.0-release)(2020-05-28)
 ### Bug Fixes
