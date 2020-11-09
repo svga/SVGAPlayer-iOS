@@ -89,6 +89,19 @@
 }
 
 - (void)startAnimationWithRange:(NSRange)range reverse:(BOOL)reverse {
+    if (self.videoItem == nil) {
+        NSLog(@"videoItem could not be nil！");
+        return;
+    } else if (self.drawLayer == nil) {
+        self.videoItem = _videoItem;
+    }
+    [self stopAnimation:NO];
+    self.loopCount = 0;
+    if (self.videoItem.FPS == 0) {
+        NSLog(@"videoItem FPS could not be 0！");
+        return;
+    }
+    
     self.currentRange = range;
     self.reversing = reverse;
     if (reverse) {
@@ -97,7 +110,10 @@
     else {
         self.currentFrame = MAX(0, range.location);
     }
-    [self startAnimation];
+    self.forwardAnimating = !self.reversing;
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(next)];
+    self.displayLink.frameInterval = 60 / self.videoItem.FPS;
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:self.mainRunLoopMode];
 }
 
 - (void)pauseAnimation {
