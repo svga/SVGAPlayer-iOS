@@ -67,12 +67,13 @@ static SVGAParser *parser;
                                                 NSParagraphStyleAttributeName: para,
                                             }];
                  [self.aPlayer setAttributedText:str forKey:@"banner"];
-                 
-//                 self.aPlayer.mianRunLoopMode = NSDefaultRunLoopMode;
+
                  [self.aPlayer startAnimation];
+                 
+//                 [self.aPlayer startAnimationWithRange:NSMakeRange(10, 25) reverse:YES];
              }
          } failureBlock:nil];
-
+//
 //        [parser parseWithURL:[NSURL URLWithString:@"https://github.com/svga/SVGA-Samples/raw/master_aep/BitmapColorArea1.svga"] completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
 //            if (videoItem != nil) {
 //                self.aPlayer.videoItem = videoItem;
