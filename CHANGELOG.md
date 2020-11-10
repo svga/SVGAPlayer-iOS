@@ -1,4 +1,8 @@
-# SVGAPlayer-iOS CHANGELOG (2020-10-15)
+# SVGAPlayer-iOS CHANGELOG (2020-11-10)
+
+## [2.5.5](https://github.com/svga/SVGAPlayer-iOS/tree/2.5.6)(2020-11-10)
+### Bug Fixes
+* Fix: play with range error. ([db92d48](https://github.com/yyued/SVGAPlayer-iOS/commit/db92d48))
 
 ## [2.5.5](https://github.com/svga/SVGAPlayer-iOS/tree/2.5.5)(2020-10-15)
 ### Bug Fixes
