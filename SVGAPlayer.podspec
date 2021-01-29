@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |ss|
     ss.source_files  = "Source/*.{h,m}"
     ss.requires_arc = true
-    ss.dependency 'SSZipArchive', '>= 1.8.1'
+    ss.dependency 'ZipArchive', '>= 1.4.0'
     ss.library = "z"
     ss.framework = "AVFoundation"
     ss.dependency 'SVGAPlayer/ProtoFiles'
