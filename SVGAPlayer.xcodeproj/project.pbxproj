@@ -333,7 +333,8 @@
 				TargetAttributes = {
 					90A676DC1D13A6DF008A69F3 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = TD97KS79S9;
+						DevelopmentTeam = V459JKH9DW;
+						ProvisioningStyle = Manual;
 					};
 					90CB64C91EF290F400DAA382 = {
 						DevelopmentTeam = 8M2FQ87SLP;
@@ -590,13 +591,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = TD97KS79S9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = V459JKH9DW;
 				INFOPLIST_FILE = SVGAPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.opensource.SVGAPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infzm.Infzm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = ireader_dev;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -607,13 +610,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = TD97KS79S9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = V459JKH9DW;
 				INFOPLIST_FILE = SVGAPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.opensource.SVGAPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infzm.Infzm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = ireader_dev;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
