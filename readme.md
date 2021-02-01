@@ -1,6 +1,6 @@
 # SVGAPlayer
 
-[简体中文](./readme.zh.md)
+[简体中文](./readme.zh.md)    //
 
 ## 2.5.0 Released
 
