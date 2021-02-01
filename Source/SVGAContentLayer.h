@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SVGAPlayer.h"
 
+
 @class SVGABitmapLayer, SVGAVectorLayer, SVGAVideoSpriteFrameEntity;
 
 @interface SVGAContentLayer : CALayer
