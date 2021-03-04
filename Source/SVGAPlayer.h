@@ -14,8 +14,8 @@
 
 @optional
 - (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player;
-- (void)svgaPlayerDidAnimatedToFrame:(NSInteger)frame;
-- (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage;
+- (void)svgaPlayer:(SVGAPlayer *)player didAnimatedToFrame:(NSInteger)frame;
+- (void)svgaPlayer:(SVGAPlayer *)player didAnimatedToPercentage:(CGFloat)percentage;
 
 @end
 

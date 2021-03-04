@@ -391,10 +391,10 @@
     [self update];
     id delegate = self.delegate;
     if (delegate != nil && [delegate respondsToSelector:@selector(svgaPlayerDidAnimatedToFrame:)]) {
-        [delegate svgaPlayerDidAnimatedToFrame:self.currentFrame];
+        [delegate svgaPlayer:self didAnimatedToFrame:self.currentFrame];
     }
     if (delegate != nil && [delegate respondsToSelector:@selector(svgaPlayerDidAnimatedToPercentage:)] && self.videoItem.frames > 0) {
-        [delegate svgaPlayerDidAnimatedToPercentage:(CGFloat)(self.currentFrame + 1) / (CGFloat)self.videoItem.frames];
+        [delegate svgaPlayer:self didAnimatedToPercentage:(CGFloat)(self.currentFrame + 1) / (CGFloat)self.videoItem.frames];
     }
 }
 
