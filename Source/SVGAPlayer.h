@@ -13,9 +13,13 @@
 @protocol SVGAPlayerDelegate <NSObject>
 
 @optional
-- (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player;
+- (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player ;
+
 - (void)svgaPlayer:(SVGAPlayer *)player didAnimatedToFrame:(NSInteger)frame;
 - (void)svgaPlayer:(SVGAPlayer *)player didAnimatedToPercentage:(CGFloat)percentage;
+
+- (void)svgaPlayerDidAnimatedToFrame:(NSInteger)frame API_DEPRECATED("Use svgaPlayer:didAnimatedToFrame: instead", ios(7.0, API_TO_BE_DEPRECATED));
+- (void)svgaPlayerDidAnimatedToPercentage:(CGFloat)percentage API_DEPRECATED("Use svgaPlayer:didAnimatedToPercentage: instead", ios(7.0, API_TO_BE_DEPRECATED));
 
 @end
 
