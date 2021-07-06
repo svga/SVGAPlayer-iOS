@@ -1,67 +1,20 @@
 PODS:
   - Protobuf (3.6.1)
-  - React/ART (0.45.1):
-    - React/Core
-  - React/Core (0.45.1):
-    - React/cxxreact
-    - Yoga
-  - React/cxxreact (0.45.1):
-    - React/jschelpers
-  - React/jschelpers (0.45.1)
-  - React/RCTActionSheet (0.45.1):
-    - React/Core
-  - React/RCTGeolocation (0.45.1):
-    - React/Core
-  - React/RCTImage (0.45.1):
-    - React/Core
-    - React/RCTNetwork
-  - React/RCTLinkingIOS (0.45.1):
-    - React/Core
-  - React/RCTNetwork (0.45.1):
-    - React/Core
-  - React/RCTSettings (0.45.1):
-    - React/Core
-  - React/RCTText (0.45.1):
-    - React/Core
-  - React/RCTVibration (0.45.1):
-    - React/Core
-  - React/RCTWebSocket (0.45.1):
-    - React/Core
   - SSZipArchive (2.1.4)
-  - Yoga (1.9.0)
 
 DEPENDENCIES:
   - Protobuf (~> 3.4)
-  - React/ART (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/Core (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTActionSheet (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTGeolocation (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTImage (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTLinkingIOS (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTNetwork (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTSettings (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTText (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTVibration (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
-  - React/RCTWebSocket (from `https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec`)
   - SSZipArchive (~> 2.1.4)
-  - Yoga
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Protobuf
     - SSZipArchive
-    - Yoga
-
-EXTERNAL SOURCES:
-  React:
-    :podspec: https://raw.githubusercontent.com/yyued/react-native-runtime-ios/0.45.1/React.podspec
 
 SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  React: 505e0132cd9aaba1a56e47ef509220dd794ec9be
   SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
-  Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
 
-PODFILE CHECKSUM: 7f6714245d47e69d2933463289e4c4d6de65b831
+PODFILE CHECKSUM: 15ec3c806396baa34a298b2254638f0a6691580c
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.9.1
