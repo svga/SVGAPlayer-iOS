@@ -347,10 +347,12 @@
                 break;
         }
         shapeLayer.lineDashPhase = protoShape.styles.lineDashIii;
-        shapeLayer.lineDashPattern = @[
-                                       (protoShape.styles.lineDashI < 1.0 ? @(1.0) : @(protoShape.styles.lineDashI)),
-                                       (protoShape.styles.lineDashIi < 0.1 ? @(0.1) : @(protoShape.styles.lineDashIi))
-                                       ];
+        if (protoShape.styles.lineDashI > 0.0 || protoShape.styles.lineDashIi > 0.0) {
+            shapeLayer.lineDashPattern = @[
+                                           (protoShape.styles.lineDashI < 1.0 ? @(1.0) : @(protoShape.styles.lineDashI)),
+                                           (protoShape.styles.lineDashIi < 0.1 ? @(0.1) : @(protoShape.styles.lineDashIi))
+                                           ];
+        }
         shapeLayer.miterLimit = protoShape.styles.miterLimit;
     }
 }
