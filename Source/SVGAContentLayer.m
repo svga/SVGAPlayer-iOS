@@ -50,7 +50,17 @@
             CGFloat offsetX = self.frame.origin.x - nx;
             CGFloat offsetY = self.frame.origin.y - ny;
             self.position = CGPointMake(self.position.x - offsetX, self.position.y - offsetY);
-            self.mask = frameItem.maskLayer;
+            if (frameItem.maskLayer != nil) {
+                if ([frameItem.maskLayer isKindOfClass:[CAShapeLayer class]]) {
+                    CAShapeLayer *cloneShapeLayer = [CAShapeLayer layer];
+                    cloneShapeLayer.path = [(CAShapeLayer *)frameItem.maskLayer path];
+                    cloneShapeLayer.fillColor = [(CAShapeLayer *)frameItem.maskLayer fillColor];
+                    self.mask = cloneShapeLayer;
+                }
+            }
+            else {
+                self.mask = nil;
+            }
             [self.bitmapLayer stepToFrame:frame];
             [self.vectorLayer stepToFrame:frame];
         }
