@@ -11,7 +11,8 @@
 
 @interface ViewController ()<SVGAPlayerDelegate>
 
-@property (weak, nonatomic) IBOutlet SVGAPlayer *aPlayer;
+@property (weak, nonatomic) IBOutlet UIView *playerBGView;
+@property (retain, nonatomic) SVGAPlayer *aPlayer;
 @property (weak, nonatomic) IBOutlet UISlider *aSlider;
 @property (weak, nonatomic) IBOutlet UIButton *onBeginButton;
 
@@ -23,6 +24,8 @@ static SVGAParser *parser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.aPlayer = [[SVGAPlayer alloc] initWithFrame:_playerBGView.bounds];
+    [self.playerBGView addSubview:_aPlayer];
     self.aPlayer.delegate = self;
     self.aPlayer.loops = 1;
     self.aPlayer.clearsAfterStop = YES;

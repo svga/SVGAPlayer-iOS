@@ -6,44 +6,108 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4D1CFB4E2817F3DF006A485F /* CreateXCFrameworks */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4D1CFB4F2817F3DF006A485F /* Build configuration list for PBXAggregateTarget "CreateXCFrameworks" */;
+			buildPhases = (
+				4D1CFB522817F3E4006A485F /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = CreateXCFrameworks;
+			productName = CreateXCFrameworks;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		4D1CFB1F2817EF51006A485F /* SVGAPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1CFB1E2817EF51006A485F /* SVGAPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D1CFB222817EF51006A485F /* SVGAPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1CFB1C2817EF51006A485F /* SVGAPlayer.framework */; };
+		4D1CFB232817EF51006A485F /* SVGAPlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1CFB1C2817EF51006A485F /* SVGAPlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4D1CFB282817EF6F006A485F /* SVGAVideoEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */; };
+		4D1CFB292817EF6F006A485F /* SVGAAudioEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63712E6721787A45001AE014 /* SVGAAudioEntity.m */; };
+		4D1CFB2A2817EF6F006A485F /* SVGAPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677051D13BF77008A69F3 /* SVGAPlayer.m */; };
+		4D1CFB2B2817EF6F006A485F /* SVGA.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676F91D13A81F008A69F3 /* SVGA.m */; };
+		4D1CFB2C2817EF6F006A485F /* SVGAExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9052FC621E6EB8D4007BC925 /* SVGAExporter.m */; };
+		4D1CFB2D2817EF6F006A485F /* SVGAAudioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E817002178809D001D2D62 /* SVGAAudioLayer.m */; };
+		4D1CFB2E2817EF6F006A485F /* SVGABitmapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D01E5AEC11009347F1 /* SVGABitmapLayer.m */; };
+		4D1CFB2F2817EF6F006A485F /* SVGAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB59B41F96026E00894727 /* SVGAImageView.m */; };
+		4D1CFB302817EF6F006A485F /* SVGAContentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364DC1E5D33F8009347F1 /* SVGAContentLayer.m */; };
+		4D1CFB312817EF6F006A485F /* SVGABezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 904D41F71D223DD20085A21A /* SVGABezierPath.m */; };
+		4D1CFB322817EF6F006A485F /* SVGAVideoSpriteEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D61E5AECBD009347F1 /* SVGAVideoSpriteEntity.m */; };
+		4D1CFB332817EF6F006A485F /* Svga.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D7CA141F7FA079006E74F0 /* Svga.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4D1CFB342817EF6F006A485F /* SVGAParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676FC1D13A82A008A69F3 /* SVGAParser.m */; };
+		4D1CFB352817EF6F006A485F /* SVGAVectorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D31E5AEC1C009347F1 /* SVGAVectorLayer.m */; };
+		4D1CFB362817EF6F006A485F /* SVGAVideoSpriteFrameEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D91E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m */; };
+		4D1CFB372817EF85006A485F /* SVGAExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9052FC611E6EB8D4007BC925 /* SVGAExporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D1CFB382817EF85006A485F /* SVGAVideoSpriteFrameEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A364D81E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.h */; };
+		4D1CFB392817EF85006A485F /* SVGABitmapLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A364CF1E5AEC11009347F1 /* SVGABitmapLayer.h */; };
+		4D1CFB3A2817EF85006A485F /* SVGAParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A676FB1D13A82A008A69F3 /* SVGAParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D1CFB3B2817EF85006A485F /* SVGAVectorLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A364D21E5AEC1B009347F1 /* SVGAVectorLayer.h */; };
+		4D1CFB3C2817EF85006A485F /* SVGAAudioLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E816FF2178809D001D2D62 /* SVGAAudioLayer.h */; };
+		4D1CFB3D2817EF85006A485F /* SVGA.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A676F81D13A81F008A69F3 /* SVGA.h */; };
+		4D1CFB3E2817EF85006A485F /* SVGABezierPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 904D41F61D223DD20085A21A /* SVGABezierPath.h */; };
+		4D1CFB3F2817EF85006A485F /* SVGAAudioEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 63712E6621787A45001AE014 /* SVGAAudioEntity.h */; };
+		4D1CFB402817EF85006A485F /* SVGAPlayer+Public.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A677041D13BF77008A69F3 /* SVGAPlayer+Public.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D1CFB412817EF85006A485F /* SVGAVideoEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A677011D13AE19008A69F3 /* SVGAVideoEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D1CFB422817EF85006A485F /* SVGAVideoSpriteEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A364D51E5AECBD009347F1 /* SVGAVideoSpriteEntity.h */; };
+		4D1CFB432817EF85006A485F /* Svga.pbobjc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90D7CA151F7FA079006E74F0 /* Svga.pbobjc.h */; };
+		4D1CFB442817EF85006A485F /* SVGAContentLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A364DB1E5D33F8009347F1 /* SVGAContentLayer.h */; };
+		4D1CFB452817EF85006A485F /* SVGAImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DB59B31F96026E00894727 /* SVGAImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D1CFB472817EFC6006A485F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1CFB462817EFBC006A485F /* libz.tbd */; };
+		4D1CFB492817F0D7006A485F /* libProtobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1CFB482817F0D7006A485F /* libProtobuf.a */; };
+		4D1CFB4B2817F0DB006A485F /* libSSZipArchive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1CFB4A2817F0DB006A485F /* libSSZipArchive.a */; };
 		63712E6521787950001AE014 /* heartbeat.svga in Resources */ = {isa = PBXBuildFile; fileRef = 63712E6421787950001AE014 /* heartbeat.svga */; };
-		63712E6821787A45001AE014 /* SVGAAudioEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63712E6721787A45001AE014 /* SVGAAudioEntity.m */; };
-		63E817012178809D001D2D62 /* SVGAAudioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E817002178809D001D2D62 /* SVGAAudioLayer.m */; };
 		71418C93225E6F710029C69E /* mutiMatte.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71418C92225E6F710029C69E /* mutiMatte.svga */; };
 		718A146D235718E000FED5D3 /* Rocket.svga in Resources */ = {isa = PBXBuildFile; fileRef = 718A146C235718E000FED5D3 /* Rocket.svga */; };
 		71A8679122B7785100176CD6 /* matteRect.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71A8679022B7785100176CD6 /* matteRect.svga */; };
 		71A8679322B7853600176CD6 /* matteBitmap.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71A8679222B7853600176CD6 /* matteBitmap.svga */; };
 		71DAA8A52355B3ED006608A1 /* Goddess.svga in Resources */ = {isa = PBXBuildFile; fileRef = 71DAA8A42355B3ED006608A1 /* Goddess.svga */; };
-		80D4C7254846B96B9C6EED83 /* libPods-SVGAPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */; };
-		904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 904D41F71D223DD20085A21A /* SVGABezierPath.m */; };
-		9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9052FC621E6EB8D4007BC925 /* SVGAExporter.m */; };
-		90A364D11E5AEC11009347F1 /* SVGABitmapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D01E5AEC11009347F1 /* SVGABitmapLayer.m */; };
-		90A364D41E5AEC1C009347F1 /* SVGAVectorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D31E5AEC1C009347F1 /* SVGAVectorLayer.m */; };
-		90A364D71E5AECBD009347F1 /* SVGAVideoSpriteEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D61E5AECBD009347F1 /* SVGAVideoSpriteEntity.m */; };
-		90A364DA1E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364D91E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m */; };
-		90A364DD1E5D33F8009347F1 /* SVGAContentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A364DC1E5D33F8009347F1 /* SVGAContentLayer.m */; };
 		90A676E21D13A6DF008A69F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676E11D13A6DF008A69F3 /* main.m */; };
 		90A676E51D13A6DF008A69F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676E41D13A6DF008A69F3 /* AppDelegate.m */; };
 		90A676E81D13A6DF008A69F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676E71D13A6DF008A69F3 /* ViewController.m */; };
 		90A676EB1D13A6DF008A69F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A676E91D13A6DF008A69F3 /* Main.storyboard */; };
 		90A676ED1D13A6DF008A69F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A676EC1D13A6DF008A69F3 /* Assets.xcassets */; };
 		90A676F01D13A6DF008A69F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A676EE1D13A6DF008A69F3 /* LaunchScreen.storyboard */; };
-		90A676FA1D13A81F008A69F3 /* SVGA.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676F91D13A81F008A69F3 /* SVGA.m */; };
-		90A676FD1D13A82A008A69F3 /* SVGAParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A676FC1D13A82A008A69F3 /* SVGAParser.m */; };
-		90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */; };
-		90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A677051D13BF77008A69F3 /* SVGAPlayer.m */; };
 		90CB64F91EF297E800DAA382 /* SVGAPlayer React-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90CB64F81EF297E800DAA382 /* SVGAPlayer React-Info.plist */; };
-		90D7CA161F7FA07A006E74F0 /* Svga.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D7CA141F7FA079006E74F0 /* Svga.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		90D7CA1B1F7FB114006E74F0 /* rose_2.0.0.svga in Resources */ = {isa = PBXBuildFile; fileRef = 90D7CA191F7FB114006E74F0 /* rose_2.0.0.svga */; };
 		90D7CA1C1F7FB114006E74F0 /* rose_1.5.0.svga in Resources */ = {isa = PBXBuildFile; fileRef = 90D7CA1A1F7FB114006E74F0 /* rose_1.5.0.svga */; };
-		90D7CA1E1F7FB34E006E74F0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D7CA1D1F7FB34E006E74F0 /* libz.tbd */; };
-		90DB59B51F96026E00894727 /* SVGAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DB59B41F96026E00894727 /* SVGAImageView.m */; };
+		C70E1B1D2B36B751F3C089DB /* libPods-SVGAPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B8F14B06557E25598D2E78 /* libPods-SVGAPlayer.a */; };
 		E83A58D9247E0E6A00D9F404 /* audio_biling.svga in Resources */ = {isa = PBXBuildFile; fileRef = E83A58D8247E0E6A00D9F404 /* audio_biling.svga */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4D1CFB202817EF51006A485F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 90A676D51D13A6DF008A69F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D1CFB1B2817EF51006A485F;
+			remoteInfo = SVGAPlayer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4D1CFB272817EF51006A485F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4D1CFB232817EF51006A485F /* SVGAPlayer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVGAPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33EEE81CCD69FAA78272F7DF /* Pods-SVGAPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		4D1CFB1C2817EF51006A485F /* SVGAPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGAPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D1CFB1E2817EF51006A485F /* SVGAPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAPlayer.h; sourceTree = "<group>"; };
+		4D1CFB462817EFBC006A485F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		4D1CFB482817F0D7006A485F /* libProtobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libProtobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D1CFB4A2817F0DB006A485F /* libSSZipArchive.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSSZipArchive.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D1CFB4D2817F3A3006A485F /* create_xcframeworks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = create_xcframeworks.sh; sourceTree = "<group>"; };
 		63712E6421787950001AE014 /* heartbeat.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = heartbeat.svga; sourceTree = "<group>"; };
 		63712E6621787A45001AE014 /* SVGAAudioEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAAudioEntity.h; sourceTree = "<group>"; };
 		63712E6721787A45001AE014 /* SVGAAudioEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAAudioEntity.m; sourceTree = "<group>"; };
@@ -54,7 +118,6 @@
 		71A8679022B7785100176CD6 /* matteRect.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = matteRect.svga; sourceTree = "<group>"; };
 		71A8679222B7853600176CD6 /* matteBitmap.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = matteBitmap.svga; sourceTree = "<group>"; };
 		71DAA8A42355B3ED006608A1 /* Goddess.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = Goddess.svga; sourceTree = "<group>"; };
-		8AD65028FA2D122A34DC4A63 /* Pods-SVGAPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		904D41F61D223DD20085A21A /* SVGABezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGABezierPath.h; sourceTree = "<group>"; };
 		904D41F71D223DD20085A21A /* SVGABezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGABezierPath.m; sourceTree = "<group>"; };
 		9052FC611E6EB8D4007BC925 /* SVGAExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAExporter.h; sourceTree = "<group>"; };
@@ -69,7 +132,7 @@
 		90A364D91E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAVideoSpriteFrameEntity.m; sourceTree = "<group>"; };
 		90A364DB1E5D33F8009347F1 /* SVGAContentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAContentLayer.h; sourceTree = "<group>"; };
 		90A364DC1E5D33F8009347F1 /* SVGAContentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAContentLayer.m; sourceTree = "<group>"; };
-		90A676DD1D13A6DF008A69F3 /* SVGAPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGAPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90A676DD1D13A6DF008A69F3 /* SVGAPlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGAPlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90A676E11D13A6DF008A69F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90A676E31D13A6DF008A69F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		90A676E41D13A6DF008A69F3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -85,7 +148,7 @@
 		90A676FC1D13A82A008A69F3 /* SVGAParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAParser.m; sourceTree = "<group>"; };
 		90A677011D13AE19008A69F3 /* SVGAVideoEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAVideoEntity.h; sourceTree = "<group>"; };
 		90A677021D13AE19008A69F3 /* SVGAVideoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAVideoEntity.m; sourceTree = "<group>"; };
-		90A677041D13BF77008A69F3 /* SVGAPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAPlayer.h; sourceTree = "<group>"; };
+		90A677041D13BF77008A69F3 /* SVGAPlayer+Public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGAPlayer+Public.h"; sourceTree = "<group>"; };
 		90A677051D13BF77008A69F3 /* SVGAPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAPlayer.m; sourceTree = "<group>"; };
 		90CB64F81EF297E800DAA382 /* SVGAPlayer React-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGAPlayer React-Info.plist"; sourceTree = "<group>"; };
 		90D7CA141F7FA079006E74F0 /* Svga.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Svga.pbobjc.m; sourceTree = "<group>"; };
@@ -95,17 +158,28 @@
 		90D7CA1D1F7FB34E006E74F0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		90DB59B31F96026E00894727 /* SVGAImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAImageView.h; sourceTree = "<group>"; };
 		90DB59B41F96026E00894727 /* SVGAImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAImageView.m; sourceTree = "<group>"; };
-		E02B8713B25C0283C736EE03 /* Pods-SVGAPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		A6B8F14B06557E25598D2E78 /* libPods-SVGAPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVGAPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D642BF157D0BCFA8841992EA /* Pods-SVGAPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVGAPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SVGAPlayer/Pods-SVGAPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		E83A58D8247E0E6A00D9F404 /* audio_biling.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio_biling.svga; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4D1CFB192817EF51006A485F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D1CFB472817EFC6006A485F /* libz.tbd in Frameworks */,
+				4D1CFB492817F0D7006A485F /* libProtobuf.a in Frameworks */,
+				4D1CFB4B2817F0DB006A485F /* libSSZipArchive.a in Frameworks */,
+				C70E1B1D2B36B751F3C089DB /* libPods-SVGAPlayer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90A676DA1D13A6DF008A69F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90D7CA1E1F7FB34E006E74F0 /* libz.tbd in Frameworks */,
-				80D4C7254846B96B9C6EED83 /* libPods-SVGAPlayer.a in Frameworks */,
+				4D1CFB222817EF51006A485F /* SVGAPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,15 +189,24 @@
 		431B19F0F45A7844195F461A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8AD65028FA2D122A34DC4A63 /* Pods-SVGAPlayer.debug.xcconfig */,
-				E02B8713B25C0283C736EE03 /* Pods-SVGAPlayer.release.xcconfig */,
+				D642BF157D0BCFA8841992EA /* Pods-SVGAPlayer.debug.xcconfig */,
+				33EEE81CCD69FAA78272F7DF /* Pods-SVGAPlayer.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		4D1CFB4C2817F388006A485F /* script */ = {
+			isa = PBXGroup;
+			children = (
+				4D1CFB4D2817F3A3006A485F /* create_xcframeworks.sh */,
+			);
+			path = script;
 			sourceTree = "<group>";
 		};
 		90A676D41D13A6DF008A69F3 = {
 			isa = PBXGroup;
 			children = (
+				4D1CFB4C2817F388006A485F /* script */,
 				90A676F71D13A70E008A69F3 /* Source */,
 				90A676DF1D13A6DF008A69F3 /* SVGAPlayer */,
 				90A676DE1D13A6DF008A69F3 /* Products */,
@@ -135,7 +218,8 @@
 		90A676DE1D13A6DF008A69F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				90A676DD1D13A6DF008A69F3 /* SVGAPlayer.app */,
+				90A676DD1D13A6DF008A69F3 /* SVGAPlayerDemo.app */,
+				4D1CFB1C2817EF51006A485F /* SVGAPlayer.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,7 +274,8 @@
 				90A364D31E5AEC1C009347F1 /* SVGAVectorLayer.m */,
 				63E816FF2178809D001D2D62 /* SVGAAudioLayer.h */,
 				63E817002178809D001D2D62 /* SVGAAudioLayer.m */,
-				90A677041D13BF77008A69F3 /* SVGAPlayer.h */,
+				90A677041D13BF77008A69F3 /* SVGAPlayer+Public.h */,
+				4D1CFB1E2817EF51006A485F /* SVGAPlayer.h */,
 				90A677051D13BF77008A69F3 /* SVGAPlayer.m */,
 				90DB59B31F96026E00894727 /* SVGAImageView.h */,
 				90DB59B41F96026E00894727 /* SVGAImageView.m */,
@@ -230,23 +315,53 @@
 		B8EE95EA56FFE89CDEC9D8C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D1CFB4A2817F0DB006A485F /* libSSZipArchive.a */,
+				4D1CFB482817F0D7006A485F /* libProtobuf.a */,
 				90D7CA1D1F7FB34E006E74F0 /* libz.tbd */,
-				1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */,
+				4D1CFB462817EFBC006A485F /* libz.tbd */,
+				A6B8F14B06557E25598D2E78 /* libPods-SVGAPlayer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		4D1CFB172817EF51006A485F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D1CFB3B2817EF85006A485F /* SVGAVectorLayer.h in Headers */,
+				4D1CFB402817EF85006A485F /* SVGAPlayer+Public.h in Headers */,
+				4D1CFB372817EF85006A485F /* SVGAExporter.h in Headers */,
+				4D1CFB412817EF85006A485F /* SVGAVideoEntity.h in Headers */,
+				4D1CFB3A2817EF85006A485F /* SVGAParser.h in Headers */,
+				4D1CFB452817EF85006A485F /* SVGAImageView.h in Headers */,
+				4D1CFB3E2817EF85006A485F /* SVGABezierPath.h in Headers */,
+				4D1CFB382817EF85006A485F /* SVGAVideoSpriteFrameEntity.h in Headers */,
+				4D1CFB442817EF85006A485F /* SVGAContentLayer.h in Headers */,
+				4D1CFB392817EF85006A485F /* SVGABitmapLayer.h in Headers */,
+				4D1CFB1F2817EF51006A485F /* SVGAPlayer.h in Headers */,
+				4D1CFB3D2817EF85006A485F /* SVGA.h in Headers */,
+				4D1CFB3F2817EF85006A485F /* SVGAAudioEntity.h in Headers */,
+				4D1CFB432817EF85006A485F /* Svga.pbobjc.h in Headers */,
+				4D1CFB422817EF85006A485F /* SVGAVideoSpriteEntity.h in Headers */,
+				4D1CFB3C2817EF85006A485F /* SVGAAudioLayer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		90A676DC1D13A6DF008A69F3 /* SVGAPlayer */ = {
+		4D1CFB1B2817EF51006A485F /* SVGAPlayer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 90A676F41D13A6DF008A69F3 /* Build configuration list for PBXNativeTarget "SVGAPlayer" */;
+			buildConfigurationList = 4D1CFB242817EF51006A485F /* Build configuration list for PBXNativeTarget "SVGAPlayer" */;
 			buildPhases = (
-				CD70B01EE331E392E355CD26 /* [CP] Check Pods Manifest.lock */,
-				90A676D91D13A6DF008A69F3 /* Sources */,
-				90A676DA1D13A6DF008A69F3 /* Frameworks */,
-				90A676DB1D13A6DF008A69F3 /* Resources */,
+				EE7FD83112A80A8707312E69 /* [CP] Check Pods Manifest.lock */,
+				4D1CFB172817EF51006A485F /* Headers */,
+				4D1CFB182817EF51006A485F /* Sources */,
+				4D1CFB192817EF51006A485F /* Frameworks */,
+				4D1CFB1A2817EF51006A485F /* Resources */,
 			);
 			buildRules = (
 			);
@@ -254,7 +369,26 @@
 			);
 			name = SVGAPlayer;
 			productName = SVGAPlayer;
-			productReference = 90A676DD1D13A6DF008A69F3 /* SVGAPlayer.app */;
+			productReference = 4D1CFB1C2817EF51006A485F /* SVGAPlayer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		90A676DC1D13A6DF008A69F3 /* SVGAPlayerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90A676F41D13A6DF008A69F3 /* Build configuration list for PBXNativeTarget "SVGAPlayerDemo" */;
+			buildPhases = (
+				90A676D91D13A6DF008A69F3 /* Sources */,
+				90A676DA1D13A6DF008A69F3 /* Frameworks */,
+				90A676DB1D13A6DF008A69F3 /* Resources */,
+				4D1CFB272817EF51006A485F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D1CFB212817EF51006A485F /* PBXTargetDependency */,
+			);
+			name = SVGAPlayerDemo;
+			productName = SVGAPlayer;
+			productReference = 90A676DD1D13A6DF008A69F3 /* SVGAPlayerDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -266,6 +400,14 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "UED Center";
 				TargetAttributes = {
+					4D1CFB1B2817EF51006A485F = {
+						CreatedOnToolsVersion = 13.3.1;
+						ProvisioningStyle = Manual;
+					};
+					4D1CFB4E2817F3DF006A485F = {
+						CreatedOnToolsVersion = 13.3.1;
+						ProvisioningStyle = Automatic;
+					};
 					90A676DC1D13A6DF008A69F3 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = S2RM275849;
@@ -286,12 +428,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				90A676DC1D13A6DF008A69F3 /* SVGAPlayer */,
+				90A676DC1D13A6DF008A69F3 /* SVGAPlayerDemo */,
+				4D1CFB1B2817EF51006A485F /* SVGAPlayer */,
+				4D1CFB4E2817F3DF006A485F /* CreateXCFrameworks */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D1CFB1A2817EF51006A485F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90A676DB1D13A6DF008A69F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,16 +466,37 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CD70B01EE331E392E355CD26 /* [CP] Check Pods Manifest.lock */ = {
+		4D1CFB522817F3E4006A485F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n${PROJECT_DIR}/script/create_xcframeworks.sh\n";
+		};
+		EE7FD83112A80A8707312E69 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SVGAPlayer-checkManifestLockResult.txt",
 			);
@@ -336,32 +508,47 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D1CFB182817EF51006A485F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D1CFB2E2817EF6F006A485F /* SVGABitmapLayer.m in Sources */,
+				4D1CFB2F2817EF6F006A485F /* SVGAImageView.m in Sources */,
+				4D1CFB312817EF6F006A485F /* SVGABezierPath.m in Sources */,
+				4D1CFB352817EF6F006A485F /* SVGAVectorLayer.m in Sources */,
+				4D1CFB332817EF6F006A485F /* Svga.pbobjc.m in Sources */,
+				4D1CFB2A2817EF6F006A485F /* SVGAPlayer.m in Sources */,
+				4D1CFB322817EF6F006A485F /* SVGAVideoSpriteEntity.m in Sources */,
+				4D1CFB292817EF6F006A485F /* SVGAAudioEntity.m in Sources */,
+				4D1CFB362817EF6F006A485F /* SVGAVideoSpriteFrameEntity.m in Sources */,
+				4D1CFB2C2817EF6F006A485F /* SVGAExporter.m in Sources */,
+				4D1CFB2B2817EF6F006A485F /* SVGA.m in Sources */,
+				4D1CFB342817EF6F006A485F /* SVGAParser.m in Sources */,
+				4D1CFB302817EF6F006A485F /* SVGAContentLayer.m in Sources */,
+				4D1CFB282817EF6F006A485F /* SVGAVideoEntity.m in Sources */,
+				4D1CFB2D2817EF6F006A485F /* SVGAAudioLayer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90A676D91D13A6DF008A69F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				90A676E81D13A6DF008A69F3 /* ViewController.m in Sources */,
-				9052FC631E6EB8D4007BC925 /* SVGAExporter.m in Sources */,
-				90A677031D13AE19008A69F3 /* SVGAVideoEntity.m in Sources */,
-				90A364DA1E5AED04009347F1 /* SVGAVideoSpriteFrameEntity.m in Sources */,
-				63712E6821787A45001AE014 /* SVGAAudioEntity.m in Sources */,
-				63E817012178809D001D2D62 /* SVGAAudioLayer.m in Sources */,
-				90A364D11E5AEC11009347F1 /* SVGABitmapLayer.m in Sources */,
-				904D41F81D223DD20085A21A /* SVGABezierPath.m in Sources */,
-				90A364D71E5AECBD009347F1 /* SVGAVideoSpriteEntity.m in Sources */,
 				90A676E51D13A6DF008A69F3 /* AppDelegate.m in Sources */,
-				90A364DD1E5D33F8009347F1 /* SVGAContentLayer.m in Sources */,
-				90DB59B51F96026E00894727 /* SVGAImageView.m in Sources */,
-				90A676FA1D13A81F008A69F3 /* SVGA.m in Sources */,
-				90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */,
-				90A364D41E5AEC1C009347F1 /* SVGAVectorLayer.m in Sources */,
-				90D7CA161F7FA07A006E74F0 /* Svga.pbobjc.m in Sources */,
 				90A676E21D13A6DF008A69F3 /* main.m in Sources */,
-				90A676FD1D13A82A008A69F3 /* SVGAParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4D1CFB212817EF51006A485F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D1CFB1B2817EF51006A485F /* SVGAPlayer */;
+			targetProxy = 4D1CFB202817EF51006A485F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		90A676E91D13A6DF008A69F3 /* Main.storyboard */ = {
@@ -383,6 +570,128 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4D1CFB252817EF51006A485F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D642BF157D0BCFA8841992EA /* Pods-SVGAPlayer.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 UED Center. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sdk.SVGAPlayer;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4D1CFB262817EF51006A485F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33EEE81CCD69FAA78272F7DF /* Pods-SVGAPlayer.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 UED Center. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sdk.SVGAPlayer;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4D1CFB502817F3DF006A485F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4D1CFB512817F3DF006A485F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		90A676F21D13A6DF008A69F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,7 +776,6 @@
 		};
 		90A676F51D13A6DF008A69F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AD65028FA2D122A34DC4A63 /* Pods-SVGAPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -484,7 +792,6 @@
 		};
 		90A676F61D13A6DF008A69F3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E02B8713B25C0283C736EE03 /* Pods-SVGAPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -502,6 +809,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4D1CFB242817EF51006A485F /* Build configuration list for PBXNativeTarget "SVGAPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D1CFB252817EF51006A485F /* Debug */,
+				4D1CFB262817EF51006A485F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D1CFB4F2817F3DF006A485F /* Build configuration list for PBXAggregateTarget "CreateXCFrameworks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D1CFB502817F3DF006A485F /* Debug */,
+				4D1CFB512817F3DF006A485F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		90A676D81D13A6DF008A69F3 /* Build configuration list for PBXProject "SVGAPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -511,7 +836,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		90A676F41D13A6DF008A69F3 /* Build configuration list for PBXNativeTarget "SVGAPlayer" */ = {
+		90A676F41D13A6DF008A69F3 /* Build configuration list for PBXNativeTarget "SVGAPlayerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				90A676F51D13A6DF008A69F3 /* Debug */,

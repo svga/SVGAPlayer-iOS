@@ -7,7 +7,7 @@ DEPENDENCIES:
   - SSZipArchive (~> 2.1.4)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/Cocoapods/Specs.git:
     - Protobuf
     - SSZipArchive
 
@@ -17,4 +17,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 15ec3c806396baa34a298b2254638f0a6691580c
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.11.2
